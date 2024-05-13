@@ -1,0 +1,1045 @@
+/* utility */
+* {
+  box-sizing: border-box;
+
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+p{
+  margin: 0;
+}
+a{
+  white-space: nowrap;
+  text-decoration: none;
+  color: #fff;
+  
+}
+
+button
+a:hover{
+  color: #fff;
+}
+
+.primary-background-dash{
+  background-color: #03051E;
+  color: #FFF4F4;
+}
+
+.secondary-background{
+  background-color: #4F200D;
+  color: white;
+}
+
+.t-secondary-background{
+  background-color: rgb(79, 32, 13, 0.8);
+  color: white;
+}
+
+.dark-background-dash{
+  background-color: #000;
+  color: #FFF4F4;
+}
+.navyblue-blackground-dash{
+  background-color: #03001C;
+  color: #fff;
+}
+.light-navyblue-background{
+  background-color: #18122B;
+}
+
+.light-background{
+  background-color: #fff;
+  color: #0000;
+}
+
+.text-primary1{
+  color: #3E001F;
+}
+.text-secondary1{
+  color: #4F200D;
+}
+.text-dark1{
+  color: #000;
+}
+.text-white1{
+  color: #FFF4F4;
+}
+
+.loader{
+  background: url(../img/Spin-0.8s-200px\ \(3\).gif)no-repeat center center/cover;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(60%, -50%);
+  /* background-color: #fff; */
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+
+.error img{
+  width: 300px;
+
+
+}
+.error{
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  z-index: 100000000000000000000000000;
+
+
+  
+}
+.error button{
+  margin-left: 130px;
+  color: #fff;
+}
+
+/* dropdown menu  */
+.dropdown-position{
+  position: relative;
+}
+
+.dropdown-position-min{
+  position: absolute;
+  top: 6;
+  left: 13rem;
+  cursor: pointer;
+}
+.rotate-180deg{
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+
+
+.non-wrap-text {
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+/* ---- Scroll-bar-y */
+.scroll-bar{
+  overflow: auto;
+}
+
+.scroll-bar::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb{
+  border-radius: 0.5rem;
+  background-color: #fff5;
+  visibility: hidden;
+
+}
+
+.scroll-bar:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
+
+
+
+
+
+
+.scroll-bar-y{
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.scroll-bar-y::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scroll-bar-y::-webkit-scrollbar-thumb{
+  border-radius: 0.5rem;
+  background-color: #fff5;
+  visibility: hidden;
+
+}
+
+.scroll-bar-y:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
+/* ----- Scroll bar- x */
+.scroll-bar-x{
+  overflow-x: auto;
+
+}
+
+.scroll-bar-x::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scroll-bar-x::-webkit-scrollbar-thumb{
+  border-radius: 0.5rem;
+  background-color: #fff5;
+  visibility: hidden;
+
+}
+
+.scroll-bar-x:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
+
+
+
+
+.overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+.round-border{
+  border: 1px solid #DFD7BF;
+  border-radius: 50%;
+}
+
+.l-text{
+  font-size: 60px;
+}
+.border-radius{
+  border-radius: 5px;
+}
+
+.m-text{
+  font-size: 30px;
+}
+
+.ml-text{
+  font-size: 45px;
+}
+
+
+
+.sm-text{
+  font-size: 20px;
+}
+
+.xxl-text{
+  font-size: 190px;
+}
+
+.xl-text{
+  font-size: 130px;
+}
+
+.m-width{
+  width: 20rem;
+}
+
+.active-dash-link{
+  background-color: #1F1D36;
+}
+
+.yellow-background{
+  color: white;
+  background-color: yellow;
+}
+
+.blue-background{
+  color: #DFD7BF;
+  background-color: blue;
+}
+
+.green-background{
+  color: #DFD7BF;
+  background-color: green;
+}
+
+.orange-background{
+  color: #DFD7BF;
+  background-color: orangered;
+}
+
+.boxing-shadow{
+  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.3);
+}
+
+.icon a{
+  font-size: 2rem;
+  padding-left: 10px;
+}
+
+.hidden{
+  display: none;
+}
+
+#heading{
+  padding: 5rem 0;
+
+}
+
+#heading a{
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: black;
+}
+.red-text{
+  color: red;
+}
+
+#heading a:hover{
+  color: #3E001F;
+}
+input:focus{
+  outline: none;
+  border: #4F200D 1px solid;
+}
+
+.sucessfull{
+  background-color: #1E5128;
+}
+
+.pending{
+  background-color: #FD8D14;
+}
+
+.failed{
+  background-color: #CD1818;
+}
+/* body{
+  background: #03051E;
+  color: #fff;
+} */
+
+a{
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+
+.rotated {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Add a smooth transition for the rotation */
+}
+
+.button-dashboard{
+  border: 1px solid  #1F1D36;
+  padding: 10px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  background: none;
+  transition: all ease 1s;
+  
+}.admin-button-dashboard{
+  border: 1px solid  #1F1D36;
+  padding: 10px;
+  border-radius: 5px;
+  background: none;
+  transition: all ease 1s;
+  color: #fff;
+  
+}
+
+
+.button-dashboard:hover{
+  background-color: #1F1D36;
+  color: #fff;
+}
+
+.content{
+  margin-left: 250px;
+}
+
+
+
+/* body  */
+
+.student-info-modal{
+  color: #000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-250%);
+  background-color: #fff;
+  padding: 20px;
+  width: 800px;
+  z-index: 10000000;
+  border-radius: 10px;
+  transition: all 2s ease;
+
+}
+.student-modal-user-icon{
+  display: flex;
+  justify-content: center;
+}
+
+
+/* sidebar */
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #18122B;
+  position: fixed;
+  top: 0;
+  /* left: -250px;  */
+  transition: 1s ease;
+  color: #fff;
+  z-index: 10000000000;
+
+}
+.sidebar-list{
+  overflow-y: auto ;
+}
+
+
+
+
+.t{
+  cursor: pointer;
+  padding-left: 10px;
+  display: none;
+}
+
+.sidebar .sidebar-head{
+  display: flex;
+  justify-content: center;
+  
+}
+.sidebar .close-sidebar{
+  display: none;
+}
+.sidebar .sidebar-head i{
+  font-size: x-large;
+  cursor: pointer;
+  display: none;
+}
+
+.sidebar-bottom{
+  position: fixed;
+  bottom: 0;
+  background-color: #1F1D36;
+  width: 250px;
+}
+.sidebar-bottom i{
+  font-size: xx-large;
+}
+.sidebar-bottom button{
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+}
+
+#dashboard .user-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+#dashboard .user-icon i{
+  font-size: 7rem;
+}
+
+
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+.dropdown-toggles {
+    cursor: pointer;
+    /* display: none; */
+    /* transform: rotate(180deg); */
+    transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+  display: none;
+  /* position: absolute; */
+  /* background-color: #f9f9f9; */
+  min-width: 160px;
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  transition: max-height 0.3s ease-in-out; /* Add a smooth transition for max-height */
+  overflow: hidden;
+}
+.sidebar a:hover{
+  color: blue;
+}
+
+
+
+.sidebar li:hover {
+  background-color: #1F1D36;
+}
+
+
+.content {
+  margin-left: 0;
+  transition: margin-left 0.3s;
+  padding: 20px;
+}
+
+
+#toggle-sidebar {
+  display: block;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#toggle-sidebar:hover {
+  background-color: #555;
+}
+.dashboard-menu-bar{
+  cursor: pointer;
+  display: none;
+}
+
+.dashboard-content{
+  margin-left: 250px;
+}
+.main-content{
+  margin-left: 250px;
+  color: #fff;
+}
+.dashboard-content nav{
+  position: sticky;
+  top: 0;
+  background: #1F1D36;
+  height: 70px;
+  z-index: 100;
+
+
+
+}
+.cat{
+  background-color: red;
+}
+.student-info{
+  display: flex;
+}
+.dashboard-content nav i{
+  font-size: 1.7rem;
+}
+#dashboard-display{
+  margin-top: 70px;
+}
+.dasboard-boxes{
+  /* background-color: #27005D; */
+  border-radius: 10px;
+  transition: all 1s ease;
+}
+.dasboard-boxes:hover{
+  transform: scale(1.05);
+  color: #fff;
+}
+#dashboard-display i{
+  font-size: 50px;
+}
+
+.box-1 .dash-icon{
+  background-color: #B0578D;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-2 .dash-icon{
+  background-color: #FC4F00;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+
+.box-3 .dash-icon{
+  background-color: #6F61C0;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-4 .dash-icon{
+  background-color: #357C3C;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-5 .dash-icon{
+  background-color: #8B1874;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-6 .dash-icon{
+  background-color: #39B5E0;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-7 .dash-icon{
+  background-color: #6C00FF;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+.box-8 .dash-icon{
+  background-color: #FFCACC;
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+
+
+
+
+.button-sign-out{
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  background-color: #18122B;
+  transition: all 0.3s ease-in;
+}
+
+.payment-history{
+  border-radius: 10px;
+}
+
+.payment-link{
+  display: flex;
+  justify-content: center;
+}
+
+.table1{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td{
+  padding: 20px;
+  text-align: left;
+
+}
+
+td p{
+  padding-left: 10px;
+  width: 95px;
+  border-radius: 10px;
+}
+th{
+  border-bottom: 1px solid #fff;
+}
+
+tbody tr:nth-child(even){
+  background-color: #03001C;
+}
+.notification{
+  margin-top: 12rem;
+}
+
+.notification-sub-text{
+  background-color: #03001C;
+}
+
+
+
+/* payment-link  */
+.payment-form input{
+  border: 1px solid #1F1D36;
+}
+.payment-form {
+  margin-top: 10rem;
+ 
+}
+
+
+/* Custom CSS to change the background color */
+.form-dark {
+  background-color: #03001C;
+  color: white; /* Change the text color to white */
+  border: 1px solid #1F1D36;;
+}
+
+.form-dark:focus {
+  background-color: #03001C;
+  color: white; /* Change the text color to white */
+  border-color: #000;
+}
+
+
+/* ------------------ ...............................Admin DashBoard ---------------------...............................................*/
+
+
+/* ----------------------------- Universal ---------------------------*/
+.admin-sidebar-height{
+  max-height: 90%;
+} 
+
+.z{
+  background-color: #1F1D36;
+}
+
+.width-100{
+  width: 100%;
+}
+.admin-btn{
+  border: none;
+  background-color: #114232;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.position-sticky{
+  position: sticky;
+  top: 0;
+}
+
+.view-content-height{
+  max-height: 65vh;
+  
+}
+
+.admin-input{
+  width: 100%;
+  border-radius: 5px;
+}
+.border{
+  border: 1px solid;
+}
+/* ----------------------------- Admin Hom ---------------------------- */
+.admin-home-table tr:nth-child(even){
+  background-color: #18122B;
+}
+
+
+/* ------------------------------View  AllStudent --------------------*/
+
+.admin-sub-student-list-input{
+  width: 19rem;
+}
+
+.student-list-boxes{
+  display: flex;
+}
+
+.student-list img{
+  width: 75px;
+  border-radius: 50%;
+  
+
+}
+.view-student-input{
+  width: 100%;
+}
+
+
+
+/* -----------------delete student -------------------------------- */
+.delete-student-input{
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* ---------------------------  View All Teacher --------------------- */
+.view-teacher-input{
+  width: 100%;
+}
+.teacher-list-boxes{
+  display: flex;
+}
+
+.teacher-list img{
+  width: 75px;
+  border-radius: 50%;
+  
+
+}
+
+/* ---------------------delete teacher-------------------------------- */
+.delete-teacher-input{
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* ------------------------- ViewSchoolItems -------------------------- */
+.view-schoolitems-table img{
+  width: 30px;
+  border-radius: 50%;
+
+}
+
+
+
+/* ---------------------------- Add Class -------------------------------- */
+.add-class-nursery{
+  background: #1F1D36;
+}
+
+/* --------------------------- Result Page -------------------------- */
+.result-page-result-table input{
+  width: 100%;
+  
+}
+
+.y{
+  max-height: 74vh;
+  overflow: auto;
+}
+
+.result-remark-table{
+  max-height: 50vh;
+
+}
+
+
+.result-page-img{
+  width: 200px;
+  border-radius: 50px;
+
+}
+
+
+
+
+
+
+/* -----------------------mobile screen  -------------------------------- */
+@media  screen and (max-width: 1700px) {
+
+  
+  @media screen and (max-width: 1100px){
+  
+  
+    /* dashboard  */
+    .loader{
+      top: 40%;
+      transform: translate(-55%, -50%);
+  
+    }
+    .error{
+      top: 45%;
+      transform: translate(-50%, -50%);
+    }
+  
+   .dashboard-menu-bar{
+    display: block;
+   }
+    .sidebar .sidebar-head{
+      display: flex;
+      justify-content: space-between;
+      
+    }
+    .sidebar .close-sidebar{
+      display: block;
+    }
+  
+    .sidebar .sidebar-head i{
+      display: block;
+    }
+  
+    .sidebar{
+      transform: translateX(-250px);
+    }
+  
+    .t{
+      display: block;
+    }
+  
+  
+  
+    .dashboard-content{
+      margin-left: 0px;
+    }
+    .main-content{
+      margin-left: 0px;
+      color: #fff;
+    }
+  
+  
+  
+    footer svg{
+      margin-top: -500px;
+      fill: #3E001F;
+    }
+  
+    .hidden{
+      display: none;
+    }
+  
+    footer .end-text{
+      padding-top: 10px;
+    }
+    
+    .footer-text, 
+    .footer-link{
+      display: none;
+    }
+  }
+  
+  
+  @media screen and(max-width: 900px){
+    .student-info-modal{
+      width: 500px;
+    
+    }
+  
+  
+    .modal-container{
+      transform: translate(-410%, -50%);
+  
+    
+    }
+  
+    nav .home-nav:hover  .sub-menu-l{
+      margin-left: -5px;
+      /* z-index: 1000; */
+    }
+  
+    #principal-speech h2{
+      font-size: 2rem;
+      padding-bottom: 2rem;
+    
+    }
+    #cover-page .carousel-item .cover-header{
+      text-align: center;
+    }
+    #cover-page .carousel-item .cover-header p{
+      font-size: 1rem;
+    }
+    
+    #gallery .gallery-head{
+      text-align: start;
+    }
+    
+    .l-text{
+      font-size: 40px;
+    }
+  
+    .texts{
+      display: inline-block;
+    }
+  
+    /* #portal .portal-content{
+      display: block;
+    } */
+  
+    /* dashboard  */
+    .table1{
+      overflow-x: auto;
+    }
+  
+    .table-responsive{
+      width: 100%;
+      overflow-x: auto;
+    }
+    th td{
+      white-space: nowrap;
+    }
+  
+    .table-responsive::-webkit-scrollbar{
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+  
+    .table-responsive::-webkit-scrollbar-thumb{
+      border-radius: 0.5rem;
+      background-color: #fff5;
+      visibility: hidden;
+    }
+  
+    .table-responsive:hover::-webkit-scrollbar-thumb{
+      visibility: visible;
+    }
+  
+    .payment-link{
+      justify-content: start;
+    }
+  
+    /* payment.html  */
+    .payment-form {
+      margin-top: 1rem;
+      
+    }
+  
+  
+  
+  
+  
+  
+    
+    
+  
+    footer svg{
+      margin-top: -300px;
+      fill: #3E001F;
+    }
+    
+  }
+
+  
+  @media(max-width: 500px){
+    .student-info-modal{
+      width: 300px;
+    
+    }
+    .button-sign-out{
+      display: none;
+    }
+
+  
+    
+  
+  
+    footer svg{
+      margin-top: -100px;
+      fill: #3E001F;
+    }
+    
+  }
+
+  
+
+
+  
+  @media screen and (max-width: 350px) {
+  
+  
+    .dashboard-items i{
+      display: none;
+    }
+
+
+  
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+

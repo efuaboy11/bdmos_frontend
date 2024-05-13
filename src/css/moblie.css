@@ -1,0 +1,223 @@
+@media screen and(max-width: 1300px){
+
+
+
+  footer svg{
+    margin-top: -600px;
+    fill: #3E001F;
+  }
+}
+
+
+@media screen and (max-width: 1100px){
+
+
+  /* dashboard  */
+  .loader{
+    top: 40%;
+    transform: translate(-55%, -50%);
+
+  }
+  .error{
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+
+
+  .sidebar .sidebar-head{
+    display: flex;
+    justify-content: space-between;
+    
+  }
+
+  .sidebar .sidebar-head i{
+    display: block;
+  }
+
+  .sidebar{
+    transform: translateX(-250px);
+  }
+
+  .t{
+    display: block;
+  }
+  .cat{
+    background-color: yellow;
+  }
+
+
+
+  .dashboard-content{
+    margin-left: 250px;
+  }
+
+
+
+  footer svg{
+    margin-top: -500px;
+    fill: #3E001F;
+  }
+
+  .hidden{
+    display: none;
+  }
+
+  footer .end-text{
+    padding-top: 10px;
+  }
+  
+  .footer-text, 
+  .footer-link{
+    display: none;
+  }
+}
+
+
+@media screen and(max-width: 900px){
+  .student-info-modal{
+    width: 500px;
+  
+  }
+
+
+  .modal-container{
+    transform: translate(-410%, -50%);
+
+  
+  }
+
+  nav .home-nav:hover  .sub-menu-l{
+    margin-left: -5px;
+    /* z-index: 1000; */
+  }
+
+  #principal-speech h2{
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  
+  }
+  #cover-page .carousel-item .cover-header{
+    text-align: center;
+  }
+  #cover-page .carousel-item .cover-header p{
+    font-size: 1rem;
+  }
+  
+  #gallery .gallery-head{
+    text-align: start;
+  }
+  
+  .l-text{
+    font-size: 40px;
+  }
+
+  .texts{
+    display: inline-block;
+  }
+
+  /* #portal .portal-content{
+    display: block;
+  } */
+
+  /* dashboard  */
+  .table1{
+    overflow-x: auto;
+  }
+
+  .table-responsive{
+    width: 100%;
+    overflow-x: auto;
+  }
+  th td{
+    white-space: nowrap;
+  }
+
+  .table-responsive::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .table-responsive::-webkit-scrollbar-thumb{
+    border-radius: 0.5rem;
+    background-color: #fff5;
+    visibility: hidden;
+  }
+
+  .table-responsive:hover::-webkit-scrollbar-thumb{
+    visibility: visible;
+  }
+
+  .payment-link{
+    justify-content: start;
+  }
+
+  /* payment.html  */
+  .payment-form {
+    margin-top: 1rem;
+    
+  }
+
+
+
+
+
+
+  
+  
+
+  footer svg{
+    margin-top: -300px;
+    fill: #3E001F;
+  }
+  
+}
+
+
+@media(max-width: 500px){
+  .student-info-modal{
+    width: 300px;
+  
+  }
+  .button-sign-out{
+    display: none;
+  }
+
+
+
+  
+
+
+  footer svg{
+    margin-top: -100px;
+    fill: #3E001F;
+  }
+  
+}
+
+
+
+
+@media screen and (max-width: 350px) {
+
+  .dashboard-items i{
+    display: none;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
