@@ -3,13 +3,75 @@ import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
 
 export const ViewAllTeacher = () =>{
   const [teacherID, setTeacherID] = useState("")
   const [teacherName, setTeacherName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
 
+  const [teachers, setTeachers] = useState([])
+
+  const filterAllTeachers = async() => {
+    let url;
+    if (teacherID.length !== 0) {
+      url = `https://bdmos.onrender.com/api/teachers/?search=${teacherID}`;
+    } else if (teacherName.length !== 0) {
+      url = `https://bdmos.onrender.com/api/teachers/?search=${teacherName}`;
+    } else if (phoneNumber.length !== 0) {
+      url = `https://bdmos.onrender.com/api/teachers/?search=${phoneNumber}`;
+    } else {
+      getAllTeacher();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setTeachers(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+  
+  const getAllTeacher = async() =>{
+    let response = await fetch('https://bdmos.onrender.com/api/teachers/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setTeachers(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  useEffect(() =>{
+    if(!teacherID && !teacherName && !phoneNumber){
+      getAllTeacher()
+    } else if(teacherID){
+      filterAllTeachers()
+    } else if(teacherName){
+      filterAllTeachers()
+    } else if(phoneNumber){
+      filterAllTeachers()
+    } else{
+      getAllTeacher()
+    }
+  }, [teachers])
 
 	return(
 		<div>
@@ -42,10 +104,6 @@ export const ViewAllTeacher = () =>{
                 <div className="col-sm-3 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius view-teacher-input" placeholder="Search by Phone Number..." value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 </div>
-
-                <div className="col-sm-1 mb-3">
-                  <input type="submit" className=" p-2 form-dark border-radius"/>
-                </div>
               </div>            
             </form>
 
@@ -54,325 +112,26 @@ export const ViewAllTeacher = () =>{
               <div className="row">
                 <div className="col-xxl-12">
                   <div className="row  g-2">
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
+                    {teachers.map((teacher) =>(                  
+                      <div className="col-md-4 col-sm-6 col-xxl-3">
+                        <div className="teacher-list">
+                          <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
+                            <img src={teacher.passport} alt="" /> 
+                            <div className="ps-3">
+                              <h5>{teacher.username}</h5>
+                              <p> {`${teacher.first_name} ${teacher.last_name}`} </p>
+                              <Link>View Profile</Link>
+                            </div>  
+                          </div>              
                         </div>
-  
-                   
                       </div>
 
-                    </div>
+                    ))}
 
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
-
-                    <div className="col-md-4 col-sm-6 col-lg-3">
-                      <div className="teacher-list">
-                        <div className="teacher-list-boxes boxing-shadow py-3 ps-3">
-                          <img src={pic} alt="" /> 
-                          <div className="ps-3">
-                            <h5>SBHSISE345</h5>
-                            <p>John Snow</p>
-                            <Link>View Profile</Link>
-                          </div>  
-                        </div>
-  
-                   
-                      </div>
-
-                    </div>
                   </div>
                 </div>
               </div>
-
-            </section>
-
-
-        
+            </section>     
           </div>
         </div>
 

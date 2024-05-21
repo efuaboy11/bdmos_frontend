@@ -358,10 +358,6 @@ export const AdminDashFrame = () =>{
         <nav className="text-light d-flex align-items-center justify-content-between">
           <div className="menu-bar mx-3" onClick={showSidebar}><FontAwesomeIcon icon={faBars} className="sm-text dashboard-menu-bar"/> </div>
           <div className="d-flex align-items-center">
-            <a href="#" className="text-light pe-5"><FontAwesomeIcon icon={faBell} className="pe-4 sm-text"/> </a>
-            <a href="#" className="text-light"> <FontAwesomeIcon icon={faCartShopping} className="pe-4 sm-text"/></a>
-            <a href="#" className="mx-3 text-light   text-center student-info-link">
-            </a>
             <div className="">
               <button className="me-3 button-sign-out" onClick={logoutUser}>Sign Out </button>
             </div>

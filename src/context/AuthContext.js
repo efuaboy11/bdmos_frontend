@@ -14,6 +14,9 @@ export const AuthProvider = ({children}) => {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
+    const [details, setDetails] = useState()
+    console.log(details)
+
     const navigate = useNavigate()
 
     const loginUser = async (e) => {
@@ -70,7 +73,7 @@ export const AuthProvider = ({children}) => {
         if(response.status === 200){
             setAuthToken(data)
             setUser(jwtDecode(data.access))
-            localStorage.setItem("authToken", JSON.stringify(data))
+            localStorage.setItem("authTokens", JSON.stringify(data))
         } else{
             logoutUser()
         }
@@ -96,7 +99,9 @@ export const AuthProvider = ({children}) => {
         setPassword,
         loading,
         loginUser,
-        logoutUser
+        logoutUser,
+        details,
+        setDetails
     }
 
     return (

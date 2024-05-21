@@ -2,45 +2,150 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../../context/AuthContext"
+import { Alert, CircularProgress } from "@mui/material"
 
 export const EditStudentPage = () =>{
-  const [firstName, setFirstName] = useState("")
-  const [middleName, setMiddleName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [DOB, setDOB] = useState("")
-  const [sex, setSex] = useState("")
-  const [fatherName, setFatherName] = useState("")
-  const [motherName, setMotherName] = useState("")
-  const [gurdianName, setGurdianName] = useState('')
-  const [parentNumber, setParetNumber] = useState('')
-  const [parentEmail, setParentEmail] = useState('')
-  const [SOG, setSOG] = useState('')
-  const [religion, setReligion] = useState('')
-  const [disabilityOption, setDisabilityOption] = useState('')
-  const [classOption, setClassOption] = useState('')
-  const [city, setCity] = useState('')
-  const [previousSChool, setPreviousSchool] = useState('')
-  const [disability, setDisability] = useState('')
-  const [passportFile, setPassportFile] = useState(null);
+  const {authTokens, details} = useContext(AuthContext)
+
+  const [firstName, setFirstName] = useState(details ? details.first_name : "")
+  const [middleName, setMiddleName] = useState(details ? details.middle_name : "")
+  const [lastName, setLastName] = useState(details ? details.last_name : "")
+  const [DOB, setDOB] = useState(details ? details.date_of_birth : "")
+  const [sex, setSex] = useState(details ? details.sex : "")
+  const [fatherName, setFatherName] = useState(details ? details.father_name : "")
+  const [motherName, setMotherName] = useState(details ? details.mother_name : "")
+  const [gurdianName, setGurdianName] = useState(details ? details.gurdian_name : "")
+  const [parentNumber, setParetNumber] = useState(details ? details.parents_phone_number : "")
+  const [parentEmail, setParentEmail] = useState(details ? details.parents_email : "")
+  const [SOG, setSOG] = useState(details ? details.state_of_origin : "")
+  const [religion, setReligion] = useState(details ? details.religion : "")
+  const [disabilityOption, setDisabilityOption] = useState(details ? details.disability : "")
+  const [classOption, setClassOption] = useState(details ? details.student_class : "")
+  const [city, setCity] = useState(details ? details.city_or_town : "")
+  const [previousSChool, setPreviousSchool] = useState(details ? details.previous_school : "")
+  const [disability, setDisability] = useState(details ? details.disability_note : "")
+  const [passportFile, setPassportFile] = useState(details ? details.passport : null);
+
+  const [alert, setAlert] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [classes, setClasses] = useState("")
 
   // Event handler for when file input value changes
   const handlePassportFile = (event) => {
     // Check if any file is selected
     if (event.target.files.length > 0) {
-      // Access the selected file (first file in the array)
+      // Access the selected file (first file in the array)p6
       const file = event.target.files[0];
       setPassportFile(file); // Update selectedFile state with the selected file
     } else {
       setPassportFile(null); // Reset selectedFile if no file is selected
     }
   };
+
+  const getClasses = async() => {
+    try {
+      const response = await fetch("https://bdmos.onrender.com/api/class/", {
+        method: "GET",
+        headers:{
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      const data = await response.json()
+
+      if(response.status === 200){
+        setClasses(data)
+      }else{
+        console.error("Failed to fetch user details:", response.statusText)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateStudent = async(e) => {
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append("first_name", firstName);
+    formData.append("middle_name", middleName);
+    formData.append("last_name", lastName);
+    formData.append("date_of_birth", DOB);
+    formData.append("sex", sex);
+    formData.append("father_name", fatherName);
+    formData.append("mother_name", motherName);
+    formData.append("gurdian_name", gurdianName);
+    formData.append("parents_phone_number", parentNumber);
+    formData.append("parents_email", parentEmail);
+    formData.append("state_of_origin", SOG);
+    formData.append("religion", religion);
+    formData.append("disability", disabilityOption);
+    formData.append("student_class", classOption);
+    formData.append("city_or_town", city);
+    formData.append("previous_school", previousSChool);
+    formData.append("disability_note", disability);
+    formData.append("passport", passportFile);
+
+    console.log(formData)
+
+    try {
+      const response = await fetch(`https://bdmos.onrender.com/api/students/${details.username}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`
+        },
+        body: formData
+      })
+      if (response.status === 200 || response.status === 200){
+        setShowAlert(true)
+        setAlert("Student Updated Successfully")
+        console.log('sucess')
+        setAlertSeverity("success")
+        setLoader(false)
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        setShowAlert(true)
+        setAlert(errorMessage)
+        setAlertSeverity("error")
+        console.log(errorMessage)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getClasses()
+  }, [classes])
+
   return(
     <div>
       <div className="position-sticky">
         <AdminDashFrame />
       </div>
       <div className="main-content ">
+      <div className="alert-container">
+          <div className="alert-position">
+            {showAlert && (
+              <Alert
+                severity={alertSeverity}
+                onClose={() => setShowAlert(false)}
+              >
+                {alert}
+              </Alert>
+            )}
+          </div>
+        </div>
         <section className="mt-3 container">
           <div className="row my-3 pb-4">
             <div className="col-md-8 col-sm-6 col-6">
@@ -60,7 +165,7 @@ export const EditStudentPage = () =>{
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Middle Name</label>
-                <input type="text" className="form-control form-dark" id="student-first-name" value={middleName} onChange={(e) => setLastName(e.target.value)}/>
+                <input type="text" className="form-control form-dark" id="student-first-name" value={middleName} onChange={(e) => setMiddleName(e.target.value)}/>
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
@@ -70,16 +175,16 @@ export const EditStudentPage = () =>{
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">DOB <span className="red-text">*</span></label>
-                <input type="datetime-local" className="form-control compulsory form-dark" id="student-first-name" value={DOB} onChange={(e) => setDOB(e.target.value)}/>
+                <input type="date" className="form-control compulsory form-dark" id="student-first-name" value={DOB} onChange={(e) => setDOB(e.target.value)}/>
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Sex <span className="red-text">*</span></label>
                 <select id="inputSex" className="form-select form-control compulsory form-dark" value={sex} onChange={(e) => setSex(e.target.value)}>
-                  <option>...</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  </select>
+                  <option></option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
@@ -111,65 +216,70 @@ export const EditStudentPage = () =>{
               <div className="col-lg-4 col-xxl-3 col-md-6">
                   <label for="inputState" className="form-label">State of origin <span className="red-text">*</span></label>
                   <select id="inputState" className="form-select form-control compulsory form-dark "value={SOG} onChange={(e) => setSOG(e.target.value)}>
-                    <option selected>Abia</option>
-                    <option>Adamawa</option>
-                    <option>Akwa ibom</option>
-                    <option>Anambra</option>
-                    <option>Bauchi</option>
-                    <option>Bayelsa</option>
-                    <option>Benue</option>
-                    <option>Borno</option>
-                    <option>Crossriver</option>
-                    <option>Delta</option>
-                    <option>Ebonyi</option>
-                    <option>Edo</option>
-                    <option>Ekiti</option>
-                    <option>Enugu</option>
-                    <option>Imo</option>
-                    <option>Jigawa</option>
-                    <option>Kaduna</option>
-                    <option>Kano</option>
-                    <option>Kastina</option>
-                    <option>Kebbi</option>
-                    <option>Kogi</option>
-                    <option>Kwara</option>
-                    <option>Lagos</option>
-                    <option>Nasarawa</option>
-                    <option>Niger</option>
-                    <option>Ogun</option>
-                    <option>Ondo</option>
-                    <option>Osun</option>
-                    <option>Oyo</option>
-                    <option>plateau</option>
-                    <option>Rivers</option>
-                    <option>Sokoto</option>
-                    <option>Taraba</option>
-                    <option>Yobe</option>
+                  <option></option>
+                    <option>Abia</option>
+                    <option value="adamawa">Adamawa</option>
+                    <option value="akwa ibom">Akwa ibom</option>
+                    <option value="anambra">Anambra</option>
+                    <option value="bauchi">Bauchi</option>
+                    <option value="bayelsa">Bayelsa</option>
+                    <option value="benue">Benue</option>
+                    <option value="borno">Borno</option>
+                    <option value="cross river">Crossriver</option>
+                    <option value="delta">Delta</option>
+                    <option value="ebonyi">Ebonyi</option>
+                    <option value="edo">Edo</option>
+                    <option value="ekiti">Ekiti</option>
+                    <option value="enugu">Enugu</option>
+                    <option value="imo">Imo</option>
+                    <option value="jigawa">Jigawa</option>
+                    <option value="kaduna">Kaduna</option>
+                    <option value="kano">Kano</option>
+                    <option value="kastina">Kastina</option>
+                    <option value="kebbi">Kebbi</option>
+                    <option value="kogi">Kogi</option>
+                    <option value="kwara">Kwara</option>
+                    <option value="lagos">Lagos</option>
+                    <option value="nasarawa">Nasarawa</option>
+                    <option value="niger">Niger</option>
+                    <option value="ogun">Ogun</option>
+                    <option value="ondo">Ondo</option>
+                    <option value="osun">Osun</option>
+                    <option value="oyo">Oyo</option>
+                    <option value="plateau">plateau</option>
+                    <option value="rivers">Rivers</option>
+                    <option value="sokoto">Sokoto</option>
+                    <option value="taraba">Taraba</option>
+                    <option value="yobe">Yobe</option>
                   </select>
                 </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Religion <span className="red-text">*</span></label>
                 <select id="inputSex" className="form-select form-control compulsory form-dark" value={religion} onChange={(e) => setReligion(e.target.value)}>
-                  <option>...</option>
-                  <option>Christian</option>
-                  <option>Muslim</option>
-                  <option>others</option>
-                  </select>
+                  <option></option>
+                  <option value="christian">Christian</option>
+                  <option value="muslim">Muslim</option>
+                  <option value="others">others</option>
+                </select>
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label for="inputDisability" className="form-label">Disabily <span className="red-text">*</span></label>
                 <select id="inputDisability" className="form-select form-control compulsory form-dark" value={disabilityOption} onChange={(e) => setDisabilityOption(e.target.value)}>
-                  <option selected>No</option>
-                  <option>Yes</option>
+                  <option></option>
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
                 </select>
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label for="inputDisability" className="form-label">Class <span className="red-text">*</span></label>
-                <select id="inputDisability" className="form-select form-control compulsory form-dark" value={classOption} onChange={(e) => setClassOption(e.target.value)}>
-                  <option selected>...</option>
+                <select className={`form-control form-select form-dark`} value={classOption} onChange={(e) => setClassOption(e.target.value)}>
+                  <option selected></option>
+                  {classes && classes.map((clas) => (
+                    <option value={clas.id} key={clas.id}>{clas.name}</option>
+                  ))}
                 </select>
               </div>
 
@@ -195,7 +305,7 @@ export const EditStudentPage = () =>{
             </div>
 
             <div className="py-4">
-              <button className="admin-btn py-2 px-5" >Update</button>
+              <button className="admin-btn py-2 px-5" onClick={updateStudent}>{loader ? <CircularProgress color="inherit"/> : "Update"}</button>
             </div>
            
           </form>

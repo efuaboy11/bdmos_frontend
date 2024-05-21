@@ -90,6 +90,7 @@ function App() {
               <Route path="/schoolItems" element={<SchoolItems />}/>
               <Route path='/admin' element={<AdminDashHome />}/>
               <Route path="/admin/viewAllStudent" element={<ViewAllStudents />}/>
+              <Route path="/admin/viewAllStudent/:id" />
               <Route path="/admin/addStudent" element={<AddStudent />}/>
               <Route path="/admin/deleteStudent" element={<DeleteStudent />}/>
               <Route path='/admin/editStudent' element={<EditStudent/>}/>
@@ -120,7 +121,7 @@ function App() {
               <Route path='/admin/sendEmail' element={<SendEmail/>}/>
               <Route path='/admin/sendBulkEmail' element={<SendBulkEmail/>}/>
               <Route path='/admin/viewEmail' element={<ViewEmail/>}/>
-              <Route path='/admin/editStudentPage' element={<EditStudentPage/>}/>   
+              <Route path='/admin/editStudent/:id' element={<EditStudentPage/>}/>   
               <Route path='/admin/editTeacherPage' element={<EditTeacherPage/>}/>   
               <Route path='/admin/editSchoolItemPage' element={<EditSchoolItemPage/>}/>
               <Route path='/admin/resultPage' element={<ResultPage/>}/>

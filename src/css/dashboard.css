@@ -685,6 +685,23 @@ tbody tr:nth-child(even){
 
 
 /* ----------------------------- Universal ---------------------------*/
+.alert-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000000; /* Ensure it's above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.alert-container .alert-position {
+  width: 100%;
+  max-width: 1900px; /* Adjust as needed */
+}
+
 .admin-sidebar-height{
   max-height: 90%;
 } 
@@ -724,7 +741,9 @@ tbody tr:nth-child(even){
 .admin-home-table tr:nth-child(even){
   background-color: #18122B;
 }
-
+.error-input{
+  border-color: red;
+}
 
 /* ------------------------------View  AllStudent --------------------*/
 
@@ -738,8 +757,9 @@ tbody tr:nth-child(even){
 
 .student-list img{
   width: 75px;
+  height: 75px;
   border-radius: 50%;
-  
+  object-fit: cover;
 
 }
 .view-student-input{
