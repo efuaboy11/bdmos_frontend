@@ -1,17 +1,22 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext, useState } from "react"
-import AuthContext from "../../context/AuthContext"
-import { Alert } from "@mui/material"
+import { useContext, useEffect, useState } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import AuthContext from "../../context/AuthContext"
 
-export const DeleteStudent = () =>{
-  const [studentID, setStudentID] = useState("")
-  const {authTokens} = useContext(AuthContext)
-  
+
+export const EditParent = () =>{
+  const [parentName, setParentName] = useState('')
+
+  const {authTokens, setDetails} = useContext(AuthContext)
+  const navigate = useNavigate()
+
+
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
@@ -23,16 +28,12 @@ export const DeleteStudent = () =>{
     e.preventDefault()
     setdisablebutton(true)
     if(isValid){
-    
       console.log(data)
-      deleteUser(e)
-    }else{
-      console.log('error')
-      setdisablebutton(false)
+      getEditDetails(e)
     }
   }
 
-  const deleteUser = async (e) => {
+  const getEditDetails = async (e) => {
     e.preventDefault();
     if(loader){
       setLoader(false)
@@ -40,37 +41,31 @@ export const DeleteStudent = () =>{
       setLoader(true)
     }
 
-    try {
-      let response = await fetch(`https://bdmos.onrender.com/api/students/${studentID}/`, {
-        method: "DELETE",
-        headers: {
-          Authorization:`Bearer ${authTokens.access}`
-        }
-      });
-
-      if (response.ok) {
-        setShowAlert(true)
-        setAlerts("Student deleted Sucessfully")
-        setAlertSeverity('success')
-        setLoader(false)
-        setdisablebutton(false)
-        console.log('sucess')
-      } else {
-        let errorData = await response.json();
-        const errorMessage = errorData.error
-        setShowAlert(true)
-        setAlerts('There is an error in processing your data')
-        setAlertSeverity('error')
-        setLoader(false)
-        setdisablebutton(false)
-        console.log(errorMessage)
+    let response = await fetch(`https://bdmos.onrender.com/api/students/${parentName}`,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
       }
-    }catch (error) {
-      console.error("Error occurred while deleting user:", error);
-      alert("An error occurred while trying to delete the user. Please try again.");
-    }
-  };
+    })
 
+    const data = await response.json()
+
+    if(response.ok){
+      setLoader(false)
+      setdisablebutton(false)
+      setDetails(data)
+      navigate(`/admin/editParent/${data.id}`)
+    }else{
+      setLoader(false)
+      setdisablebutton(false)
+      setShowAlert(true)
+      setAlerts('There is an error in processing your data')
+      setAlertSeverity('error')
+      
+      
+    }
+  }
 
 	return(
 		<div>
@@ -95,11 +90,11 @@ export const DeleteStudent = () =>{
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>Delete Student</h5>
+                <h5>Edit Parent Profile</h5>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
 							  <Link to="" >Dashboard /  </Link>
-                <Link>  View Student profile</Link>
+                <Link>  View Parent profile</Link>
 						  </div>
             </div>
 
@@ -107,21 +102,20 @@ export const DeleteStudent = () =>{
             <section>
               <div className="boxing-shadow">
                 <div className="navyblue-blackground-dash py-4">
-                  <p className="text-center">PLEASE ENTER THE STUDENT ID YOU WANT TO DELETE</p>
+                  <p className="text-center">PLEASE ENTER THE PARENT NAME YOU WANT TO EDIT</p>
                 </div>
-                
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row justify-content-center mx-2">
                     <div className="col-md-10 mt-5">
-                      <input className={`form-control delete-student-input form-dark ${errors.studentID ? 'error-input' : ''}`} {...register('studentID', {required: true})} value={studentID} onChange={(e) => setStudentID(e.target.value)}type="text" placeholder="Search Student ID..."/>
-                      {errors.studentID && <span style={{color: 'red'}}>This Feild is required</span>}
+                      <input className={`form-control delete-student-input form-dark ${errors.parentName ? 'error-input' : ''}`} {...register('parentName', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mary Mark"/>
+                      {errors.parentName && <span style={{color: 'red'}}>This Feild is required</span>}
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">
-                      <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+                      <button type="submit"  className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>                    
                     </div>
                   </div>
                 </form>
-
 
 
               </div>
@@ -134,4 +128,9 @@ export const DeleteStudent = () =>{
       </section>
 		</div>
 	)
+  
+
+ 
+
+
 }

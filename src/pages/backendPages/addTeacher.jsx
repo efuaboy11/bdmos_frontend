@@ -148,7 +148,7 @@ export const AddTeacher = () =>{
     formData.append("city_or_town", city);
     formData.append("sex", sex);
     formData.append("teacher_email", email);
-    formData.append("date_of_birth", DOB);
+    formData.append("date_of_birth", DOB);      
     formData.append("religion", religion);
     formData.append("disability", disabilityOption);
     formData.append("maritial_status", martitalStatus);

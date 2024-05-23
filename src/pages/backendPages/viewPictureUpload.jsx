@@ -1,12 +1,41 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewPictureUploaded= () =>{
+
+  const {authTokens, details} = useContext(AuthContext)
+
+
   const [ID, setID] = useState("")
+  const [datas, setdatas] = useState([])
+
+  const getPicture = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  useEffect(() =>{
+    getPicture()
+  },[datas])
+
+
 	return(
 		<div>
       <div className="position-sticky">
@@ -58,62 +87,16 @@ export const ViewPictureUploaded= () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
+                      {datas.map((data) =>(
                       <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
+                        <td><img src={data.image}/></td>
+                        <td>{data.id}</td>
+                        <td>{data.discription}</td>
+                        <td>{data.date}</td>
+                        <td> {<FontAwesomeIcon className="text-center" icon={faTrashCan}/>}</td>             
                       </tr>
+                      ))}
 
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>

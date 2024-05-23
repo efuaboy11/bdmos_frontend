@@ -2,10 +2,28 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import CircularProgress from '@mui/material/CircularProgress';
+import AuthContext from "../../context/AuthContext"
+
 
 export const AddSubject = () =>{
+  const {authTokens} = useContext(AuthContext)
+
   const [subject, setSubject] = useState("")
+  const [nursery, setNursery] = useState('')
+  const [primary, setPrimary] = useState('')
+
+  const [alert, setAlert] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
+
 	return(
 		<div>
       <div className="position-sticky">
@@ -37,12 +55,12 @@ export const AddSubject = () =>{
                   </div>
 
                   <div className="d-flex col-sm-3 py-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" value='nursery-section' onChange={(e) => setNursery(e.target.value)}/>
                     <p className="px-4">Nusery Session</p>
                   </div>
 
                   <div className="d-flex col-sm-3 py-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" value='primary-section' onChange={(e) => setPrimary(e.target.value)}/>
                     <p className="px-4">Primary Session</p>
                   </div>
 

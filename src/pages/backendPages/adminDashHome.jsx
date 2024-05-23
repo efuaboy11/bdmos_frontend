@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AdminDashFrame, DashFrame } from "../../component/adminDashFRame"
 import {BarchartFrame, PieChartFrame} from "../../component/chatFrame"
-import { faBookOpenReader, faBuildingColumns, faCartShopping, faChartLine, faDollarSign, faNewspaper, faSchool, faUser, faUserGraduate, faUserGroup, faUsers } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpenReader, faBuildingColumns, faCartShopping, faChalkboardTeacher, faChartLine, faDollarSign, faNewspaper, faPeopleGroup, faPlus, faSchool, faUser, faUserGraduate, faUserGroup, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Pie } from "react-chartjs-2"
+import picture from "../../img/Untitled__1_-removebg-preview.png"
 
 export const AdminDashHome = () =>{
   return(
@@ -13,48 +14,106 @@ export const AdminDashHome = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content">
-        <div className="container">
-          <div className="d-flex justify-content-between">
-            <h4 className="pt-5">Welcome Admin!</h4> 
-            <div className="pt-5">
-              <Link>Home / </Link>
-              <Link>Portal</Link>
+        <div className="container-lg">
+          <div className="d-flex justify-content-between align-items-center admin-home-header">
+            <div>
+              <h1 className="pt-5 leSnake l-text">Welcome Admin!</h1> 
+              <p>How can we be off help today?</p>
             </div>
+
+            <img src={picture}  alt="" width='270px' className="pt-5"/>
 
           </div>
+          <div className="row py-3">
+                <div className="col-xxl-12">
+                  <div className="row  g-4">
+                    <div className="col-md-4 col-sm-6 col-xxl-3 ">
+                      <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p>Students</p>
+                          <h1>100</h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGraduate}/>
+                      </div>
 
-          <div className="row justify-content-evenly my-4 g-4">
-            <div className="col-11 col-md-5  col-lg-2 d-flex navyblue-blackground-dash justify-content-between">
-              <div className="py-4">
-                <p>Students</p>
-                <h1>100</h1>
-              </div>
-              <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGraduate}/>
-            </div>
+                    </div>
 
-            <div className="col-11 col-md-5  col-lg-3  d-flex navyblue-blackground-dash justify-content-between">
-              <div className="py-4">
-                <p>Teacher</p>
-                <h1>32</h1> 
-              </div>
-              <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUsers}/>
-            </div>
+                    <div className="col-md-4 col-sm-6 col-xxl-3 ">
+                      <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p>Teacher</p>
+                          <h1>32</h1> 
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUsers}/>
+                      </div>
 
-            <div className="col-11 col-md-5  col-lg-2  d-flex navyblue-blackground-dash justify-content-between">
-              <div className="py-4">
-                <p>Parent</p>
-                <h1>62</h1>
-              </div>
-              <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGroup}/>
-            </div>
+                    </div>
 
-            <div className="col-11 col-md-5  col-lg-3  d-flex navyblue-blackground-dash justify-content-between">
-              <div className="py-4">
-                <p>Classes</p>
-                <h1>12</h1>
-              </div>
-              <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faSchool}/>
-            </div>
+                    <div className="col-md-4 col-sm-6 col-xxl-3 ">
+                      <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
+                        <div className="py-4">
+                          <p>Parent</p>
+                          <h1>62</h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGroup}/>
+                      </div>
+
+                    </div>
+
+                    <div className="col-md-4 col-sm-6 col-xxl-3   ">
+                      <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p>Classes</p>
+                          <h1>12</h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faSchool}/>
+                      </div>
+
+                    </div>
+
+                    <div className="col-md-4 col-sm-6 col-xxl-3">
+                      <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p className="mb-3">Add Student</p>
+                          <h1><Link to='/admin/addStudent'><FontAwesomeIcon className="admin-dashboard-sub-icon p-1 px-2 " icon={faPlus}/></Link></h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-5 px-2 "  icon={faUserPlus}/>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4 col-sm-6 col-xxl-3   ">
+                      <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p className="mb-3">Add Teacher</p>
+                          <h1><Link to='/admin/addTeacher'><FontAwesomeIcon className="admin-dashboard-sub-icon p-1 px-2 " icon={faPlus}/></Link></h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-5 px-2 "  icon={faChalkboardTeacher}/>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4 col-sm-6 col-xxl-3   ">
+                      <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p className="mb-3">Add Parent</p>
+                          <h1><Link to='/admin/addParent'><FontAwesomeIcon className="admin-dashboard-sub-icon p-1 px-2 " icon={faPlus}/></Link></h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-5 px-2 "  icon={faPeopleGroup}/>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4 col-sm-6 col-xxl-3   ">
+                      <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
+                        <div className="py-4 ">
+                          <p className="mb-3">Add Classes</p>
+                          <h1><Link to='/admin/AddClass'><FontAwesomeIcon className="admin-dashboard-sub-icon p-1 px-2 " icon={faPlus}/></Link></h1>
+                        </div>
+                        <FontAwesomeIcon className="dashboard-icon l-text py-5 px-2 "  icon={faSchool}/>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
           </div>
 
 

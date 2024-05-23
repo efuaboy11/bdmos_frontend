@@ -1,13 +1,42 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faPenToSquare, faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewStudentItems = () =>{
+
+  const {authTokens, details} = useContext(AuthContext)
+
+
   const [ID, setID] = useState("")
   const [itemName, setItemName] = useState("")
+  const [itemDatas, setitemDatas] = useState([])
+
+  const getAllItem = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/items/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setitemDatas(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  useEffect(() =>{
+    getAllItem()
+  },[itemDatas])
+
 	return(
 		<div>
       <div className="position-sticky">
@@ -47,7 +76,7 @@ export const ViewStudentItems = () =>{
             <section className="container-lg navyblue-blackground-dash">
               <div className="view-content-height scroll-bar">
                 <div className="non-wrap-text">
-                  <p className=" ps-3 py-2">Recently Added Teacher</p>
+                  <p className=" ps-3 py-2">View All Items</p>
                   <table className="table1 ">
                     <thead>
                       <tr>
@@ -62,61 +91,16 @@ export const ViewStudentItems = () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
+                      {itemDatas.map((itemData) =>(
+                        <tr>
+                          <td><img src={itemData.image}/></td>
+                          <td>{itemData.id}</td>
+                          <td>{itemData.title}</td>
+                          <td>{itemData.price}</td>
+                          <td>{<FontAwesomeIcon className="pe-3" icon={faPenToSquare}/>}  {<FontAwesomeIcon icon={faTrashCan}/>}</td>                        
+                        </tr>
+                      ))}
 
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Uniform</td>
-                        <td>20000</td>
-                        <td></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>

@@ -1,13 +1,57 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewEventUploaded= () =>{
+
+  const {authTokens, details} = useContext(AuthContext)
+
   const[eventID, setEventID] = useState("")
   const [eventName, setEventName] = useState("")
+  const [eventDatas, setEventDatas] = useState([])
+
+  const getEvent = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/events/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setEventDatas(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const deleteEvent = async (id) => {
+    let response = await fetch(`https://bdmos.onrender.com/api/events/${id}`,{
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    if(response.ok){
+      alert("Event Deleted")
+    }else{
+      alert(response.statusText)
+    }
+  }
+
+
+  useEffect(() =>{
+    getEvent()
+  },[eventDatas])
+
+
 	return(
 		<div>
       <div className="position-sticky">
@@ -26,7 +70,7 @@ export const ViewEventUploaded= () =>{
 						  </div>
             </div>
 
-            <form action="">
+            <form>
               <div className="row add-student justify-content-evenly">
                 <div className="col-sm-3 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by ID..." value={eventID} onChange={(e) => setEventID(e.target.value)}/>
@@ -63,62 +107,16 @@ export const ViewEventUploaded= () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
+                      {eventDatas.map((eventData) =>(
+                        <tr>
+                          <td><img src={eventData.image} /></td>
+                          <td>{eventData.id}</td>
+                          <td> {eventData.description} </td>
+                          <td>{eventData.date}</td>
+                          <td onClick={() => deleteEvent(eventData.id)}>{<FontAwesomeIcon className="text-center" icon={faTrashCan}/>}</td>                        
+                        </tr>
+                      ))}
 
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td><img src={pic}/></td>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>

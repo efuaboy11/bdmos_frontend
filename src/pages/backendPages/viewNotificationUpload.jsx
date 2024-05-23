@@ -1,13 +1,39 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewNotificationUploaded= () =>{
+  const {authTokens, details} = useContext(AuthContext)
+
   const [date, setDate] = useState("")
   const [teacherName, setTeacherName] = useState("")
+  const [datas, setDatas] = useState([])
+
+  const getNotification = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/notifications/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDatas(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+
+  useEffect(() =>{
+    getNotification()
+  },[datas])
 
   
 	return(
@@ -65,60 +91,16 @@ export const ViewNotificationUploaded= () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
+                      {datas.map((data) =>(
+                        <tr>
+                          <td> {data.id} </td>
+                          <td>{data.message}</td>
+                          <td>{data.date}</td>
+                          <td>{data.teacher_name}</td>
+                          <td> {<FontAwesomeIcon icon={faTrashCan}/>}</td>     
+                        </tr>
+                      ))}
 
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
-
-
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, esse!</td>
-												<td>1/04/2021</td>
-                        <td>Mr John</td>
-                        <td></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>

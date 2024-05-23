@@ -61,6 +61,11 @@ import { ViewGeneratedScratchNumber } from './pages/backendPages/viewGeneratedSc
 
 import PrivateRoute from './utils/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import { AddParent } from './pages/backendPages/addParent';
+import { DeleteParent } from './pages/backendPages/deleteParent';
+import { EditParent } from './pages/backendPages/editParent';
+import { ViewAllParent } from './pages/backendPages/viewAllParent';
+import { EditParentPage } from './pages/backendPages/editParentPage';
 ;
 
 
@@ -98,6 +103,10 @@ function App() {
               <Route path='/admin/addTeacher' element={<AddTeacher/>}/>
               <Route path='/admin/deleteTeacher' element={<DeleteTeacher/>}/>
               <Route path='/admin/editTeacher' element={<EditTeacher />}/>
+              <Route path='/admin/viewAllParent' element={<ViewAllParent />}/>
+              <Route path='/admin/addParent' element={<AddParent />}/> 
+              <Route path='/admin/deleteParent' element={<DeleteParent />}/> 
+              <Route path='/admin/editParent' element={<EditParent />}/>            
               <Route path='/admin/viewSchooltItem' element={<ViewStudentItems/>}/>
               <Route path='/admin/uploadSchoolItems' element={<UploadSchoolItems/>}/>          
               <Route path='/admin/deleteSchoolItem' element={<DeleteSchoolItem/>}/>   
@@ -122,8 +131,10 @@ function App() {
               <Route path='/admin/sendBulkEmail' element={<SendBulkEmail/>}/>
               <Route path='/admin/viewEmail' element={<ViewEmail/>}/>
               <Route path='/admin/editStudent/:id' element={<EditStudentPage/>}/>   
-              <Route path='/admin/editTeacherPage' element={<EditTeacherPage/>}/>   
-              <Route path='/admin/editSchoolItemPage' element={<EditSchoolItemPage/>}/>
+              <Route path='/admin/editTeacher/:id' element={<EditTeacherPage/>}/>   
+              <Route path='/admin/editParent/:id' element={<EditParentPage/>}/>   
+              
+              <Route path='/admin/editSchoolItem/:id' element={<EditSchoolItemPage/>}/>
               <Route path='/admin/resultPage' element={<ResultPage/>}/>
               <Route path='/admin/uploadScheme' element={<UploadScheme/>}/>
               <Route path='/admin/uploadSchemePage' element={<UploadSchemePage/>}/>

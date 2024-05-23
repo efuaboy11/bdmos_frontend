@@ -11,9 +11,7 @@ import AuthContext from "../../context/AuthContext"
 
 
 export const AddStudent = () =>{
-  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
-  const [loader, setLoader] = useState("")
-  const [disablebutton, setdisablebutton] = useState(false)
+  
 
   const {authTokens} = useContext(AuthContext)
 
@@ -41,16 +39,21 @@ export const AddStudent = () =>{
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
 
 
   const onSubmit = (data, e) =>{
     e.preventDefault()
+    setdisablebutton(true)
     if(isValid){
     
       console.log(data)
       addStudent(e)
     }else{
       console.log('error')
+      setdisablebutton(false)
     }
   }
 
@@ -128,6 +131,7 @@ export const AddStudent = () =>{
         console.log('sucess')
         setAlertSeverity("success")
         setLoader(false)
+        setdisablebutton(false)
         setFirstName("")
         setMiddleName("")
         setLastName("")
@@ -150,9 +154,11 @@ export const AddStudent = () =>{
         const errorData = await response.json()
         const errorMessage = errorData.error
         setShowAlert(true)
-        setAlert(errorMessage)
+        setAlert('There is an error processing your data')
         setAlertSeverity("error")
         console.log(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
       }
     } catch (error) {
       console.log(error)

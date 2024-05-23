@@ -2,21 +2,84 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useContext,  useState } from "react"
+import AuthContext from "../../context/AuthContext"
+import { Alert, CircularProgress } from "@mui/material"
+import { useForm } from "react-hook-form"
 
 export const EditSchoolItemPage = () =>{
-  const [name, setName] = useState("")
-  const [amount, setAmount] = useState("")
-  const [imgFile, setImgFile] = useState("")
+  const {authTokens, details} = useContext(AuthContext)
 
-  const handleImgFile = (event) => {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      setImgFile(file); 
-    } else {
-      setImgFile(null); 
+
+  const [name, setName] = useState(details ? details.title : '')
+  const [amount, setAmount] = useState(details ? details.price : '')
+  
+
+  const [alert, setAlert] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [classes, setClasses] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const [disablebutton, setdisablebutton] = useState(false)
+
+  const onSubmit = (data, e) =>{
+    e.preventDefault()
+    setdisablebutton(true)
+    if(isValid){
+    
+      console.log(data)
+      updateItem(e)
+    }else{
+      console.log('error')
+      setdisablebutton(false)
     }
-  };
+  }
+
+  const updateItem = async(e) => {
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append("title", name);
+    formData.append("price", amount);
+
+    console.log(formData)
+
+    try {
+      const response = await fetch(`https://bdmos.onrender.com/api/items/${details.id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`
+        },
+        body: formData
+      })
+      if (response.status === 200 || response.status === 200){
+        setShowAlert(true)
+        setAlert("Item Updated Successfully")
+        console.log('sucess')
+        setAlertSeverity("success")
+        setLoader(false)
+        setdisablebutton(false)
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        setShowAlert(true)
+        setAlert('There an error in processing your data')
+        setAlertSeverity("error")
+        console.log(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
 
 	return(
@@ -26,6 +89,18 @@ export const EditSchoolItemPage = () =>{
       </div>
 			<section>
         <div className="main-content">
+          <div className="alert-container">
+            <div className="alert-position">
+              {showAlert && (
+                <Alert
+                  severity={alertSeverity}
+                  onClose={() => setShowAlert(false)}
+                >
+                  {alert}
+                </Alert>
+              )}
+            </div>
+          </div>
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -40,22 +115,20 @@ export const EditSchoolItemPage = () =>{
                   <p className="text-center">PLEASE FILL IN THE REQUIRED DETAILS</p>
                 </div>
 
-               <form action="">
+               <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row  mx-2">
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="p-2">Name</label>
-                        <input className="admin-input form-dark py-2 px-3" type="text" placeholder="Enter name..."  value={name} onChange={(e) => setName(e.target.value)}/>
+                        <input className={`form-control delete-student-input form-dark ${errors.name ? 'error-input' : ''}`} {...register('name', {required: true})} placeholder="Enter name..."  value={name} onChange={(e) => setName(e.target.value)}/>
+                        {errors.name && <span style={{color: 'red'}}>This Feild is required</span>}
                       </div>
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="p-2">Amount</label>
-                        <input className="admin-input form-dark py-2 px-3" type="text" placeholder="Enter Amount.."  value={amount} onChange={(e) => setAmount(e.target.value)}/>
-                      </div>
-                      <div className="col-md-6 mt-3">
-                        <label htmlFor="" className="p-2">Image</label>
-                        <input className="admin-input form-dark py-2 px-3" type="file" placeholder="Search Teacher ID..." onChange={handleImgFile}/>
+                        <input className={`form-control delete-student-input form-dark ${errors.amount ? 'error-input' : ''}`} {...register('amount', {required: true})}  placeholder="Enter Amount.."  value={amount} onChange={(e) => setAmount(e.target.value)}/>
+                        {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>}
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <button className="admin-btn py-2 px-5">Update</button>
+                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "update"}</button>
                         
                       </div>
                   </div>

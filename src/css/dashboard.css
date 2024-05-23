@@ -7,6 +7,9 @@
 .cursor-pointer{
   cursor: pointer;
 }
+.text-center{
+  text-align: center;
+}
 
 p{
   margin: 0;
@@ -401,6 +404,7 @@ a{
   z-index: 10000000000;
 
 }
+
 .sidebar-list{
   overflow-y: auto ;
 }
@@ -685,6 +689,17 @@ tbody tr:nth-child(even){
 
 
 /* ----------------------------- Universal ---------------------------*/
+
+
+
+
+
+
+
+
+
+
+
 .alert-container {
   position: fixed;
   top: 0;
@@ -744,6 +759,19 @@ tbody tr:nth-child(even){
 .error-input{
   border-color: red;
 }
+.admin-dashboard-sub-icon{
+  background-color: #0A6847;
+  border-radius: 50px;
+
+}
+.admin-dashboard-sub-icon:hover{
+  color: #fff;
+}
+
+.admin-home-header{
+  max-height: 100%;
+}
+
 
 /* ------------------------------View  AllStudent --------------------*/
 
@@ -797,10 +825,12 @@ tbody tr:nth-child(even){
 
 /* ------------------------- ViewSchoolItems -------------------------- */
 .view-schoolitems-table img{
-  width: 30px;
+  width: 40px;
   border-radius: 50%;
+  height: 40px;
 
 }
+
 
 
 

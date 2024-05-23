@@ -53,7 +53,7 @@ export const  Navbar = () =>{
             </li>
 
             <li className="nav-item">
-              <Link to="/contact" className={`nav-link p-4 text-white ${isActive("/contact") ?"current": ""}`}>CONTACT US</Link>
+              <Link to="/contact" width='100%' className={`nav-link p-4 text-white ${isActive("/contact") ?"current": ""}`}>CONTACT US</Link>
             </li>
           </ul>
 

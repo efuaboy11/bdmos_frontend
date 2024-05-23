@@ -1,7 +1,5 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link, useNavigate } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Alert } from "@mui/material"

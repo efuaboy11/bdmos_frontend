@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Alert, CircularProgress } from "@mui/material"
+import { useForm } from "react-hook-form"
 
 export const EditStudentPage = () =>{
   const {authTokens, details} = useContext(AuthContext)
@@ -26,25 +27,40 @@ export const EditStudentPage = () =>{
   const [city, setCity] = useState(details ? details.city_or_town : "")
   const [previousSChool, setPreviousSchool] = useState(details ? details.previous_school : "")
   const [disability, setDisability] = useState(details ? details.disability_note : "")
-  const [passportFile, setPassportFile] = useState(details ? details.passport : null);
+  // const [passportFile, setPassportFile] = useState(details ? details.passport : null);
 
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
   const [loader, setLoader] = useState("")
   const [classes, setClasses] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const [disablebutton, setdisablebutton] = useState(false)
 
   // Event handler for when file input value changes
-  const handlePassportFile = (event) => {
-    // Check if any file is selected
-    if (event.target.files.length > 0) {
-      // Access the selected file (first file in the array)p6
-      const file = event.target.files[0];
-      setPassportFile(file); // Update selectedFile state with the selected file
-    } else {
-      setPassportFile(null); // Reset selectedFile if no file is selected
+  // const handlePassportFile = (event) => {
+  //   // Check if any file is selected
+  //   if (event.target.files.length > 0) {
+  //     // Access the selected file (first file in the array)p6
+  //     const file = event.target.files[0];
+  //     setPassportFile(file); // Update selectedFile state with the selected file
+  //   } else {
+  //     setPassportFile(null); // Reset selectedFile if no file is selected
+  //   }
+  // };
+
+  const onSubmit = (data, e) =>{
+    e.preventDefault()
+    setdisablebutton(true)
+    if(isValid){
+    
+      console.log(data)
+      updateStudent(e)
+    }else{
+      console.log('error')
+      setdisablebutton(false)
     }
-  };
+  }
 
   const getClasses = async() => {
     try {
@@ -93,7 +109,7 @@ export const EditStudentPage = () =>{
     formData.append("city_or_town", city);
     formData.append("previous_school", previousSChool);
     formData.append("disability_note", disability);
-    formData.append("passport", passportFile);
+    // formData.append("passport", passportFile);
 
     console.log(formData)
 
@@ -111,13 +127,16 @@ export const EditStudentPage = () =>{
         console.log('sucess')
         setAlertSeverity("success")
         setLoader(false)
+        setdisablebutton(false)
       }else{
         const errorData = await response.json()
         const errorMessage = errorData.error
         setShowAlert(true)
-        setAlert(errorMessage)
+        setAlert('There an error in processing your data')
         setAlertSeverity("error")
         console.log(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
       }
     } catch (error) {
       console.log(error)
@@ -134,7 +153,7 @@ export const EditStudentPage = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content ">
-      <div className="alert-container">
+        <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
               <Alert
@@ -156,11 +175,12 @@ export const EditStudentPage = () =>{
         </section>
 
         <section className="container-lg">
-          <form action="">
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-3 add-student">
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">First Name <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.firstName ? 'error-input' : ''}`} {...register('firstName', {required: true})}   value={firstName} onChange={(e) => setFirstName(e.target.value.toLowerCase())}/>
+                {errors.firstName && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
@@ -170,31 +190,36 @@ export const EditStudentPage = () =>{
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Last Name <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.lastName ? 'error-input' : ''}`} {...register('lastName', {required: true})} value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                {errors.lastName && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">DOB <span className="red-text">*</span></label>
-                <input type="date" className="form-control compulsory form-dark" id="student-first-name" value={DOB} onChange={(e) => setDOB(e.target.value)}/>
+                <input type="date" className={`form-control  form-dark ${errors.DOB ? 'error-input' : ''}`} {...register('DOB', {required: true})} value={DOB} onChange={(e) => setDOB(e.target.value)}/>
+                {errors.DOB && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Sex <span className="red-text">*</span></label>
-                <select id="inputSex" className="form-select form-control compulsory form-dark" value={sex} onChange={(e) => setSex(e.target.value)}>
+                <select  className={`form-control form-select form-dark ${errors.sex ? 'error-input' : ''}`} {...register('sex', {required: true})} value={sex} onChange={(e) => setSex(e.target.value)}>
                   <option></option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
+                {errors.sex && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Father Name <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={fatherName} onChange={(e) => setFatherName(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.fatherName ? 'error-input' : ''}`} {...register('fatherName', {required: true})} value={fatherName} onChange={(e) => setFatherName(e.target.value)}/>
+                {errors.fatherName && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Mother Name <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={motherName} onChange={(e) => setMotherName(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.motherName ? 'error-input' : ''}`} {...register('motherName', {required: true})} value={motherName} onChange={(e) => setMotherName(e.target.value)}/>
+                {errors.motherName && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
 
@@ -205,18 +230,20 @@ export const EditStudentPage = () =>{
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Parent Phone Number <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={parentNumber} onChange={(e) => setParetNumber(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.phoneNumber ? 'error-input' : ''}`} {...register('phoneNumber', {required: true})} value={parentNumber} onChange={(e) => setParetNumber(e.target.value)}/>
+                {errors.phoneNumber && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Parent Email <span className="red-text">*</span></label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}/>
+                {errors.parentEmail && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                   <label for="inputState" className="form-label">State of origin <span className="red-text">*</span></label>
-                  <select id="inputState" className="form-select form-control compulsory form-dark "value={SOG} onChange={(e) => setSOG(e.target.value)}>
-                  <option></option>
+                  <select id="inputState" className={`form-control  form-dark ${errors.SOG ? 'error-input' : ''}`} {...register('SOG', {required: true})} value={SOG} onChange={(e) => setSOG(e.target.value)}>
+                    <option></option>
                     <option>Abia</option>
                     <option value="adamawa">Adamawa</option>
                     <option value="akwa ibom">Akwa ibom</option>
@@ -252,40 +279,45 @@ export const EditStudentPage = () =>{
                     <option value="taraba">Taraba</option>
                     <option value="yobe">Yobe</option>
                   </select>
+                  {errors.SOG && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">Religion <span className="red-text">*</span></label>
-                <select id="inputSex" className="form-select form-control compulsory form-dark" value={religion} onChange={(e) => setReligion(e.target.value)}>
+                <select className={`form-control form-select  form-dark ${errors.religion ? 'error-input' : ''}`} {...register('religion', {required: true})} value={religion} onChange={(e) => setReligion(e.target.value)}>
                   <option></option>
                   <option value="christian">Christian</option>
                   <option value="muslim">Muslim</option>
                   <option value="others">others</option>
-                </select>
+                  </select>
+                  {errors.religion && <span style={{color: 'red'}}>This Feild is required</span>}  
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label for="inputDisability" className="form-label">Disabily <span className="red-text">*</span></label>
-                <select id="inputDisability" className="form-select form-control compulsory form-dark" value={disabilityOption} onChange={(e) => setDisabilityOption(e.target.value)}>
+                <select className={`form-control form-select form-dark ${errors.disabilityOption ? 'error-input' : ''}`} {...register('disabilityOption', {required: true})} value={disabilityOption} onChange={(e) => setDisabilityOption(e.target.value)}>
                   <option></option>
                   <option value="no">No</option>
                   <option value="yes">Yes</option>
                 </select>
+                {errors.disabilityOption && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label for="inputDisability" className="form-label">Class <span className="red-text">*</span></label>
-                <select className={`form-control form-select form-dark`} value={classOption} onChange={(e) => setClassOption(e.target.value)}>
-                  <option selected></option>
+                <select className={`form-control form-select form-dark ${errors.classOption ? 'error-input' : ''}`} {...register('classOption', {required: true})} value={classOption} onChange={(e) => setClassOption(e.target.value)}>
+                  <option ></option>
                   {classes && classes.map((clas) => (
                     <option value={clas.id} key={clas.id}>{clas.name}</option>
                   ))}
                 </select>
+                {errors.classOption && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label htmlFor="" className="form-label">City/Town</label>
-                <input type="text" className="form-control compulsory form-dark" id="student-first-name" value={city} onChange={(e) => setCity(e.target.value)}/>
+                <input type="text" className={`form-control  form-dark ${errors.city ? 'error-input' : ''}`} {...register('city', {required: true})} value={city} onChange={(e) => setCity(e.target.value)}/>
+                {errors.city && <span style={{color: 'red'}}>This Feild is required</span>}
               </div>
 
               <div className="col-lg-4 col-xxl-3 col-md-6">
@@ -298,14 +330,15 @@ export const EditStudentPage = () =>{
                 <textarea className="form-control form-dark" id="diabilityYes" rows="3"  value={disability} onChange={(e) => setDisability(e.target.value)}></textarea>
               </div>
 
-              <div className="col-lg-4 col-xxl-3 col-md-6">
+              {/* <div className="col-lg-4 col-xxl-3 col-md-6">
                 <label for="formFileLg" className="form-label">(Passpot)</label>
-                <input className="form-control form-control-lg compulsory form-dark" id="formFileLg" type="file" onChange={handlePassportFile} />
-              </div>
+                <input className={`form-control  form-dark ${errors.passportFile ? 'error-input' : ''}`} {...register('passportFile')} type="file" onChange={handlePassportFile} />
+                {errors.passportFile && <span style={{color: 'red'}}>This Feild is required</span>}
+              </div> */}
             </div>
 
             <div className="py-4">
-              <button className="admin-btn py-2 px-5" onClick={updateStudent}>{loader ? <CircularProgress color="inherit"/> : "Update"}</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
             </div>
            
           </form>

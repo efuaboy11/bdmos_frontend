@@ -23,7 +23,7 @@ export const AddClass = () =>{
             </div>
 
 
-            <section className="y">
+            <section>
               <div className="boxing-shadow ">
                 <div className="navyblue-blackground-dash py-4">
                   <p className="text-center">PLEASE ENTER THE CLASS NAME YOU WANT TO ADD AND SELECT THE SUBJECT</p>
@@ -32,7 +32,7 @@ export const AddClass = () =>{
 
                 <div className="row mx-2">
                   <div className="col-md-11 mt-5">
-                    <input className="delete-student-input form-dark py-2 px-3" type="text" placeholder="Enter Session..."/>
+                    <input className="delete-student-input form-dark py-2 px-3" type="text" placeholder="Enter class Name..."/>
                   </div>
 
 

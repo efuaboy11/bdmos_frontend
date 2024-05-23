@@ -2,16 +2,19 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext, useState } from "react"
-import AuthContext from "../../context/AuthContext"
-import { Alert } from "@mui/material"
+import { useContext, useEffect, useState } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import AuthContext from "../../context/AuthContext"
 
-export const DeleteStudent = () =>{
-  const [studentID, setStudentID] = useState("")
+
+export const DeleteParent = () =>{
+  const [parentName, setParentName] = useState('')
   const {authTokens} = useContext(AuthContext)
-  
+
+
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
@@ -25,14 +28,14 @@ export const DeleteStudent = () =>{
     if(isValid){
     
       console.log(data)
-      deleteUser(e)
+      deleteParent(e)
     }else{
       console.log('error')
       setdisablebutton(false)
     }
   }
 
-  const deleteUser = async (e) => {
+  const deleteParent = async (e) => {
     e.preventDefault();
     if(loader){
       setLoader(false)
@@ -41,7 +44,7 @@ export const DeleteStudent = () =>{
     }
 
     try {
-      let response = await fetch(`https://bdmos.onrender.com/api/students/${studentID}/`, {
+      let response = await fetch(`https://bdmos.onrender.com/api/students/${parentName}/`, {
         method: "DELETE",
         headers: {
           Authorization:`Bearer ${authTokens.access}`
@@ -55,6 +58,7 @@ export const DeleteStudent = () =>{
         setLoader(false)
         setdisablebutton(false)
         console.log('sucess')
+        setParentName('')
       } else {
         let errorData = await response.json();
         const errorMessage = errorData.error
@@ -70,7 +74,6 @@ export const DeleteStudent = () =>{
       alert("An error occurred while trying to delete the user. Please try again.");
     }
   };
-
 
 	return(
 		<div>
@@ -95,11 +98,11 @@ export const DeleteStudent = () =>{
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>Delete Student</h5>
+                <h5>delete Parent</h5>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
 							  <Link to="" >Dashboard /  </Link>
-                <Link>  View Student profile</Link>
+                <Link>  View Parent</Link>
 						  </div>
             </div>
 
@@ -113,8 +116,8 @@ export const DeleteStudent = () =>{
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row justify-content-center mx-2">
                     <div className="col-md-10 mt-5">
-                      <input className={`form-control delete-student-input form-dark ${errors.studentID ? 'error-input' : ''}`} {...register('studentID', {required: true})} value={studentID} onChange={(e) => setStudentID(e.target.value)}type="text" placeholder="Search Student ID..."/>
-                      {errors.studentID && <span style={{color: 'red'}}>This Feild is required</span>}
+                      <input className={`form-control delete-student-input form-dark ${errors.deleteParent ? 'error-input' : ''}`} {...register('deleteParent', {required: true})} value={deleteParent} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mary Mark"/>
+                      {errors.deleteParent && <span style={{color: 'red'}}>This Feild is required</span>}
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">
                       <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
@@ -134,4 +137,9 @@ export const DeleteStudent = () =>{
       </section>
 		</div>
 	)
+  
+
+ 
+
+
 }

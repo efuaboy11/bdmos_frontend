@@ -38,6 +38,7 @@ export const AdminDashFrame = () =>{
     const [isOpen, setIsOpen] = useState(false);
     const [isStudentDropdownOpen, setIsStudentDropdownOpen] = useState(false)
     const [isTeacherDropdownOpen, setIsTeacherDropdownOpen] = useState(false)
+    const [isParentDropdownOpen, setIsParentDropdownOpen] = useState(false)
     const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false)
     const [isSchoolItemDropdownOpen, setIsSchoolItemDropdownOpen] = useState(false)
     const [isSchoolResultDropdownOpen, setIsSchoolResultDropdownOpen] = useState(false)
@@ -61,6 +62,10 @@ export const AdminDashFrame = () =>{
 
     const toogleTeacherDropdown = () =>{
       setIsTeacherDropdownOpen(!isTeacherDropdownOpen)
+    }
+
+    const toogleParentDropdown = () =>{
+      setIsParentDropdownOpen(!isParentDropdownOpen)
     }
     
     const tooAccountDropdown = () =>{
@@ -146,6 +151,27 @@ export const AdminDashFrame = () =>{
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/editTeacher") ?"active-dash-link": ""}`}>
                   <Link to="/admin/editTeacher">Edit Teacher</Link> 
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewAllParent") ?"active-dash-link": ""} dropdown-position`}>
+            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <Link to="/admin/viewAllParent" className={`payments`}>All PARENTS</Link>    
+            <FontAwesomeIcon icon={faAngleDown} className={`${isParentDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleParentDropdown}/> 
+            <div style={{ display: isParentDropdownOpen ? 'block' : 'none' }}>
+              <ul className="ps-4">
+                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/addParent") ?"active-dash-link": ""}`}>
+                  <Link to="/admin/addParent">Add Parent</Link> 
+                </li>
+
+                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/deleteParent") ?"active-dash-link": ""}`}>
+                  <Link to="/admin/deleteParent">Delete Parent</Link> 
+                </li>
+
+                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/editParent") ?"active-dash-link": ""}`}>
+                  <Link to="/admin/editParent">Edit Parent</Link> 
                 </li>
               </ul>
             </div>
