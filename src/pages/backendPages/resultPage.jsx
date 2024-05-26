@@ -2,7 +2,7 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
+  import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
 
 export const ResultPage = () =>{
 	return(
@@ -104,11 +104,11 @@ export const ResultPage = () =>{
             
             <div>
               <div className="pt-5 pb-1">
-                <div className="result-page-result-table row">
+                <div className=" row">
                   <div className="col-xxl-12">
                     <div className="row g-2">
                       <div className="col-lg-9">
-                        <div className="scroll-bar  non-wrap-text z">
+                        <div className="scroll-bar  non-wrap-text result-page-table">
                           <table className="border">
                             <thead >
                               <tr>

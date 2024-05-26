@@ -89,7 +89,7 @@ export const EditSchoolItem = () =>{
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row justify-content-center mx-2">
                     <div className="col-md-10 mt-5">
-                      <input className={`form-control delete-student-input form-dark ${errors.item ? 'error-input' : ''}`} {...register('item', {required: true})} placeholder="Search Item..." value={item} onChange={(e) => setItem(e.target.value)}/>
+                      <input className={`form-control delete-student-input form-dark ${errors.item ? 'error-input' : ''}`} {...register('item', {required: true})} placeholder="Search Item ID..." value={item} onChange={(e) => setItem(e.target.value)}/>
                       {errors.item && <span style={{color: 'red'}}>This Feild is required</span>}
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">

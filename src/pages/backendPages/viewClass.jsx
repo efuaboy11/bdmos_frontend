@@ -32,9 +32,7 @@ export const ViewClass = () =>{
                   <input type="text" className=" p-2 form-dark border-radius admin-input" placeholder="Search by Class..."  value={className} onChange={(e) => setClassName(e.target.value)}/>
                 </div>
 
-                <div className="col-sm-1 mb-3">
-                  <input type="submit" className=" p-2 form-dark border-radius"/>
-                </div>
+
               </div>            
             </form> 
 

@@ -2,6 +2,13 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useState, useContext } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import CircularProgress from '@mui/material/CircularProgress';
+import AuthContext from "../../context/AuthContext"
+
 
 export const AddClass = () =>{
 	return(
@@ -116,83 +123,6 @@ export const AddClass = () =>{
                   </div>
                 </div>
 
-                <div className="m-4 p-3 add-class-nursery non-wrap-text">
-                  <p className="pb-4">Primary Subject</p>
-                  <div className="row">
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox"/>
-                        <p  className="px-4">Number Work</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Letter  Work</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Phonices</p>
-                      </div>
-                    </div>
-
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Nature Talk</p>
-                      </div>
-                    </div>
-
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Social Habit</p>
-                      </div>
-                    </div>
-
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">C.R.S</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Computer</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Hand Writing</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Fine Art</p>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-sm-6 col-md-2">
-                      <div className="d-flex">
-                        <input type="checkbox" />
-                        <p className="px-4">Rhythms</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 <div className=" ps-4 pt-3 pb-5 mb-4">
                     <input className="admin-btn py-2 px-5" type="submit" />                    

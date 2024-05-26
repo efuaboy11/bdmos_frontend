@@ -255,15 +255,12 @@ export const AdminDashFrame = () =>{
             </div>            
           </li>
 
-          <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/schoolItems") ?"active-dash-link": ""} dropdown-position`}>
+          <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/uploadEvent") ?"active-dash-link": ""} dropdown-position`}>
             <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
-            <Link to="/schoolItems">UPLOAD ITEMS</Link>
+            <Link to="/admin/uploadEvent">UPLOAD EVENT</Link>
             <FontAwesomeIcon icon={faAngleDown} className={`${isUploadItemsDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleUploadItemDropdownOpen}/> 
             <div style={{ display: isUploadItemsDropdownOpen ? 'block' : 'none' }}>
               <ul className="ps-4">
-                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/uploadEvent") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/uploadEvent">Upload Event</Link> 
-                </li>
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/uploadNotification") ?"active-dash-link": ""}`}>
                   <Link to="/admin/uploadNotification">Upload Notification</Link> 
@@ -280,15 +277,12 @@ export const AdminDashFrame = () =>{
             </div>            
           </li>
 
-          <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/schoolItems") ?"active-dash-link": ""} dropdown-position`}>
+          <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/ViewEventUploads") ?"active-dash-link": ""} dropdown-position`}>
             <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
-            <Link to="/schoolItems">VIEW UPLOADS</Link>
+            <Link to="/admin/ViewEventUploads">EVENT UPLOADS</Link>
             <FontAwesomeIcon icon={faAngleDown} className={`${isViewUploadDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleViewUploadDRopdownOpen}/> 
             <div style={{ display: isViewUploadDropdownOpen ? 'block' : 'none' }}>
               <ul className="ps-4">
-                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/ViewEventUploads") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/ViewEventUploads">Event Upload </Link> 
-                </li>
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/ViewNotificationUploads") ?"active-dash-link": ""}`}>
                   <Link to="/admin/ViewNotificationUploads">Notification Upload </Link> 
@@ -380,7 +374,7 @@ export const AdminDashFrame = () =>{
       </div>
 
 
-      <div className={`dashboard-content ${overlay ? "overlay-background" : ""} `}>
+      <div className={`dashboard-content  ${overlay ? "overlay-background" : ""} `}>
         <nav className="text-light d-flex align-items-center justify-content-between">
           <div className="menu-bar mx-3" onClick={showSidebar}><FontAwesomeIcon icon={faBars} className="sm-text dashboard-menu-bar"/> </div>
           <div className="d-flex align-items-center">

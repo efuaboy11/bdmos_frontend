@@ -4,14 +4,26 @@ import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
+import CircularProgress from '@mui/material/CircularProgress';
+import { Alert } from "@mui/material"
 
 export const ViewPictureUploaded= () =>{
-
   const {authTokens, details} = useContext(AuthContext)
-
-
+  
   const [ID, setID] = useState("")
   const [datas, setdatas] = useState([])
+
+  const [showModal, setShowModal] = useState(false)
+  const [selectedPictureID, setSelectedPictureID] = useState(null)
+
+  const [alerts, setAlerts] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
+
+
+
 
   const getPicture = async() => {
     let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
@@ -31,6 +43,53 @@ export const ViewPictureUploaded= () =>{
     }
   }
 
+  const showDeleteModal = (id) => {
+    setSelectedPictureID(id)
+    setShowModal(true)
+  }
+
+  const hideDeleteModal = () => {
+    setShowModal(false)
+    setSelectedPictureID(null)
+  }
+
+  const deletePicture = async () => {
+    setdisablebutton(true)
+
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+    let response = await fetch(`https://bdmos.onrender.com/api/school_photos/${selectedPictureID}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    if (response.ok) {
+      setShowAlert(true)
+      setAlerts("Picture deleted Sucessfully")
+      setAlertSeverity('success')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log('sucess')
+      setdatas(datas.filter(dat => dat.id !== selectedPictureID))
+      setShowModal(false)
+    } else {
+      let errorData = await response.json();
+      const errorMessage = errorData.error
+      setShowAlert(true)
+      setAlerts('There is an error in processing your data')
+      setAlertSeverity('error')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log(errorMessage)
+    }
+  }
+
+
   useEffect(() =>{
     getPicture()
   },[datas])
@@ -43,6 +102,37 @@ export const ViewPictureUploaded= () =>{
       </div>
 			<section>
         <div className="main-content">
+          <div className="alert-container">
+            <div className="alert-position">
+              {showAlert && (
+                <Alert
+                  severity={alertSeverity}
+                  onClose={() => setShowAlert(false)}
+                >
+                  {alerts}
+                </Alert>
+              )}
+            </div>
+          </div>
+
+         {showModal &&
+            <section>
+              <div className="admin-modal-container">
+                <div className="admin-modal-content">
+                  <h5>Delete picture?</h5>
+                  <hr />
+                  <p>This will delete the Picture.</p>
+                  <div className="d-flex justify-content-between py-3">
+                    <div></div>
+                    <div>
+                      <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
+                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deletePicture}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -93,7 +183,9 @@ export const ViewPictureUploaded= () =>{
                         <td>{data.id}</td>
                         <td>{data.discription}</td>
                         <td>{data.date}</td>
-                        <td> {<FontAwesomeIcon className="text-center" icon={faTrashCan}/>}</td>             
+                        <td onClick={() => showDeleteModal(data.id)}>
+                          <FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} />
+                        </td>
                       </tr>
                       ))}
 

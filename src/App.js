@@ -66,6 +66,7 @@ import { DeleteParent } from './pages/backendPages/deleteParent';
 import { EditParent } from './pages/backendPages/editParent';
 import { ViewAllParent } from './pages/backendPages/viewAllParent';
 import { EditParentPage } from './pages/backendPages/editParentPage';
+import { ViewResultPage } from './pages/backendPages/viewResultPage';
 ;
 
 
@@ -133,7 +134,7 @@ function App() {
               <Route path='/admin/editStudent/:id' element={<EditStudentPage/>}/>   
               <Route path='/admin/editTeacher/:id' element={<EditTeacherPage/>}/>   
               <Route path='/admin/editParent/:id' element={<EditParentPage/>}/>   
-              
+              <Route path='/admin/viewResultPage/' element={<ViewResultPage/>}/>   
               <Route path='/admin/editSchoolItem/:id' element={<EditSchoolItemPage/>}/>
               <Route path='/admin/resultPage' element={<ResultPage/>}/>
               <Route path='/admin/uploadScheme' element={<UploadScheme/>}/>

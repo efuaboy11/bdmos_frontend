@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Pie } from "react-chartjs-2"
 import picture from "../../img/Untitled__1_-removebg-preview.png"
+import pic from "../../img/pic1.jpg"
 
 export const AdminDashHome = () =>{
   return(
@@ -17,11 +18,13 @@ export const AdminDashHome = () =>{
         <div className="container-lg">
           <div className="d-flex justify-content-between align-items-center admin-home-header">
             <div>
-              <h1 className="pt-5 leSnake l-text">Welcome Admin!</h1> 
-              <p>How can we be off help today?</p>
+              <h1 className="pt-5  admin-head-text">Hi,  Admin!</h1> 
+              <h6>Ready to start your day with some pitch decks</h6>
             </div>
-
-            <img src={picture}  alt="" width='270px' className="pt-5"/>
+            <div className="d-none d-lg-block">
+              <img src={picture}  alt="" width='270px' className="pt-5"/>
+            </div>
+            
 
           </div>
           <div className="row py-3">
@@ -118,23 +121,39 @@ export const AdminDashHome = () =>{
 
 
         </div>
-        <div className="row justify-content-evenly container">
-          <div className="col-5 navyblue-blackground-dash">
-            <p className="py-3">Number Of Students</p>
-            <BarchartFrame />
-          </div>
+        <div className="admin-chart-container mx-3">
+          <div className="row  py-3">
+            <div className="col-xxl-12">
+              <div className="row g-5">
+                <div className="col-lg-6 col-12 ">
+                  <div className="navyblue-blackground-dash pt-3">
+                    <p className="p-3">Number Of Students</p>
+                    <BarchartFrame />
+                  </div>
 
-          <div className="col-5 navyblue-blackground-dash ">
-            <p className="py-3">Number Of Students</p>
-            <div className="m-width d-flex justify-content-center pb-3">
-             <PieChartFrame />
+                </div>
+
+                <div className="col-lg-6 col-12 ">
+                  <div className="navyblue-blackground-dash p-3">
+                    <p className="py-3">Number Of Students</p>
+                    <div className="admin-pie-chart-container ">
+                      <PieChartFrame/>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
             </div>
 
+
+
+
           </div>
+
         </div>
 
         
-        <section className="container-lg py-5 ">
+        <section className="container-lg py-5 non-wrap-text">
           <div className="table-responsive navyblue-blackground-dash">
             <p className=" ps-3 py-2">Recently Added Student</p>
             <table className="table1">
@@ -216,75 +235,145 @@ export const AdminDashHome = () =>{
             </table>
 
             <div className="payment-link my-2">
-              <Link to="/paymentHistory " className="button-dashboard">View All</Link>
+              <Link to="/admin/viewAllStudent " className="button-dashboard">View All</Link>
               </div>
           </div>
 
         </section>
 
-        <section className="container-lg row">
-          <div className="col-5">
-            <div className="scroll-bar-x navyblue-blackground-dash non-wrap-text">
-              <p className=" ps-3 py-2">Recently Added Teacher</p>
-              <table className="table1">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Mobile Number</th>
-                    <th>Address</th>
-                  </tr>
-                </thead>
+        <section className="container-lg">
+          <div className="row">
+            <div className="col-xxl-12">
+              <div className="row g-3">
+                <div className="col-md-9">
+                  <div className="scroll-bar-x admin-home-teacher-table-container navyblue-blackground-dash non-wrap-text">
+                    <p className=" ps-3 py-2">Recently Added Teacher</p>
+                    <table className="table1">
 
-                <tbody className="admin-home-table">
-                  <tr>
-                    <td>SBHSISE234</td>
-                    <td>John Doe</td>
-                    <td>Basic one Teacher</td>
-                    <td>080729022633</td>
-                    <td>22 john perkin street, london</td>
-                  </tr>
+                      <tbody className="">
+                        <div className="admin-home-teacher-table">
+                          <tr>
+                            <td>SBHSISE234</td>
+                            <td>John Doe</td>
+                            <td>Basic one Teacher</td>
+                            <td>080729022633</td>
+                            <td>22 john perkin street, london</td>
+                          </tr>
+                        </div>
 
-                  <tr>
-                    <td>SBHSISE234</td>
-                    <td>John Doe</td>
-                    <td>Basic one Teacher</td>
-                    <td>080729022633</td>
-                    <td>22 john perkin street, london</td>
-                  </tr>
 
-                  <tr>
-                    <td>SBHSISE234</td>
-                    <td>John Doe</td>
-                    <td>Basic one Teacher</td>
-                    <td>080729022633</td>
-                    <td>22 john perkin street, london</td>
-                  </tr>
+                        <div className="admin-home-teacher-table">
+                          <tr>
+                            <td>SBHSISE234</td>
+                            <td>John Doe</td>
+                            <td>Basic one Teacher</td>
+                            <td>080729022633</td>
+                            <td>22 john perkin street, london</td>
+                          </tr>
+                        </div>
 
-                  <tr>
-                    <td>SBHSISE234</td>
-                    <td>John Doe</td>
-                    <td>Basic one Teacher</td>
-                    <td>080729022633</td>
-                    <td>22 john perkin street, london</td>
-                  </tr>
+                        <div className="admin-home-teacher-table">
+                          <tr>
+                            <td>SBHSISE234</td>
+                            <td>John Doe</td>
+                            <td>Basic one Teacher</td>
+                            <td>080729022633</td>
+                            <td>22 john perkin street, london</td>
+                          </tr>
+                        </div>
 
-                  <tr>
-                    <td>SBHSISE234</td>
-                    <td>John Doe</td>
-                    <td>Basic one Teacher</td>
-                    <td>080729022633</td>
-                    <td>22 john perkin street, london</td>
-                  </tr>
-                </tbody>
-              </table>
+                        <div className="admin-home-teacher-table">
+                          <tr>
+                            <td>SBHSISE234</td>
+                            <td>John Doe</td>
+                            <td>Basic one Teacher</td>
+                            <td>080729022633</td>
+                            <td>22 john perkin street, london</td>
+                          </tr>
+                        </div>
 
-              <div className="payment-link my-2">
-                <Link to="/paymentHistory " className="button-dashboard">View All</Link>
+                        
+                        <div className="admin-home-teacher-table">
+                          <tr>
+                            <td>SBHSISE234</td>
+                            <td>John Doe</td>
+                            <td>Basic one Teacher</td>
+                            <td>080729022633</td>
+                            <td>22 john perkin street, london</td>
+                          </tr>
+                        </div>
+                      </tbody>
+                    </table>
+
+                    <div className="payment-link my-2">
+                      <Link to="/admin/viewAllTeacher" className="button-dashboard">View All</Link>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="col-md-3">
+                  <div className="admin-home-school-item-container p-3">
+                    <h6 className="py-2">Recent School Items</h6>
+
+                    <div className="mt-3 admin-home-school-item-box">
+                      <div className="d-flex justify-content-between"> 
+                        <div>
+                          <h6>Name: Bag</h6>
+                          <p>Amount: 5000</p>
+                        </div>
+                        <div>
+                          <img src={pic} alt=""/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 admin-home-school-item-box">
+                      <div className="d-flex justify-content-between"> 
+                        <div>
+                          <h6>Name: Bag</h6>
+                          <p>Amount: 5000</p>
+                        </div>
+                        <div>
+                          <img src={pic} alt=""/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 admin-home-school-item-box">
+                      <div className="d-flex justify-content-between"> 
+                        <div>
+                          <h6>Name: Bag</h6>
+                          <p>Amount: 5000</p>
+                        </div>
+                        <div>
+                          <img src={pic} alt=""/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 admin-home-school-item-box">
+                      <div className="d-flex justify-content-between"> 
+                        <div>
+                          <h6>Name: Bag</h6>
+                          <p>Amount: 5000</p>
+                        </div>
+                        <div>
+                          <img src={pic} alt=""/>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                    <div className="payment-link my-3">
+                      <Link to="/admin/viewSchooltItem" className="admin-home-school-item-button">View All</Link>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
+
 
 
         </section>
@@ -294,6 +383,8 @@ export const AdminDashHome = () =>{
         </section>
 
       </div>
+
+      
 
     </div>
 

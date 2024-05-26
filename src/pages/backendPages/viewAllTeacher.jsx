@@ -92,7 +92,7 @@ export const ViewAllTeacher = () =>{
             </div>
 
             <form action="">
-              <div className="row  justify-content-evenly">
+              <div className="row  g-3">
                 <div className="col-sm-3 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius view-teacher-input " placeholder="Search by ID..." value={teacherID} onChange={(e) => setTeacherID(e.target.value)}/>
                 </div>

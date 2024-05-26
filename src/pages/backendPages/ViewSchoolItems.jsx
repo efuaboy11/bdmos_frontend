@@ -56,17 +56,13 @@ export const ViewStudentItems = () =>{
             </div>
 
             <form action="">
-              <div className="row add-student justify-content-evenly">
-                <div className="col-sm-3 mb-4">
+              <div className="row add-student g-3">
+                <div className="col-sm-4 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by ID..." value={ID} onChange={(e) => setID(e.target.value)}/>
                 </div>
 
-                <div className="col-sm-3 mb-4">
+                <div className="col-sm-4 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Name..." value={itemName} onChange={(e) => setItemName(e.target.value)}/>
-                </div>
-
-                <div className="col-sm-1 mb-3">
-                  <input type="submit" className=" p-2 form-dark border-radius"/>
                 </div>
               </div>            
             </form> 

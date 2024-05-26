@@ -2,7 +2,7 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
@@ -15,6 +15,7 @@ export const UploadNotification = () =>{
 
 
   const [teacherName, setTeacherName] = useState("")
+  const [teacherDatas, setTeacherDatas] = useState([])
   const [date, setDate] = useState("")
   const [text, setText] = useState("")
 
@@ -37,6 +38,27 @@ export const UploadNotification = () =>{
       setdisablebutton(false)
     }
   }
+
+
+  const getTeachers = async() =>{
+    let response = await fetch("https://bdmos.onrender.com/api/teachers/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setTeacherDatas(data)
+    }else{
+      console.log(response.statusText)
+    }
+
+  }
+
 
   const addNotification = async(e) =>{
     e.preventDefault()
@@ -88,6 +110,10 @@ export const UploadNotification = () =>{
 
   }
 
+  useEffect(() =>{
+    getTeachers()
+  }, [teacherDatas])
+
 
 
 	return(
@@ -131,7 +157,18 @@ export const UploadNotification = () =>{
                   <div className="row  mx-2">
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="p-2">Teachers Name</label>
-                        <input className={`form-control  form-dark ${errors.teacherName ? 'error-input' : ''}`} {...register('teacherName', {required: true})} type="text" placeholder="Enter name..."  value={teacherName} onChange={(e) => setTeacherName(e.target.value)}/>
+                        <select className={`form-control form-select form-dark ${errors.teacherName ? 'error-input' : ''}`} {...register('teacherName', {required: true})} type="text" placeholder="Enter name..."  value={teacherName} onChange={(e) => setTeacherName(e.target.value)}>
+                          <option></option>
+                          {teacherDatas.map((teacherData) =>(
+
+                            <option value={teacherData.id} key={teacherData.id}>{teacherData.first_name} {teacherData.last_name}</option>
+                          ))
+
+
+                          
+                          
+                          }
+                        </select>
                         {errors.teacherName && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
                       <div className="col-md-6 mt-3">

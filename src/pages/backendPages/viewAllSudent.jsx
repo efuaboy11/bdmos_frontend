@@ -91,7 +91,7 @@ export const ViewAllStudents = () =>{
             </div>
 
             <form action="">
-              <div className="row add-student justify-content-evenly">
+              <div className="row add-student g-3">
                 <div className="col-sm-3 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by ID..."  value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
                 </div>

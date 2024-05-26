@@ -48,7 +48,7 @@ export const UploadPicture = () =>{
     const formData = new FormData()
     formData.append('image', img);
     formData.append('date', date);
-    formData.append('description', description);
+    formData.append('discription', description);
     console.log(formData)
 
     try{
@@ -124,7 +124,7 @@ export const UploadPicture = () =>{
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
 							  <Link to="/admin" >Dashboard /  </Link>
-                <Link to='/admin/ViewPictureUploads'>View Event Uploaded</Link>
+                <Link to='/admin/ViewPictureUploads'>View picture Uploaded</Link>
 						  </div>
             </div>
 

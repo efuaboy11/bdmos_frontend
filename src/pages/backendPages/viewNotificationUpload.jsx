@@ -4,13 +4,29 @@ import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
+import CircularProgress from '@mui/material/CircularProgress';
+import { Alert } from "@mui/material"
 
 export const ViewNotificationUploaded= () =>{
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens} = useContext(AuthContext)
 
   const [date, setDate] = useState("")
   const [teacherName, setTeacherName] = useState("")
   const [datas, setDatas] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [selectedNotificationID, setSelectedNotificationID] = useState(null)
+
+  
+  const [alerts, setAlerts] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
+
+
+  
+
+
 
   const getNotification = async() => {
     let response = await fetch("https://bdmos.onrender.com/api/notifications/",{
@@ -30,6 +46,53 @@ export const ViewNotificationUploaded= () =>{
     }
   }
 
+  const showDeleteModal = (id) =>{
+    setSelectedNotificationID(id)
+    setShowModal(true)
+  }
+
+  const hideDeleteModal = () => {
+    setShowModal(false)
+    setSelectedNotificationID(null)
+  }
+
+  const deleteNotification = async () =>{
+    setdisablebutton(true)
+
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    let response = await fetch(`https://bdmos.onrender.com/api/notifications/${selectedNotificationID}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    if (response.ok) {
+      setShowAlert(true)
+      setAlerts("Notification deleted Sucessfully")
+      setAlertSeverity('success')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log('sucess')
+      setSelectedNotificationID(datas.filter(dat => dat.id !== selectedNotificationID))
+      setShowModal(false)
+    } else {
+      let errorData = await response.json();
+      const errorMessage = errorData.error
+      setShowAlert(true)
+      setAlerts('There is an error in processing your data')
+      setAlertSeverity('error')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log(errorMessage)
+    }
+  }
+
 
   useEffect(() =>{
     getNotification()
@@ -43,6 +106,36 @@ export const ViewNotificationUploaded= () =>{
       </div>
 			<section>
         <div className="main-content">
+          <div className="alert-container">
+            <div className="alert-position">
+              {showAlert && (
+                <Alert
+                  severity={alertSeverity}
+                  onClose={() => setShowAlert(false)}
+                >
+                  {alerts}
+                </Alert>
+              )}
+            </div>
+          </div>
+          {showModal &&
+            <section>
+              <div className="admin-modal-container">
+                <div className="admin-modal-content">
+                  <h5>Delete Event?</h5>
+                  <hr />
+                  <p>This will delete the Notification.</p>
+                  <div className="d-flex justify-content-between py-3">
+                    <div></div>
+                    <div>
+                      <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
+                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteNotification}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -55,17 +148,13 @@ export const ViewNotificationUploaded= () =>{
             </div>
 
             <form action="">
-              <div className="row add-student justify-content-evenly">
-                <div className="col-sm-3 mb-4">
-                  <input type="datetime-local" className=" p-2 form-dark border-radius admin-input " placeholder="Search by Date..." value={date} onChange={(e) => setDate(e.target.value)}/>
+              <div className="row add-student g-2">
+                <div className="col-sm-4 mb-4">
+                  <input  className=" p-2 form-dark border-radius admin-input " placeholder="Search by Date..." value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
 
-                <div className="col-sm-3 mb-4">
+                <div className="col-sm-4 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius admin-input" placeholder="Search by Teacher Name..." value={teacherName} onChange={(e) => setTeacherName(e.target.value)}/>
-                </div>
-
-                <div className="col-sm-1 mb-3">
-                  <input type="submit" className=" p-2 form-dark border-radius"/>
                 </div>
               </div>            
             </form> 
@@ -97,7 +186,9 @@ export const ViewNotificationUploaded= () =>{
                           <td>{data.message}</td>
                           <td>{data.date}</td>
                           <td>{data.teacher_name}</td>
-                          <td> {<FontAwesomeIcon icon={faTrashCan}/>}</td>     
+                          <td onClick={() => showDeleteModal(data.id)}>
+                            <FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} />
+                          </td>
                         </tr>
                       ))}
 

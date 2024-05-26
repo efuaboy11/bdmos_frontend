@@ -1,4 +1,12 @@
 /* utility */
+body{
+  height: 100%;
+}
+
+
+
+
+
 * {
   box-sizing: border-box;
 
@@ -522,6 +530,7 @@ a{
 .main-content{
   margin-left: 250px;
   color: #fff;
+  padding-bottom: 20px;
 }
 .dashboard-content nav{
   position: sticky;
@@ -692,7 +701,57 @@ tbody tr:nth-child(even){
 
 
 
+.admin-modal-conatiner{
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+}
 
+.admin-modal-content{
+  position: absolute;
+  top: 40%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  background-color: #1F1D36;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  color: #fff;
+  border-radius: 20px;
+}
+.admin-modal-close{
+  background: none;
+  padding: 10px;
+  border-radius: 40px;
+  border: 1px solid #F0EBE3;
+  color: #ffff;
+  transition: 0.5s ease all;
+
+}
+
+.admin-modal-close:hover{
+  background: #18122B;
+
+}
+
+.admin-modal-delete{
+  background: #EE4E4E;
+  border: 1px solid #F0EBE3;
+  color: #fff;
+  padding: 10px;
+  border-radius: 40px;
+  transition: 0.5s ease all;
+}
+.admin-modal-delete:hover{
+  background: #FF0000;
+}
 
 
 
@@ -756,9 +815,51 @@ tbody tr:nth-child(even){
 .admin-home-table tr:nth-child(even){
   background-color: #18122B;
 }
+
+.admin-home-teacher-table-container{
+  border-radius: 20px;
+  padding: 10px;
+
+}
+.admin-home-school-item-container{
+  background-color: #635985;
+  border-radius: 20px;
+  color: #000;
+  font-weight: bold;
+
+}
+.admin-home-school-item-button{
+  background-color: #1F1D36;
+  border: 1px solid  #1F1D36;
+  padding: 10px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  transition: all ease 1s;
+}
+
+
+
+.admin-home-school-item-box{
+  background-color: #B3C8CF;
+  color: black;
+  border-radius: 20px;
+  padding: 10px;
+}
+.admin-home-school-item-box img{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.admin-home-teacher-table{
+  background-color: #393E46;
+  margin: 10px;
+  border-radius: 20px;
+  color: #fff;
+}
 .error-input{
   border-color: red;
 }
+
 .admin-dashboard-sub-icon{
   background-color: #0A6847;
   border-radius: 50px;
@@ -771,6 +872,42 @@ tbody tr:nth-child(even){
 .admin-home-header{
   max-height: 100%;
 }
+
+.admin-pie-chart-container{
+  max-width: 300px;
+}
+.admin-chart-container{
+  overflow: hidden;
+}
+
+
+.admin-head-text {
+  font-family: serif;
+  color: transparent;
+  animation: effect 2s linear infinite;
+  font-size: 80px;
+}
+
+@keyframes effect {
+  0% {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b); /* Peach to Light Coral */
+    -webkit-background-clip: text;
+    color: transparent; /* Required to see the background-clip effect */
+  }
+
+  50% {
+    background: linear-gradient(45deg, #6a11cb, #2575fc); /* Royal Purple to Bright Blue */
+    -webkit-background-clip: text;
+    color: transparent; /* Required to see the background-clip effect */
+  }
+
+  100% {
+    background: linear-gradient(45deg, #43cea2, #185a9d); /* Aquamarine to Deep Sea Blue */
+    -webkit-background-clip: text;
+    color: transparent; /* Required to see the background-clip effect */
+  }
+}
+
 
 
 /* ------------------------------View  AllStudent --------------------*/
@@ -793,7 +930,6 @@ tbody tr:nth-child(even){
 .view-student-input{
   width: 100%;
 }
-
 
 
 /* -----------------delete student -------------------------------- */
@@ -845,6 +981,8 @@ tbody tr:nth-child(even){
   
 }
 
+
+
 .y{
   max-height: 74vh;
   overflow: auto;
@@ -861,8 +999,76 @@ tbody tr:nth-child(even){
   border-radius: 50px;
 
 }
+.result-page-table{
+  max-height: 86vh;
+}
+
+/* ----------------------------- View result page------------- */
+#view-result-page tbody tr:nth-child(even){
+  background: none;
+}
+
+#view-result-page th{
+  border-bottom: 1px dotted #fff;
+}
+
+.view-result-page-header-bg{
+  background: #635985;
+  color: #000;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.view-result-page-table{
+  max-height: 86vh;
+}
 
 
+.view-result-page-content-table {
+  background-color: #2D3250;
+  border-radius: 20px;
+  color: #000;
+  font-weight: bold;
+}
+
+
+#view-result-page  .affective-trait{
+  width: 100%;
+  background-color: #635985;
+  border-radius: 20px;
+  color: #000;
+  font-weight: bold;
+
+}
+
+#view-result-page  .psych-trait{
+  background-color: #222831;
+  border-radius: 20px;
+  color: #000;
+  font-weight: bold;
+
+}
+#view-result-page .trait-scale{
+  background: #635985;
+  color: #000;
+  border: 20px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+#view-result-page  .grade-rate{
+  background: #222831;
+  border-radius: 20px;
+  color: #000;
+  font-weight: bold;
+}
+.i{
+  background-color: #2D3250;
+  color: #000;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 20px;
+
+}
 
 
 
@@ -938,6 +1144,8 @@ tbody tr:nth-child(even){
     .footer-link{
       display: none;
     }
+
+    
   }
   
   
@@ -1027,15 +1235,13 @@ tbody tr:nth-child(even){
   
   
   
-  
-  
-  
     
-    
-  
-    footer svg{
-      margin-top: -300px;
-      fill: #3E001F;
+  }
+  @media(max-width: 800px) {
+
+    /* --------------------Admin */
+    .admin-head-text {
+      font-size: 50px;
     }
     
   }
@@ -1049,6 +1255,13 @@ tbody tr:nth-child(even){
     .button-sign-out{
       display: none;
     }
+    /* -------------------Admin */
+    .admin-head-text {
+      font-size: 30px;
+    }
+
+
+    
 
   
     
