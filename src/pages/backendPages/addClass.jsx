@@ -25,7 +25,7 @@ export const AddClass = () =>{
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
 							  <Link to="/admin" >Dashboard /  </Link>
-                <Link to="/admin/viewClass">  View Sessions</Link>
+                <Link to="/admin/viewClass">  View Classes</Link>
 						  </div>
             </div>
 

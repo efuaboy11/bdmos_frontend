@@ -101,8 +101,8 @@ export const DeleteParent = () =>{
                 <h5>delete Parent</h5>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="" >Dashboard /  </Link>
-                <Link>  View Parent</Link>
+							  <Link to="/admin" >Dashboard /  </Link>
+                <Link to='/admin/viewAllParent'>  View Parent</Link>
 						  </div>
             </div>
 

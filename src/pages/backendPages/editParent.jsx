@@ -93,8 +93,8 @@ export const EditParent = () =>{
                 <h5>Edit Parent Profile</h5>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="" >Dashboard /  </Link>
-                <Link>  View Parent profile</Link>
+							  <Link to="/admin" >Dashboard /  </Link>
+                <Link to='/admin/viewAllParent'>  View Parent profile</Link>
 						  </div>
             </div>
 

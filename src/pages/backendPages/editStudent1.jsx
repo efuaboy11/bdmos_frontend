@@ -90,8 +90,8 @@ export const EditStudent = () =>{
                 <h5>Edit Student Profile</h5>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="" >Dashboard /  </Link>
-                <Link>  View Student profile</Link>
+							  <Link to="admin" >Dashboard /  </Link>
+                <Link to='/admin/viewAllStudent'>  View Student profile</Link>
 						  </div>
             </div>
 
