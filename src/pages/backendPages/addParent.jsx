@@ -16,6 +16,7 @@ export const AddParent = () =>{
   const [parentName, setParentName] = useState("")
   const [parentPhoneNumber, setparentPhoneNumber] = useState('')
   const [parentEmail, setParentEmail] = useState('')
+  const [homeAddress, setHomeAddress] = useState('')
   const [ParentImg, setParentImg] = useState('')
   const [childName, setChildName] = useState('')
   const [alert, setAlert] = useState("")
@@ -119,7 +120,7 @@ export const AddParent = () =>{
         </div>
 
 
-        <section className="mt-3 container">
+        <section className="mt-3 container-lg">
           <div className="row my-3 pb-4">
             <div className="col-md-8 col-sm-6 col-6">
               <h4 >Add Parent</h4>
@@ -133,42 +134,47 @@ export const AddParent = () =>{
           </div>
         </section>
 
-        <section>
+        <section className="container-lg">
           <div className="boxing-shadow">
             <div className="navyblue-blackground-dash py-4">
               <p className="text-center">PLEASE ENTER THE PARENT INFORMATION</p>
             </div>
             
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="row justify-content-center mx-2">
-                <div className="col-md-5 mt-5">
+              <div className="row g-2 mx-2">
+                <div className="col-md-6 mt-5">
                   <label htmlFor="" className="">Parent/Gudian Name</label>
                   <input className={`form-control delete-student-input form-dark ${errors.parentName ? 'error-input' : ''}`} {...register('parentName', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mr John Doe"/>
                   {errors.parentName && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Home Address</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.homeAddress ? 'error-input' : ''}`} {...register('homeAddress', {required: true})} value={homeAddress} onChange={(e) => setHomeAddress(e.target.value)}type="text" placeholder="adolo college Road"/>
+                  {errors.homeAddress && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
 
-                <div className="col-md-5 mt-5">
+                <div className="col-md-6 mt-5">
                   <label htmlFor="" className="">Phone Number</label>
                   <input className={`form-control delete-student-input form-dark ${errors.parentPhoneNumber ? 'error-input' : ''}`} {...register('parentPhoneNumber', {required: true})} value={parentPhoneNumber} onChange={(e) => setparentPhoneNumber(e.target.value)}type="text" placeholder="08079022633"/>
                   {errors.parentPhoneNumber && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
-                <div className="col-md-5 mt-5">
+                <div className="col-md-6 mt-5">
                   <label htmlFor="" className="">Email Addresss</label>
                   <input className={`form-control delete-student-input form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}type="text" placeholder="parent@gmail.com"/>
                   {errors.parentEmail && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
-                <div className="col-md-5 mt-5">
-                  <label htmlFor="" className="">Image</label>
-                  <input className={`form-control delete-student-input form-dark ${errors.ParentImg ? 'error-input' : ''}`} {...register('ParentImg', {required: true})} onChange={handlePassportFile}type="file"/>
-                  {errors.ParentImg && <span style={{color: 'red'}}>This Feild is required</span>}
-                </div>
-
-                <div className="col-md-10 mt-5">
+                <div className="col-md-12 mt-5">
                   <label htmlFor="" className="">Children Name </label>
                   <textarea className={`form-control delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: true})} value={childName} onChange={(e) => setChildName(e.target.value)}type="text" placeholder="Mary, john, happy"></textarea>
                   {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
+
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Image</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.ParentImg ? 'error-input' : ''}`} {...register('ParentImg', {required: true})} onChange={handlePassportFile}type="file"/>
+                  {errors.ParentImg && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
                 <div className="col-md-10 pt-3 pb-5 mb-4">

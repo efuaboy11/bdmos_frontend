@@ -57,7 +57,7 @@ export const ViewStudentResult = () =>{
                           </select>
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <input className="admin-btn py-2 px-5" type="submit" />
+                        <Link className="admin-btn py-2 px-5"  to='/admin/viewResultPage'>Submit</Link>
                         
                       </div>
                   </div>

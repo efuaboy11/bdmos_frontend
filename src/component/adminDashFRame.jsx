@@ -1,6 +1,6 @@
 import "../css/dashboard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faL} from "@fortawesome/free-solid-svg-icons"
+import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faL, faUsers, faUserGraduate, faPeopleGroup, faMoneyBillTrendUp, faUpload, faMagnifyingGlass, faSchool, faEye, faEnvelopesBulk, faGear} from "@fortawesome/free-solid-svg-icons"
 import { useContext, useEffect,  useRef, useState} from "react"
 import { Link, useLocation} from "react-router-dom"
 import AuthContext from "../context/AuthContext"
@@ -107,13 +107,13 @@ export const AdminDashFrame = () =>{
         <hr/>
         <ul className=" sidebar-list scroll-bar-y admin-sidebar-height">
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin") ?"active-dash-link": ""}`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faHouse} className="pe-4"/>    
             <Link to="/admin" className={`payments`}>DASHBOARD</Link>             
           
           </li>
 
          <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewAllStudent") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faUserGraduate} className="pe-4"/>    
             <Link to="/admin/viewAllStudent">All STUDENTS</Link>    
             <FontAwesomeIcon icon={faAngleDown} className={`${isStudentDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toggleStudentDropdown}/> 
             <div style={{ display: isStudentDropdownOpen ? 'block' : 'none' }}>
@@ -136,7 +136,7 @@ export const AdminDashFrame = () =>{
          </li>
 
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewAllTeacher") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faUsers} className="pe-4"/>    
             <Link to="/admin/viewAllTeacher" className={`payments`}>All TEACHERS</Link>    
             <FontAwesomeIcon icon={faAngleDown} className={`${isTeacherDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleTeacherDropdown}/> 
             <div style={{ display: isTeacherDropdownOpen ? 'block' : 'none' }}>
@@ -157,7 +157,7 @@ export const AdminDashFrame = () =>{
           </li>
 
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewAllParent") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faPeopleGroup} className="pe-4"/>    
             <Link to="/admin/viewAllParent" className={`payments`}>All PARENTS</Link>    
             <FontAwesomeIcon icon={faAngleDown} className={`${isParentDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleParentDropdown}/> 
             <div style={{ display: isParentDropdownOpen ? 'block' : 'none' }}>
@@ -178,7 +178,7 @@ export const AdminDashFrame = () =>{
           </li>
 
           <li className={`nav-item ps-3 py-3 hist ${isActiveDashLink("/paymentHistory") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faChartSimple} className="pe-4"/>     
+            <FontAwesomeIcon icon={faMoneyBillTrendUp} className="pe-4"/>     
             <Link to="/paymentHistory" className={`payment-history-sidebar `}>ACCOUNT</Link>  
             <FontAwesomeIcon icon={faAngleDown} className={`${isAccountDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={tooAccountDropdown}/> 
             <div style={{ display: isAccountDropdownOpen ? 'block' : 'none' }}>
@@ -226,7 +226,7 @@ export const AdminDashFrame = () =>{
             </div>            
           </li>
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/ViewStudentResult") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
+            <FontAwesomeIcon icon={faChartLine} className="pe-4"/> 
             <Link to="/admin/ViewStudentResult">STUDENT RESULT</Link>
             <FontAwesomeIcon icon={faAngleDown} className={`${isSchoolResultDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleSchoolResultDropdownOpen}/> 
             <div style={{ display: isSchoolResultDropdownOpen ? 'block' : 'none' }}>
@@ -256,7 +256,7 @@ export const AdminDashFrame = () =>{
           </li>
 
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/uploadEvent") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
+            <FontAwesomeIcon icon={faUpload} className="pe-4"/> 
             <Link to="/admin/uploadEvent">UPLOAD EVENT</Link>
             <FontAwesomeIcon icon={faAngleDown} className={`${isUploadItemsDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleUploadItemDropdownOpen}/> 
             <div style={{ display: isUploadItemsDropdownOpen ? 'block' : 'none' }}>
@@ -278,25 +278,29 @@ export const AdminDashFrame = () =>{
           </li>
 
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/ViewEventUploads") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
-            <Link to="/admin/ViewEventUploads">EVENT UPLOADS</Link>
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="pe-4"/> 
+            <Link to="/admin/ViewEventUploads">VIEW EVENT</Link>
             <FontAwesomeIcon icon={faAngleDown} className={`${isViewUploadDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleViewUploadDRopdownOpen}/> 
             <div style={{ display: isViewUploadDropdownOpen ? 'block' : 'none' }}>
               <ul className="ps-4">
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/ViewNotificationUploads") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/ViewNotificationUploads">Notification Upload </Link> 
+                  <Link to="/admin/ViewNotificationUploads">View Notification</Link> 
                 </li>
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/ViewPictureUploads") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/ViewPictureUploads">Picture Upload </Link> 
+                  <Link to="/admin/ViewPictureUploads">View Picture</Link> 
+                </li>
+
+                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/ViewPictureUploads") ?"active-dash-link": ""}`}>
+                  <Link to="/admin/ViewSchemeUploads">View Scheme</Link> 
                 </li>
               </ul>
             </div>            
           </li>
 
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/AddClass") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faSchool} className="pe-4"/>    
             <Link to="/admin/AddClass" >ADD CLASSES</Link>    
             <FontAwesomeIcon icon={faAngleDown} className={`${isUpdateStatusDropdownOpen? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleUpdateStatusDropdownOpen}/> 
             <div style={{ display: isUpdateStatusDropdownOpen ? 'block' : 'none' }}>
@@ -315,7 +319,7 @@ export const AdminDashFrame = () =>{
           </li>
 
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewClass") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faEye} className="pe-4"/>    
             <Link to="/admin/viewClass" >VIEW CLASSES</Link> 
             <FontAwesomeIcon icon={faAngleDown} className={`${isViewStatusDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleViewStatusDropdownOpen}/> 
             <div style={{ display: isViewStatusDropdownOpen ? 'block' : 'none' }}>
@@ -335,7 +339,7 @@ export const AdminDashFrame = () =>{
           </li>
           
           <li className={`nav-item ps-3 py-3 fee  ${isActiveDashLink("/admin/viewEmail") ?"active-dash-link": ""} dropdown-position`}>
-            <FontAwesomeIcon icon={faMoneyBills} className="pe-4"/>    
+            <FontAwesomeIcon icon={faEnvelopesBulk} className="pe-4"/>    
             <Link to="/admin/viewEmail" className={`payments`}>EMAIL</Link>    
             <FontAwesomeIcon icon={faAngleDown} className={`${isEmailDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleEmailDropdownOpen}/> 
             <div style={{ display: isEmailDropdownOpen ? 'block' : 'none' }}>
@@ -362,7 +366,7 @@ export const AdminDashFrame = () =>{
 
 
           <li className={`nav-item ps-3 d-flex py-3 mb-5 sch ${isActiveDashLink("/schemeStep1") ?"active-dash-link": ""}`}>
-            <FontAwesomeIcon icon={faBookOpenReader} className="pe-4"/> 
+            <FontAwesomeIcon icon={faGear} className="pe-4"/> 
             <Link to="/schemeStep1" >Settings</Link>
           </li>
 

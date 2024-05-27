@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 
 
-export const ViewAllParent = () =>{
+export const ViewScheme = () =>{
 
   const [parentName, setParentName] = useState('')
 
@@ -19,7 +19,7 @@ export const ViewAllParent = () =>{
   const [datas, setdatas] = useState([])
 
   const [showModal, setShowModal] = useState(false)
-  const [selectedParentID, setSelectedParentID] = useState(null)
+  const [selectedSchemeID, setSelectedSchemeID] = useState(null)
 
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
@@ -45,16 +45,16 @@ export const ViewAllParent = () =>{
     }
   }
   const showDeleteModal = (id) => {
-    setSelectedParentID(id)
+    selectedSchemeID(id)
     setShowModal(true)
   }
 
   const hideDeleteModal = () => {
     setShowModal(false)
-    setSelectedParentID(null)
+    selectedSchemeID(null)
   }
 
-  const deleteParent = async () => {
+  const deleteScheme = async () => {
     setdisablebutton(true)
 
     if(loader){
@@ -62,7 +62,7 @@ export const ViewAllParent = () =>{
     }else{
       setLoader(true)
     }
-    let response = await fetch(`https://bdmos.onrender.com/api/sessions/${selectedParentID}`, {
+    let response = await fetch(`https://bdmos.onrender.com/api/sessions/${selectedSchemeID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authTokens.access}`
@@ -71,12 +71,12 @@ export const ViewAllParent = () =>{
 
     if (response.ok) {
       setShowAlert(true)
-      setAlerts("Parent details deleted Sucessfully")
+      setAlerts("Scheme off Work deleted Sucessfully")
       setAlertSeverity('success')
       setLoader(false)
       setdisablebutton(false)
       console.log('sucess')
-      setdatas(datas.filter(dat => dat.id !== selectedParentID))
+      setdatas(datas.filter(dat => dat.id !== selectedSchemeID))
       setShowModal(false)
     } else {
       let errorData = await response.json();
@@ -119,14 +119,14 @@ export const ViewAllParent = () =>{
             <section>
               <div className="admin-modal-container">
                 <div className="admin-modal-content">
-                  <h5>Delete Parent Details?</h5>
+                  <h5>Delete Scheme off work?</h5>
                   <hr />
-                  <p>This will delete the Parent Details.</p>
+                  <p>This will delete the Scheme off work.</p>
                   <div className="d-flex justify-content-between py-3">
                     <div></div>
                     <div>
                       <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
-                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteParent}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteScheme}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
                     </div>
                   </div>
                 </div>
@@ -136,19 +136,28 @@ export const ViewAllParent = () =>{
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>View Parents</h5>
-                <p>List Off All Parents</p>
+                <h5>View Scheme Off Work</h5>
+                <p>List Off Scheme Uploaded</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="/admin/addParent" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faUser} className="px-2"/>Add Parent</Link>
+							  <Link to="/admin/uploadScheme" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faUser} className="px-2"/>Add Scheme</Link>
 						  </div>
             </div>
 
             <form>
               <div className="row add-student">
                 <div className="col-sm-4 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by Parent Name" value={parentName} onChange={(e) => setParentName(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by class" value={parentName} onChange={(e) => setParentName(e.target.value)}/>
                 </div>
+
+                <div className="col-sm-4 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by Session" value={parentName} onChange={(e) => setParentName(e.target.value)}/>
+                </div>
+
+                <div className="col-sm-4 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by Term" value={parentName} onChange={(e) => setParentName(e.target.value)}/>
+                </div>
+                
               </div>            
             </form> 
 
@@ -157,17 +166,15 @@ export const ViewAllParent = () =>{
             <section className="container-lg navyblue-blackground-dash">
               <div className="view-content-height scroll-bar">
                 <div className="non-wrap-text">
-                  <p className=" ps-3 py-2">Event Upload</p>
+                  <p className=" ps-3 py-2">Scheme Upload</p>
                   <table className="table1 ">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Parent Name</th>
-                        <th>Children</th>
-                        <th>Home Address</th>
-                        <th>Phone Number</th>
-                        <th>Email Address</th>
+                        <th>Class</th>
+                        <th>Session</th>
+                        <th>Term</th>
+                        <th>Date</th>
                         <th>Action</th>
 
                       </tr>
@@ -177,12 +184,10 @@ export const ViewAllParent = () =>{
                     <tbody className="admin-home-table view-schoolitems-table ">
                       <tr>
                         <td>1</td>
-                        <td><img src="" alt="" /></td>
-                        <td>Iseghohimhen Fred</td>
-                        <td>mark, micheal</td>
-                        <td>22 adolo college Road</td>
-                        <td>08079022633</td>
-                        <td>iseghohimhene@gmail.com</td>
+                        <td>Primary 4</td>
+                        <td>2021/2022</td>
+                        <td>First Term</td>
+                        <td>4/5/20222</td>
                         <td><FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} /></td>
 
                       </tr>

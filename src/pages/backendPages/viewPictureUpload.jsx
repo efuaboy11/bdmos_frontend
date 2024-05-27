@@ -7,7 +7,7 @@ import AuthContext from "../../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from "@mui/material"
 
-export const ViewPictureUploaded= () =>{
+export const ViewPictureUploaded = () =>{
   const {authTokens, details} = useContext(AuthContext)
   
   const [ID, setID] = useState("")

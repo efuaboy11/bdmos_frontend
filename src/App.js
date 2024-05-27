@@ -67,6 +67,7 @@ import { EditParent } from './pages/backendPages/editParent';
 import { ViewAllParent } from './pages/backendPages/viewAllParent';
 import { EditParentPage } from './pages/backendPages/editParentPage';
 import { ViewResultPage } from './pages/backendPages/viewResultPage';
+import { ViewScheme } from './pages/backendPages/viewScheme';
 ;
 
 
@@ -122,6 +123,7 @@ function App() {
               <Route path='/admin/ViewEventUploads' element={<ViewEventUploaded/>}/> 
               <Route path='/admin/ViewNotificationUploads' element={<ViewNotificationUploaded/>}/> 
               <Route path='/admin/ViewPictureUploads' element={<ViewPictureUploaded/>}/> 
+              <Route path='/admin/ViewSchemeUploads' element={<ViewScheme/>}/> 
               <Route path='/admin/AddSession' element={<AddSession/>}/> 
               <Route path='/admin/AddClass' element={<AddClass/>}/> 
               <Route path='/admin/addSubject' element={<AddSubject/>}/> 
