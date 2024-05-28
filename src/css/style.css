@@ -9,6 +9,8 @@ li{
 
 
 
+
+
 a{
   white-space: nowrap;
   text-decoration: none;
@@ -235,13 +237,16 @@ nav .home-nav:hover  .sub-menu-l{
 
 /* cover page */
 
+
  #cover-page .img9{
   background: rgba(15, 15, 15, 0.75);
   height: 100vh;
   position: relative;
   color: white;
   width: 100%;
-  overflow-x: hidden;
+}
+.overflow-hidden{
+  overflow: hidden;
 }
 
 #cover-page .img9::before{
@@ -743,10 +748,6 @@ footer li a:hover{
   
   
   @media (max-width: 900px){
-
-    #cover-page .img9{
-      height: 60vh;
-    }
     .cover-page-text-container{
       height: 100%;
     }

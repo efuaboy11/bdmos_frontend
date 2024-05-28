@@ -36,7 +36,7 @@ export const Home = () =>{
 
 
   return(
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <section id="cover-page">
         <div className="img9">
