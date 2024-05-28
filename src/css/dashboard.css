@@ -12,6 +12,7 @@ body{
 
 }
 
+
 .cursor-pointer{
   cursor: pointer;
 }
@@ -1071,14 +1072,11 @@ tbody tr:nth-child(even){
 }
 
 
-
-
 /* -----------------------mobile screen  -------------------------------- */
 @media  screen and (max-width: 1700px) {
 
   
   @media screen and (max-width: 1100px){
-  
   
     /* dashboard  */
     .loader{

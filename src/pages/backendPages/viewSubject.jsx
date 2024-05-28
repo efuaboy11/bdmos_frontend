@@ -8,10 +8,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from "@mui/material"
 
 export const ViewSubject = () =>{
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens} = useContext(AuthContext)
 
 
-  const [className, setClassName] = useState("")
+
   const [subject, setSubject] = useState("")
 
 

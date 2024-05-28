@@ -185,7 +185,7 @@ export const ViewNotificationUploaded= () =>{
                           <td> {data.id} </td>
                           <td>{data.message}</td>
                           <td>{data.date}</td>
-                          <td>{data.teacher_name}</td>
+                          <td>{data.teachers_name.first_name}</td>
                           <td onClick={() => showDeleteModal(data.id)}>
                             <FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} />
                           </td>

@@ -1,12 +1,95 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faPenSquare, faPenToSquare, faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
+import CircularProgress from '@mui/material/CircularProgress';
+import { Alert } from "@mui/material"
 
 export const ViewClass = () =>{
   const [className, setClassName] = useState("") 
+  const {authTokens, details} = useContext(AuthContext)
+  const [datas, setdatas] = useState([])
+
+
+  const [showModal, setShowModal] = useState(false)
+  const [selectedClassID, setSelectedClassID] = useState(null)
+
+  const [alerts, setAlerts] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
+
+
+  const getClass = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/class/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const showDeleteModal = (id) => {
+    setSelectedClassID(id)
+    setShowModal(true)
+  }
+
+  const hideDeleteModal = () => {
+    setShowModal(false)
+    setSelectedClassID(null)
+  }
+
+  const deleteClass = async () => {
+    setdisablebutton(true)
+
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+    let response = await fetch(`https://bdmos.onrender.com/api/class/${selectedClassID}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    if (response.ok) {
+      setShowAlert(true)
+      setAlerts("Class deleted Sucessfully")
+      setAlertSeverity('success')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log('sucess')
+      setdatas(datas.filter(dat => dat.id !== selectedClassID))
+      setShowModal(false)
+    } else {
+      let errorData = await response.json();
+      const errorMessage = errorData.error
+      setShowAlert(true)
+      setAlerts('There is an error in processing your data')
+      setAlertSeverity('error')
+      setLoader(false)
+      setdisablebutton(false)
+      console.log(errorMessage)
+    }
+  }
+  useEffect(() =>{
+    getClass()
+  },[datas])
+
 	return(
 
 		<div>
@@ -15,6 +98,40 @@ export const ViewClass = () =>{
       </div>
 			<section>
         <div className="main-content">
+
+          <div className="alert-container">
+            <div className="alert-position">
+              {showAlert && (
+                <Alert
+                  severity={alertSeverity}
+                  onClose={() => setShowAlert(false)}
+                >
+                  {alerts}
+                </Alert>
+              )}
+            </div>
+          </div>
+
+          {showModal &&
+            <section>
+              <div className="admin-modal-container">
+                <div className="admin-modal-content">
+                  <h5>Delete Class?</h5>
+                  <hr />
+                  <p>This will delete the class.</p>
+                  <div className="d-flex justify-content-between py-3">
+                    <div></div>
+                    <div>
+                      <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
+                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteClass}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          }
+
+          
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -48,7 +165,6 @@ export const ViewClass = () =>{
                         <th>ID</th>
                         <th>Classes</th>
                         <th>Subjects</th>
-                        <th>Date</th>
                         <th>Actions</th>
 
                       </tr>
@@ -56,62 +172,15 @@ export const ViewClass = () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
+                      {datas.map((data) => (
 
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Basic One</td>
-                        <td>Maths, English, Basic</td>
-												<td>1/04/2021</td>
-                        <td></td>
-                      </tr>
+                        <tr>
+                          <td>{data.id}</td>
+                          <td>{data.name}</td>
+                          <td>{data.all_subjects.name}</td>
+                          <td>{<FontAwesomeIcon className="pe-3 cursor-pointer" icon={faPenToSquare}/>}  {<FontAwesomeIcon onClick={() => showDeleteModal(data.id)} className="cursor-pointer" icon={faTrashCan}/>}</td> 
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

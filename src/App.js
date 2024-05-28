@@ -68,6 +68,7 @@ import { ViewAllParent } from './pages/backendPages/viewAllParent';
 import { EditParentPage } from './pages/backendPages/editParentPage';
 import { ViewResultPage } from './pages/backendPages/viewResultPage';
 import { ViewScheme } from './pages/backendPages/viewScheme';
+import { Settings } from './pages/backendPages/settings';
 ;
 
 
@@ -144,6 +145,7 @@ function App() {
               <Route path='/admin/generateScratchNumber' element={<GenerateScratchNumber/>}/>
               <Route path='/admin/scratchNumberPage' element={<ScratchNumberPage/>}/>
               <Route path='/admin/viewGeneratedScratchNumber' element={<ViewGeneratedScratchNumber/>}/>
+              <Route path='/admin/settings' element={<Settings/>}/>             
             </Route>
           </Routes>
         </AuthProvider>

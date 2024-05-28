@@ -12,6 +12,7 @@ import pic5 from "../img/pic6.jpg"
 import Aos from "aos";
 import "aos/dist/aos.css"
 import "../css/style.css"
+import "../css/moblie.css"
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,52 +39,30 @@ export const Home = () =>{
     <div>
       <Navbar />
       <section id="cover-page">
-        <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <div className="d-block w-100 img1">
-                <div className="cover-header">
-                  <h1 data-aos="zoom-in" data-aos-delay="" data-aos-duration="1000">BABY'S DAY OUT / FREDITA CHILDREN ACADEMY</h1>
-                  <p data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">"Education is the most powerful weapon which you can use to change the world." - Nelson Mandela</p>
-                  <Link to="/portal" className="btn btn-outline-danger btn-lg px-3 " data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000" >Login in</Link>
-                </div>
+        <div className="img9">
+          <div className="cover-page-text-container">
+            <div >
+              <h5 className="ml-text cover-page-header text-center">Babys DayOut Center/ Fredita Children Academy</h5>
+              <p className="sm-text mb-4 text-center">""School is a building which has four walls with tomorrow inside." - Lon Watters"</p>
+              <div className="d-flex justify-content-center">
+                <Link className="cover-page-btn" to='/portal' target="_blank">School Portal</Link>
               </div>
-            </div>
-            <div className="carousel-item">
-              <div className="d-block w-100 img2">
-                <div className="cover-header">
-                  <h1 className="" data-aos-delay="" data-aos-duration="1000">EDUCATION IS KEY</h1>
-                  <p data-aos-delay="500" data-aos-duration="1000">""School is a building which has four walls with tomorrow inside." - Lon Watters" </p>
-                  <small data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000" >MOTTO: inspire, succed & flourish</small>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="d-block w-100 img3">
-                <div className="cover-header">
-                  <h1 className="" data-aos-delay="" data-aos-duration="1000">KNOWLEGE IS POWER</h1>
-                  <p data-aos-delay="500" data-aos-duration="1000">"School is not just about learning facts and figures, but also about discovering who you are and who you want to become."</p>
-                  <div className="icon" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000" >
-                    <a href="#" className="g-3"><i className="fa-brands fa-facebook text-primary1"></i></a> 
-                    <a href="#" className="g-3"><i className="fa-brands fa-instagram text-primary1"></i></a>
-                    <a href="#" className="g-3"><i className="fa-brands fa-whatsapp text-primary1"></i></a>
-                  </div>
-
-                </div>
-              </div>
+              
             </div>
           </div>
+          
+
         </div>
-      </section>  
+      </section>
 
       <section id="principal-speech">
         <div className="container-lg">
-          <div className="row justify-content-center align-items-center">
-            <div className="col-md-6 col-lg-4 text-center d-none d-md-block">
+          <div className="row justify-content-center">
+            <div className="col-md-6 col-lg-4  d-none d-lg-block ">
               <img src={principal} alt="" data-aos="fade-right" data-aos-duration="1000" />
             </div>
 
-            <div className="col-md-12 col-lg-6 text-center text-md-center text-lg-start p-5" data-aos="fade-left" data-aos-duration="1000">
+            <div className="col-md-12 col-lg-6 text-center text-md-center text-lg-start" data-aos="fade-left" data-aos-duration="1000">
               <div className="headings">
                 <h2> <span className="text-secondary1">Welcome</span> Address</h2>
                 <h3>The Principal</h3>
@@ -151,31 +130,38 @@ export const Home = () =>{
             <h4 className="diplay-4 text-secondary1" data-aos="fade-right"  data-aos-duration="1000">WE GIVE YOUR WARD ONLY THE BEST</h4>
           </div>
 
-          <div className="row my-5 align-items-center justify-content-center g-2 ">
-            <div className="col-11 col-lg-4 about-content">
+          <div className="row my-5 align-items-center  g-2 ">
+            <div className="col-12 col-md-6 col-lg-4 about-content">
               <div className="card pb-5">
                 <div className="card-body text-center py-4">
-                  <FontAwesomeIcon icon={faUsers} className=" xl-text py-4 text-muted" />
+                  <div className="about-icon">
+                    <FontAwesomeIcon icon={faUsers} className=" py-4 text-muted" />
+                  </div>
+
                   <h4 className="card-title m-text fw-bold py-3" data-aos="fade-right"  data-aos-duration="1000">Experinced Teachers</h4>
                   <p className="card-text  d-lg-block text-muted " data-aos="fade-right"  data-aos-duration="1000">Our esteemed teacher at our school brings a wealth of experience that truly sets them apart. With a career spanning many years, their dedication and expertise have made a lasting impact on countless students.</p>
                 </div>
               </div>
             </div>
 
-            <div className="col-11 col-lg-4 about-content">
+            <div className="col-12 col-md-6 col-lg-4 about-content">
               <div className="card pb-4">
-                <div className="card-body text-center py-4">
-                  <FontAwesomeIcon icon={faSchool} className=" xl-text py-3 text-muted" />
+                <div className="card-body text-center py-3">
+                  <div className="about-icon">
+                    <FontAwesomeIcon icon={faSchool} className=" py-4 text-muted" />
+                  </div>
                   <h4 className="card-title m-text fw-bold py-3 " data-aos="fade-right"  data-aos-duration="1000">Avaliable classes</h4>
                   <p className="card-text  d-lg-block text-muted " data-aos="fade-right"  data-aos-duration="1000">Our school comprises of Creche, learning development className (LDC), pre-school, Nusery 1 - 3, primary 1 - 6. Our student all also oppunited to write a federal common entrance after their primary 6, incase any pupils have the dream off studying in a unity school afterwas.</p>
                 </div>
               </div>
             </div>
 
-            <div className="col-11 col-lg-4 about-content">
+            <div className="col-12 col-md-6 col-lg-4 about-content">
               <div className="card pb-1">
                 <div className="card-body text-center py-4">
-                  <FontAwesomeIcon icon={faBookOpenReader} className=" xl-text py-4 text-muted" />
+                  <div className="about-icon">
+                    <FontAwesomeIcon icon={faBookOpenReader} className=" py-4 text-muted" />
+                  </div>
                   <h4 className="card-title m-text fw-bold py-3" data-aos="fade-right"  data-aos-duration="1000">After School Care</h4>
                   <p className="card-text  d-lg-block text-muted " data-aos="fade-right"  data-aos-duration="1000">Our school does after school care from age 5 - 12. These are for parent that don't have were to keep their child after school our, so help them with their children. Our teacher help them with their homeworks and also give them deeper explaination on what was taught to the in their various schools</p>
                 </div>
@@ -354,24 +340,34 @@ export const Home = () =>{
             <h4 className="diplay-4 text-secondary1" data-aos="fade-right"  data-aos-duration="1000">DONT JUST HERE IT FROM US .... LET OUR PARENT DECIDE</h4>
           </div> 
           
-          <div className="row justify-content-center text-center my-5">
-            <div className="col-lg-3 col-11 boxing-shadow mx-3 py-3 my-3 parent-speech-content" >
-              
-              <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
-              <p data-aos="fade-right"  data-aos-duration="1000">Following our relocation to Fredita Children Academy, it's been a delight to witness our son's remarkable academic progress. It's evident that the educational standards here are exceptionally high, as upon our arrival, we noticed he was already significantly ahead.</p>
-              <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>       
+          <div className="row g-4 text-center my-5">
+            <div className="col-lg-4 col-12 col-md-6" >
+              <div className="parent-speech-content boxing-shadow   parent-speech-box1">
+                <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
+                <p data-aos="fade-right"  data-aos-duration="1000">Following our relocation to Fredita Children Academy, it's been a delight to witness our son's remarkable academic progress. It's evident that the educational standards here are exceptionally high, as upon our arrival, we noticed he was already significantly ahead.</p>
+                <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>  
+              </div>
+     
             </div>
 
-            <div className="col-lg-3 col-11 boxing-shadow mx-3 py-3 my-3 parent-speech-content" >
-              <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
-              <p data-aos="fade-right"  data-aos-duration="1000">The educators at Fredita Children Academy are exceptional in their roles, diligently fulfilling their responsibilities to guarantee the academic excellence of the students.</p>
-              <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
+            <div className="col-lg-4 col-12  col-md-6" >
+              <div className="parent-speech-content boxing-shadow   parent-speech-box2">
+                <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
+                <p data-aos="fade-right"  data-aos-duration="1000">The educators at Fredita Children Academy are exceptional in their roles, diligently fulfilling their responsibilities to guarantee the academic excellence of the students.</p>
+                <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
+              </div>
+
             </div>
 
-            <div className="col-lg-3 col-11 boxing-shadow mx-3 my-3 parent-speech-content">
-            <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
-              <p data-aos="fade-right"  data-aos-duration="1000">Since my child started attending Fredita Children Academy, I've observed a noticeable improvement in his academic performance. I have complete faith in Fredita Children Academy teaching approach and their academic framework. He has undergone growth that exceeded my expectations, and I will always hold deep gratitude for the efforts of the teachers, assistants, and the director.</p>
-              <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>         
+            
+
+            <div className="col-lg-4 col-12 col-md-6">
+              <div className="parent-speech-content boxing-shadow   parent-speech-box3">
+                <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
+                <p data-aos="fade-right"  data-aos-duration="1000">Since my child started attending Fredita Children Academy, I've observed a noticeable improvement in his academic performance. I have complete faith in Fredita Children Academy teaching approach and their academic framework. He has undergone growth that exceeded my expectations, and I will always hold deep gratitude for the efforts of the teachers, assistants, and the director.</p>
+                <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>  
+
+              </div>
             </div>
           </div>
 
