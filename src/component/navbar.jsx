@@ -1,4 +1,4 @@
-import { faAngleDown, faArrowCircleLeft, faBars, faBurger } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faArrowCircleLeft, faArrowLeft, faBars, faBurger, faHouseCrack, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../img/verified.jpg"
@@ -30,6 +30,34 @@ export const  Navbar = () =>{
     }
     setOverlay(!overlay)
   }
+
+  
+  const [isAboutdropdown, setIsAboutdropdown] = useState(false);
+  const [isInfodropdown, setIsInfoDropdown] = useState(false)
+  const [campusDropdown, setCampusDropdown] = useState(false)
+  const [currDropdown, setCurrDropdown] = useState(false)
+  const [connectDropdown, setConnectDropdown] = useState(false)
+
+  const toogleAboutDropdown = () =>{
+    setIsAboutdropdown(!isAboutdropdown)
+  }
+
+  const toogleInfoDropdown = () =>{
+    setIsInfoDropdown(!isInfodropdown)
+  }
+  const toogleCampusDropdown = () =>{
+    setCampusDropdown(!campusDropdown)
+  }
+
+  const toogleCurrDropdown = () =>{
+    setCurrDropdown(!currDropdown)
+  }
+
+  const toogleConnectDropdown = () =>{
+    setConnectDropdown(!connectDropdown)
+  }
+
+
   return(
     <div id="nav-frame">
       <nav className="primary-background">
@@ -73,7 +101,7 @@ export const  Navbar = () =>{
 
                     <li className="nav-item home-nav">
                       <div className="d-flex p-4">
-                        <Link to="/" >ABOUT</Link>
+                        <p>ABOUT</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
@@ -94,7 +122,7 @@ export const  Navbar = () =>{
 
                     <li className="nav-item home-nav">
                       <div className="d-flex p-4">
-                        <Link to="/" >INFO</Link>
+                      <p>INFO</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
@@ -109,7 +137,7 @@ export const  Navbar = () =>{
 
                     <li className="nav-item home-nav">
                       <div className="d-flex p-4">
-                        <Link to="/" >CAMPUS</Link>
+                      <p>CAMPUS</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
@@ -124,7 +152,7 @@ export const  Navbar = () =>{
 
                     <li className="nav-item home-nav">
                     <div className="d-flex p-4">
-                        <Link to="/" >CIRRICULUM</Link>
+                      <p>CURICULUNM</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
@@ -148,10 +176,10 @@ export const  Navbar = () =>{
 
                     <li className="nav-item home-nav">
                       <div className="d-flex p-4">
-                        <Link to="/" >CONNECT US</Link>
+                      <p>CONNECT US</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
-                      <div className="sub-menu-l">
+                      <div className="sub-menu-l ms-3">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
                           <li className="nav-item">
                             <Link to="/application" className={`nav-link  text-white ${isActive("/application") ?"current": ""}`}>Work with us</Link>
@@ -182,7 +210,219 @@ export const  Navbar = () =>{
         <div id="client">
           <div className="client-sidebar" ref={sidebar}>
             <div>
-              <FontAwesomeIcon icon={faArrowCircleLeft} className="pt-1 ps-2" onClick={closeSidebar}/>
+              <div className="d-flex justify-content-between">
+                <div></div>
+                <div className="m-3">
+                  <FontAwesomeIcon className='sm-text cursor-pointer' icon={faArrowLeft} onClick={closeSidebar}/>
+                </div>
+
+              </div>
+             
+              <div className="client-sidebar-list">
+                <ul className="mt-5 pt-4">
+                  <li className=" px-4 py-3">
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <Link>HOME</Link>
+                      </div>
+                    </div>
+
+                  </li>
+                  <li className={`px-4 py-3 ${isAboutdropdown ? "client-sidebar-list-bg": ""}`}>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <p>ABOUT</p>
+                      </div>
+                      <div>
+                        <FontAwesomeIcon className="cursor-pointer"  icon={isAboutdropdown ? faMinus :faPlus } onClick={toogleAboutDropdown}/>
+                      </div>
+                    </div>
+
+
+                    <div style={{ display: isAboutdropdown ? 'block' : 'none' }}>
+                      <ul className="ps-4">
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Our Story</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Vison/ mission</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Our Core Values</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">School Anthem</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Rules and Regulation</Link> 
+                        </li>
+                      </ul>
+                    </div>
+
+
+
+                  </li>
+
+                  <li className=" px-4 py-3">
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <Link>GALLERY</Link>
+                      </div>
+                    </div>
+
+                  </li>
+
+                  <li className={`px-4 py-3 ${isInfodropdown ? "client-sidebar-list-bg": ""}`}>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <p>INFO</p>
+                      </div>
+                      <div>
+                        <FontAwesomeIcon className="cursor-pointer"  icon={isInfodropdown ? faMinus :faPlus } onClick={toogleInfoDropdown}/>
+                      </div>
+                    </div>
+
+
+                    <div style={{ display: isInfodropdown ? 'block' : 'none' }}>
+                      <ul className="ps-4">
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Uniform</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Admission Procedure</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">BDOMS Fact Sheet</Link> 
+                        </li>
+                      </ul>
+                    </div>
+
+
+
+                  </li>
+
+                  <li className={`px-4 py-3 ${campusDropdown ? "client-sidebar-list-bg": ""}`}>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <p>CAMPUS</p>
+                      </div>
+                      <div>
+                        <FontAwesomeIcon className="cursor-pointer" icon={campusDropdown ? faMinus :faPlus } onClick={toogleCampusDropdown}/>
+                      </div>
+                    </div>
+
+
+                    <div style={{ display: campusDropdown ? 'block' : 'none' }}>
+                      <ul className="ps-4">
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Add Parent</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Delete Parent</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Edit Parent</Link> 
+                        </li>
+                      </ul>
+                    </div>
+
+
+
+                  </li>
+
+                  <li className={`px-4 py-3 ${currDropdown ? "client-sidebar-list-bg": ""}`}>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <p>CURICULUNM</p>
+                      </div>
+                      <div>
+                        <FontAwesomeIcon className="cursor-pointer" icon={currDropdown ? faMinus :faPlus } onClick={toogleCurrDropdown}/>
+                      </div>
+                    </div>
+
+
+                    <div style={{ display: currDropdown ? 'block' : 'none' }}>
+                      <ul className="ps-4">
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Curriculunm -Infant</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Cirriculunm -Junior</Link> 
+                        </li>
+                      </ul>
+                    </div>
+
+
+
+                  </li>
+
+                  <li className=" px-4 py-3">
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <Link>EVENT</Link>
+                      </div>
+                    </div>
+
+                  </li>
+
+                  <li className=" px-4 py-3">
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <Link>PORTAL</Link>
+                      </div>
+                    </div>
+
+                  </li>
+
+                  <li className={`px-4 py-3 ${connectDropdown ? "client-sidebar-list-bg": ""}`}>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex">
+                        <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
+                        <p>CONNECT US</p>
+                      </div>
+                      <div>
+                        <FontAwesomeIcon className="cursor-pointer" icon={connectDropdown ? faMinus :faPlus } onClick={toogleConnectDropdown}/>
+                      </div>
+                    </div>
+
+
+                    <div style={{ display: connectDropdown ? 'block' : 'none' }}>
+                      <ul className="ps-4">
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Curriculunm -Infant</Link> 
+                        </li>
+
+                        <li className={` ps-4 py-2`}>
+                          <Link to="">Cirriculunm -Junior</Link> 
+                        </li>
+                      </ul>
+                    </div>
+
+
+
+                  </li>
+
+                   
+                </ul>
+              </div>
+
               
             </div>
 

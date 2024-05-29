@@ -343,7 +343,7 @@ export const Home = () =>{
             
             <div className="row g-4 text-center my-5">
               <div className="col-lg-4 col-12 col-md-6" >
-                <div className="parent-speech-content boxing-shadow   parent-speech-box1">
+                <div className="parent-speech-content boxing-shadow   parent-speech-box1 px-4">
                   <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
                   <p data-aos="fade-right"  data-aos-duration="1000">Following our relocation to Fredita Children Academy, it's been a delight to witness our son's remarkable academic progress. It's evident that the educational standards here are exceptionally high, as upon our arrival, we noticed he was already significantly ahead.</p>
                   <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>  
@@ -352,7 +352,7 @@ export const Home = () =>{
               </div>
 
               <div className="col-lg-4 col-12  col-md-6" >
-                <div className="parent-speech-content boxing-shadow   parent-speech-box2">
+                <div className="parent-speech-content boxing-shadow   parent-speech-box2 px-4">
                   <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>
                   <p data-aos="fade-right"  data-aos-duration="1000">The educators at Fredita Children Academy are exceptional in their roles, diligently fulfilling their responsibilities to guarantee the academic excellence of the students.</p>
                   <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
@@ -363,7 +363,7 @@ export const Home = () =>{
               
 
               <div className="col-lg-4 col-12 col-md-6">
-                <div className="parent-speech-content boxing-shadow   parent-speech-box3">
+                <div className="parent-speech-content boxing-shadow   parent-speech-box3 px-4">
                   <FontAwesomeIcon icon={faQuoteLeft} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/> 
                   <p data-aos="fade-right"  data-aos-duration="1000">Since my child started attending Fredita Children Academy, I've observed a noticeable improvement in his academic performance. I have complete faith in Fredita Children Academy teaching approach and their academic framework. He has undergone growth that exceeded my expectations, and I will always hold deep gratitude for the efforts of the teachers, assistants, and the director.</p>
                   <FontAwesomeIcon icon={faQuoteRight} className="text-muted" data-aos="fade-right"  data-aos-duration="1000"/>  

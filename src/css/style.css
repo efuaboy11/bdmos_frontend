@@ -53,6 +53,10 @@ a{
 .light-background{
   background-color: honeydew;
 }
+.rotate-90deg{
+  transition: transform 0.3s ease;
+  transform: rotate(90deg);
+}
 .red-border{
   border: 1px solid red;
 }
@@ -184,6 +188,18 @@ input:focus{
   
 
 }
+.client-sidebar-list ul{
+  padding: 0;
+  margin: 0;
+
+}
+.client-sidebar-list li:hover{
+  background: #3E001F;
+}
+.client-sidebar-list-bg{
+  background: #3E001F;
+}
+
 .client-menu-bar:first-child{
   font-size: 20px;
 }
@@ -196,7 +212,9 @@ input:focus{
 .client-menu-bar ~ h5{
   display: none;
 }
-
+.client-sidebar-dropdown{
+  background: #3E001F;
+}
 #nav-frame{
  z-index: 1000;
  position: sticky;
@@ -231,6 +249,7 @@ nav .home-nav:hover  .sub-menu-l{
   margin-left: -35px;
   /* z-index: 1000; */
 }
+
 
 
 /* Home page */
