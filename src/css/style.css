@@ -587,7 +587,6 @@ nav .home-nav:hover  .sub-menu-l{
 
 
 
-
 #portal button{
   background-color: #3E001F;
   border: none;
@@ -754,6 +753,9 @@ footer li a:hover{
     .student-info-modal{
       width: 500px;
     
+    }
+    #cover-page .img9{
+      height: 90vh;
     }
   
   
