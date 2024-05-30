@@ -118,7 +118,7 @@ export const ViewSubject = () =>{
           </div>
 
           {showModal &&
-            <section>
+            <section className="overlay-background">
               <div className="admin-modal-container">
                 <div className="admin-modal-content">
                   <h5>Delete Subjects?</h5>

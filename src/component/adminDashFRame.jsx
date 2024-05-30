@@ -101,7 +101,7 @@ export const AdminDashFrame = () =>{
 
 
   return(
-    <div>
+    <div className={`${overlay ? "overlay-background" : ""}`}>
       <div className="sidebar admin-sidebar" ref={sidebar}>
         <div className="sidebar-head pt-3 mx-4 "><h4>ADMIN PANEL</h4><FontAwesomeIcon icon={faArrowLeft} onClick={closeSidebar} className="close-sidebar pt-1 sm-text cursor-pointer"/></div>
         <hr/>
@@ -378,7 +378,7 @@ export const AdminDashFrame = () =>{
       </div>
 
 
-      <div className={`dashboard-content  ${overlay ? "overlay-background" : ""} `}>
+      <div className={`dashboard-content   `}>
         <nav className="text-light d-flex align-items-center justify-content-between">
           <div className="menu-bar mx-3" onClick={showSidebar}><FontAwesomeIcon icon={faBars} className="sm-text dashboard-menu-bar"/> </div>
           <div className="d-flex align-items-center">

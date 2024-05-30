@@ -206,7 +206,7 @@ export const  Navbar = () =>{
 
       </nav>
 
-      <section>
+      <section className={`${overlay ? "overlay-background" :""}`}>
         <div id="client">
           <div className="client-sidebar" ref={sidebar}>
             <div>

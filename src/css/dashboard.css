@@ -134,6 +134,26 @@ a:hover{
 .non-wrap-text {
   white-space: nowrap; /* Prevent text from wrapping */
 }
+
+.scroll-bar-black{
+  overflow: auto;
+}
+
+.scroll-bar-black::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scroll-bar-black::-webkit-scrollbar-thumb{
+  border-radius: 0.5rem;
+  background-color: #373A40;
+  visibility: hidden;
+
+}
+
+.scroll-bar-black:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
 /* ---- Scroll-bar-y */
 .scroll-bar{
   overflow: auto;
@@ -699,6 +719,86 @@ tbody tr:nth-child(even){
 
 
 /* ----------------------------- Universal ---------------------------*/
+.admin-email-modal-conatiner{
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+
+.admin-email-modal-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 800px;
+  height: 700px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  color: #000;
+  border-radius: 20px;
+}
+.admin-email-modal-content-input{
+  border: 1px solid #B9B4C7;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.admin-email-modal-content-message{
+  background: #EEEEEE;
+  padding: 20px;
+  margin-top: 20px;
+  height: 300px;
+}
+.admin-email-modal-content-status{
+  background-color: #114232;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+
+}
+
+.admin-email-modal-content-date{
+  font-weight: bold;
+  margin-bottom: 60px;
+}
+.admin-email-modal-content-btn{
+  border: none;
+  background-color: #EE4E4E;
+  padding: 10px 10px;
+  border-radius: 10px;
+  color: #fff;
+  margin-left: 10px;
+  transition: all ease 0.5s;
+
+
+}
+.admin-email-modal-content-btn:hover{
+  background-color: #A0153E;
+}
+.admin-email-modal-content-btn2{
+  border: 1px solid #888;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease 0.5s;
+
+}
+.admin-email-modal-content-btn2:hover{
+  background-color: #000;
+  color: white;
+}
+
+
+
+
+
+
 
 
 
@@ -967,7 +1067,6 @@ tbody tr:nth-child(even){
   height: 40px;
 
 }
-
 
 
 
