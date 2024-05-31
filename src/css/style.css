@@ -292,7 +292,7 @@ nav .home-nav:hover  .sub-menu-l{
 
 #cover-page .img9::before{
   content: "";
-  background: url(../img/Background1.jpg)no-repeat center center/cover;
+  background: url(../img/Background1.JPG)no-repeat center center/cover;
   position: absolute;
   top: 0px;
   left: 0px;

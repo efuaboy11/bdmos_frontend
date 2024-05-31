@@ -1,8 +1,9 @@
 import principal from "../img/principal.jpg"
-import farmPic1 from "../img/farm2.jpg"
+import engineeringPic1 from "../img/engeinneringWorkShop2.JPG"
 import libraryPic1 from "../img/Libary1.JPG"
 import chess1 from "../img/chess3.jpeg"
-import farmPic2 from "../img/farm.jpg"
+import farm1 from "../img/farm2.JPG"
+import farmPic2 from "../img/farm.JPG"
 import pic1 from "../img/pic4.jpg"
 import pic2 from "../img/pic1.jpg"
 import pic3 from "../img/pic3.png"
@@ -194,7 +195,7 @@ export const Home = () =>{
               <div className="col-11 col-md-5 col-lg-4 pb-4">
                 <div className="card">
                   <div className="card-body text-center">
-
+                    <img src={engineeringPic1} alt=""/>
                   </div>
                   <div className="card-footer">
                     <p className="fw-bold "  data-aos="fade-right"  data-aos-duration="1000">Junior Engineer club</p>
@@ -205,7 +206,7 @@ export const Home = () =>{
               <div className="col-11 col-md-5 col-lg-4 pb-4">
                 <div className="card">
                   <div className="card-body text-center">
-                    <img src={farmPic1} alt=""/>
+                    <img src={farm1} alt=""/>
                   </div>
                   <div className="card-footer">
                     <p className="fw-bold"  data-aos="fade-right"  data-aos-duration="1000">Young Farm Club</p>
@@ -384,7 +385,7 @@ export const Home = () =>{
           </div>
 
 
-          <div>r</div>
+
         </section>
 
         <Footer/>
