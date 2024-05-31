@@ -1,5 +1,4 @@
 import principal from "../img/principal.jpg"
-import engineeringPic1 from "../img/engeinneringWorkShop2.jpg"
 import farmPic1 from "../img/farm2.jpg"
 import libraryPic1 from "../img/Libary1.JPG"
 import chess1 from "../img/chess3.jpeg"
@@ -195,7 +194,7 @@ export const Home = () =>{
               <div className="col-11 col-md-5 col-lg-4 pb-4">
                 <div className="card">
                   <div className="card-body text-center">
-                    <img src={engineeringPic1} alt=""/>
+
                   </div>
                   <div className="card-footer">
                     <p className="fw-bold "  data-aos="fade-right"  data-aos-duration="1000">Junior Engineer club</p>
