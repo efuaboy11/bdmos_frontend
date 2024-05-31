@@ -101,7 +101,7 @@ export const ViewAllStudents = () =>{
                 </div>
 
                 <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Phone Number..."  value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Class..."  value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 </div>
 
                 {/* <div className="col-sm-1 mb-3">

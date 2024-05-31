@@ -1,14 +1,17 @@
 import principal from "../img/principal.jpg"
-import engineeringPic1 from "../img/engeinneringWorkShop2.JPG"
-import farmPic1 from "../img/farm2.JPG"
+import engineeringPic1 from "../img/engeinneringWorkShop2.jpg"
+import farmPic1 from "../img/farm2.jpg"
 import libraryPic1 from "../img/Libary1.JPG"
 import chess1 from "../img/chess3.jpeg"
-import farmPic2 from "../img/farm.JPG"
+import farmPic2 from "../img/farm.jpg"
 import pic1 from "../img/pic4.jpg"
 import pic2 from "../img/pic1.jpg"
 import pic3 from "../img/pic3.png"
 import pic4 from "../img/pic5.jpg"
 import pic5 from "../img/pic6.jpg"
+import school from '../img/school.png'
+import reading from '../img/study_566985.png'
+import teacher from '../img/teacher_1995413.png'
 import Aos from "aos";
 import "aos/dist/aos.css"
 import "../css/style.css"
@@ -18,6 +21,7 @@ import { Link, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSchool, faBookOpenReader, faUsers, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons"
 import { Navbar } from "../component/navbar"
+import { Footer } from "../component/footer"
 export const Home = () =>{
   useEffect(() =>{
     Aos.init()
@@ -43,7 +47,7 @@ export const Home = () =>{
           <div className="img9">
             <div className="cover-page-text-container">
               <div >
-                <h5 className="ml-text cover-page-header text-center">Babys DayOut Center/ Fredita Children Academy</h5>
+                <h5 className="ml-text  text-center">Babys DayOut Center/ Fredita Children Academy</h5>
                 <p className="sm-text mb-4 text-center">""School is a building which has four walls with tomorrow inside." - Lon Watters"</p>
                 <div className="d-flex justify-content-center">
                   <Link className="cover-page-btn" to='/portal' target="_blank">School Portal</Link>
@@ -105,8 +109,13 @@ export const Home = () =>{
             <div className="col-lg-10 t-secondary-background border-2 p-3 col-11">
               <div > 
                 <h2 className="text-center "  data-aos="fade-right"  data-aos-duration="1000" >MISSION OFF OUR SCHOOL</h2>
-                <p  data-aos="fade-right"  data-aos-duration="1000" >Every educational institution is guided by a distinct mission that shapes its purpose, values, and approach to learning. At BDOMS / Fredita Children Academy, our mission is not just a statement; it is the heartbeat of our educational journey. This article delves into the core essence of our  school's mission, highlighting our commitment to fostering excellence and empowering the leaders of tomorrow. <br />
-                  At BDOMS / Fredita Children Academy, our mission is to provide a dynamic and inclusive learning environment that nurtures the holistic development of each pupil. We are dedicated to fostering academic excellence, character growth, and critical thinking skills that prepare our pupils to confidently navigate the challenges of the modern world.
+                <p  data-aos="fade-right"  data-aos-duration="1000" >At BDOMS, our mission is to provide a nurturing and
+                 stimulating environment for children aged 1-13, fostering 
+                 a love for learning and personal growth. We are dedicated to cultivating intellectual, emotional, social, and physical 
+                 development through a balanced curriculum. Using the Montessori method, we encourage independence, creativity, and critical thinking. Instilling strong moral values and social responsibility from an early age is at the heart 
+                 of our education. We make learning engaging and interactive with innovative teaching aids and promote active participation in community service to develop empathy. Our safe, supportive, and nurturing atmosphere ensures every 
+                 child thrives.
+
                 </p>
               </div>
             </div>
@@ -114,8 +123,9 @@ export const Home = () =>{
             <div className="col-lg-10 t-secondary-background  border-danger-2 mt-5 p-3 col-11">
               <div> 
                 <h2 className="text-center" data-aos="fade-right"  data-aos-duration="1000">VISION OFF OUR SCHOOL</h2>
-                <p data-aos="fade-right"  data-aos-duration="1000">In the realm of education, a clear and inspiring vision serves as a guiding light, steering the course of an institution towards meaningful goals and aspirations. At BDOMS / Fredita Children Academy, our vision is a beacon that radiates our aspirations, values, and the path we envision for our students. This article unveils the profound vision that propels our primary school towards excellence and transformative education. <br />
-                  At BDOMS / Fredita Children Academy, our vision is to create a dynamic learning environment that ignites curiosity, cultivates creativity, and empowers pupils to become compassionate, confident, and capable global citizens. We are dedicated to nurturing holistic development, fostering a love for learning, and instilling a sense of purpose that transcends traditional classNameroom boundaries.
+                <p data-aos="fade-right"  data-aos-duration="1000">Our vision at BDOMS is to be a leading institution in early childhood and primary education, recognized for our commitment to excellence and innovation. We aspire to create a dynamic
+                 learning community where every child is empowered to reach their full potential. By fostering a love for learning, promoting creativity, and instilling strong moral values, we aim to develop future leaders who are compassionate, responsible,
+                  and equipped to thrive in a rapidly changing world. Our goal is to inspire a lifelong passion for knowledge and personal growth in every student, preparing them for success in all aspects of life.
                 </p>
               </div>
             </div>
@@ -136,7 +146,7 @@ export const Home = () =>{
                 <div className="card pb-5">
                   <div className="card-body text-center py-4">
                     <div className="about-icon">
-                      <FontAwesomeIcon icon={faUsers} className=" py-4 text-muted" />
+                    <img src={teacher} width='150px'/>
                     </div>
 
                     <h4 className="card-title m-text fw-bold py-3" data-aos="fade-right"  data-aos-duration="1000">Experinced Teachers</h4>
@@ -149,7 +159,7 @@ export const Home = () =>{
                 <div className="card pb-4">
                   <div className="card-body text-center py-3">
                     <div className="about-icon">
-                      <FontAwesomeIcon icon={faSchool} className=" py-4 text-muted" />
+                      <img src={school} width='150px'/>
                     </div>
                     <h4 className="card-title m-text fw-bold py-3 " data-aos="fade-right"  data-aos-duration="1000">Avaliable classes</h4>
                     <p className="card-text  d-lg-block text-muted " data-aos="fade-right"  data-aos-duration="1000">Our school comprises of Creche, learning development className (LDC), pre-school, Nusery 1 - 3, primary 1 - 6. Our student all also oppunited to write a federal common entrance after their primary 6, incase any pupils have the dream off studying in a unity school afterwas.</p>
@@ -161,7 +171,7 @@ export const Home = () =>{
                 <div className="card pb-1">
                   <div className="card-body text-center py-4">
                     <div className="about-icon">
-                      <FontAwesomeIcon icon={faBookOpenReader} className=" py-4 text-muted" />
+                    <img src={reading} width='150px'/>
                     </div>
                     <h4 className="card-title m-text fw-bold py-3" data-aos="fade-right"  data-aos-duration="1000">After School Care</h4>
                     <p className="card-text  d-lg-block text-muted " data-aos="fade-right"  data-aos-duration="1000">Our school does after school care from age 5 - 12. These are for parent that don't have were to keep their child after school our, so help them with their children. Our teacher help them with their homeworks and also give them deeper explaination on what was taught to the in their various schools</p>
@@ -378,68 +388,8 @@ export const Home = () =>{
 
         </section>
 
-        <footer>
-
-          <div className="primary-background  pt-5 pb-3">
-            <div className="container-lg text-center">
-              <div className="row justify-content-center align-items-center">
-                <div className="col-lg-4 text-start footer-text">
-                  <h5  data-aos="fade-right"  data-aos-duration="1000">Here at Baby's Day Out / Fredita Children We give Your Children nothing but the best. We try to ensure you child is well rounded both academically, socially and mentally.</h5>
-                </div>
-                <div className="col-lg-3"  data-aos="zoom-in"  data-aos-duration="1000">
-                  <div className="icon">
-                    <a href="#"><FontAwesomeIcon className="g-3 l-text" icon="fa-brands fa-facebook" /></a>
-                    <a href="#"><FontAwesomeIcon className="g-3 l-text" icon="fa-brands fa-whatsapp" /></a>
-                    <a href="#"><FontAwesomeIcon className="g-3 l-text" icon="fa-brands fa-instagram" /></a>                 
-                  </div>
-                  <div className="py-3">
-                    <p className="sm-text">Check our recent post and update on our social media platform</p> 
-                  </div>
-                </div>
-
-                <div className="col-lg-3 text-start ps-5 footer-link"  data-aos="fade-left"  data-aos-duration="1000">
-                  <div>
-                    <h4>Quick links</h4>
-                    <ul className="navbar-nav ">
-                      <li className="nav-item">
-                        <Link to="/" className={`nav-link p-1 footer-link ${isActive("/") ?"current2": ""}`}>Home</Link>
-                      </li>
-          
-                      <li className="nav-item">
-                        <Link to="/event" className={`nav-link p-1 footer-link ${isActive("/event") ?"current2": ""}`}>EVENTS</Link>
-                      </li>
-          
-                      <li className="nav-item">
-                        <Link to="/gallery" className={`nav-link p-1 footer-link ${isActive("/gallery") ?"current2": ""}`}>GALLERY</Link> 
-                      </li>
-          
-                      <li className="nav-item">
-                        <Link to="/portal" className={`nav-link p-1 footer-link ${isActive("/portal") ?"current2": ""}`}>SCHOOL PORTAL</Link> 
-                      </li>
-          
-                      <li className="nav-item">
-                        <Link to="/application" className={`nav-link p-1 footer-link ${isActive("/application") ?"current2": ""}`}>TEACHER APPLICATION</Link> 
-                      </li>
-          
-                      <li className="nav-item">
-                        <Link to="/contact" className={`nav-link p-1 footer-link ${isActive("/contact") ?"current": ""}`}>CONTACT US</Link> 
-
-                      </li>
-                    </ul>
-                  </div>
-
-
-                </div>
-              </div>
-              <hr/>
-
-              <div className="text-center end-text">
-                <p>Copyright &copy;2023, Baby's Day Out / Fredita Children Academy</p>
-                <p>powered by: <a href="#">Ehiz</a></p>
-              </div>
-            </div>
-          </div>
-        </footer>        
+        <Footer/>
+      
       </div>
 
         

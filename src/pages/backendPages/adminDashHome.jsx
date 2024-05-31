@@ -383,33 +383,33 @@ export const AdminDashHome = () =>{
             <div className="col-xxl-12">
               <div className="row">
                 <div className="col-4">
-                  <div className="scroll-bar-x admin-home-teacher-table-container navyblue-blackground-dash non-wrap-text">
+                  <div className="scroll-bar-x admin-home-email-table-container navyblue-blackground-dash non-wrap-text">
                     <p className=" ps-3 py-2">Recently Sent Email</p>
                     <table className="table1">
 
                       <tbody className="">
-                        <div className="admin-home-teacher-table">
+                        <div className="admin-home-email-table">
                           <tr>
                             <td>12/11/2023</td>
                             <td>iseghohimhene@gmail.com</td>
                           </tr>
                         </div>
 
-                        <div className="admin-home-teacher-table">
+                        <div className="admin-home-email-table">
                           <tr>
                             <td>12/11/2023</td>
                             <td>iseghohimhene@gmail.com</td>
                           </tr>
                         </div>
 
-                        <div className="admin-home-teacher-table">
+                        <div className="admin-home-email-table">
                           <tr>
                             <td>12/11/2023</td>
                             <td>iseghohimhene@gmail.com</td>
                           </tr>
                         </div>
 
-                        <div className="admin-home-teacher-table">
+                        <div className="admin-home-email-table">
                           <tr>
                             <td>12/11/2023</td>
                             <td>iseghohimhene@gmail.com</td>

@@ -69,6 +69,10 @@ import { EditParentPage } from './pages/backendPages/editParentPage';
 import { ViewResultPage } from './pages/backendPages/viewResultPage';
 import { ViewScheme } from './pages/backendPages/viewScheme';
 import { Settings } from './pages/backendPages/settings';
+import { OurStory } from './pages/ourStory';
+import { Vision } from './pages/vision';
+import { OurValues } from './pages/values';
+import { Anthem } from './pages/anthem';
 ;
 
 
@@ -83,10 +87,15 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/about/ourStory" element={<OurStory />} />
+            <Route path="/about/Vision" element={<Vision />} />           
+            <Route path="/about/ourValues" element={<OurValues />} />
+            <Route path="/about/ourAnthem" element={<Anthem />} />             
             <Route path="/portal" element={<Portal />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/application" element={<Application />} />
             <Route path="/event" element={<Events />} />
+
 
             {/* Private Route */}
             <Route element={<PrivateRoute/>}>

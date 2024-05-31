@@ -80,7 +80,7 @@ export const  Navbar = () =>{
                   
                   <ul className=" d-flex nav-frame-list">
                     <li className="nav-item home-nav">
-                      <div className="d-flex p-4 ">
+                      <div className="d-flex px-4 pt-4">
                         <Link to="/" >Home</Link>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
@@ -100,16 +100,16 @@ export const  Navbar = () =>{
                       
 
                     <li className="nav-item home-nav">
-                      <div className="d-flex p-4">
+                      <div className="d-flex px-4 pt-4">
                         <p>ABOUT</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><a href="#goal" className="nav-link text-white">Our Story</a></li>
-                          <li className="nav-item"><a href="#about" className="nav-link text-white">Vision / Mission</a></li>
-                          <li className="nav-item"><a href="#extra-activity" className="nav-link text-white">Our core Values</a></li>
-                          <li className="nav-item"><a href="#news" className="nav-link text-white">School anthem</a></li>
+                          <li className="nav-item"><Link to='/about/ourStory'>Our Story</Link></li>
+                          <li className="nav-item"><Link to='/about/Vision'>Vision / Mission</Link></li>
+                          <li className="nav-item"><Link to='/about/ourValues'>Our core Values</Link></li>
+                          <li className="nav-item"><Link to='/about/ourAnthem'>School anthem</Link></li>
                           <li className="nav-item"><a href="#gallery" className="nav-link text-white">Rules and Regulation</a></li>
 
                         </ul>
@@ -117,11 +117,11 @@ export const  Navbar = () =>{
                     </li>
 
                     <li className="nav-item">
-                      <Link to="/gallery" className={`nav-link p-4 text-white ${isActive("/gallery") ?"current": ""}`}>GALLERY</Link> 
+                      <Link to="/gallery" className={`nav-link p-4  ${isActive("/gallery") ?"current": ""}`}>GALLERY</Link> 
                     </li>
 
                     <li className="nav-item home-nav">
-                      <div className="d-flex p-4">
+                      <div className="d-flex px-4 pt-4">
                       <p>INFO</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
@@ -136,7 +136,7 @@ export const  Navbar = () =>{
                     </li>
 
                     <li className="nav-item home-nav">
-                      <div className="d-flex p-4">
+                      <div className="d-flex px-4 pt-4">
                       <p>CAMPUS</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
@@ -151,7 +151,7 @@ export const  Navbar = () =>{
                     </li>
 
                     <li className="nav-item home-nav">
-                    <div className="d-flex p-4">
+                    <div className="d-flex px-4 pt-4">
                       <p>CURICULUNM</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
@@ -175,7 +175,7 @@ export const  Navbar = () =>{
                     </li>
 
                     <li className="nav-item home-nav">
-                      <div className="d-flex p-4">
+                      <div className="d-flex px-4 pt-4">
                       <p>CONNECT US</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>

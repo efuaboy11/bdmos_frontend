@@ -6,6 +6,9 @@
 li{
   list-style: none;
 }
+.li-style{
+  list-style: disc;
+}
 
 
 
@@ -49,7 +52,13 @@ a{
   background-color: #000;
   color: #FFF4F4;
 }
+.light-background2{
+  background-color: #D1D8C5;
 
+}
+.font-bold{
+  font-weight: bold;
+}
 .light-background{
   background-color: honeydew;
 }
@@ -65,6 +74,9 @@ a{
 }
 .text-secondary1{
   color: #4F200D;
+}
+.border-radius-20{
+  border-radius: 20px;
 }
 .text-dark1{
   color: #000;
@@ -168,6 +180,8 @@ input:focus{
 
 
 
+
+
 /* nav */
 .client-sidebar{
   width: 310px;
@@ -225,6 +239,13 @@ nav{
  display: flex;
  align-items: center;
 }
+.home-nav Link:hover{
+  color: blue;
+  
+}
+.home-nav Link{
+  color: #fff;
+}
 
 .sub-menu-l {
   display: none;
@@ -244,10 +265,12 @@ nav .home-nav:hover  .sub-menu-l{
   display: block;
   position: fixed;
   background-color: #3E001F;
-  margin-top: 5px;
+  margin-top: 0px;
   margin-left: -35px;
   /* z-index: 1000; */
 }
+
+
 
 
 
@@ -269,7 +292,7 @@ nav .home-nav:hover  .sub-menu-l{
 
 #cover-page .img9::before{
   content: "";
-  background: url(../img/Background1.JPG)no-repeat center center/cover;
+  background: url(../img/Background1.jpg)no-repeat center center/cover;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -465,8 +488,19 @@ nav .home-nav:hover  .sub-menu-l{
   padding-bottom: 36px;
 }
 
-
-
+/*-------------------------about Page Vision ------------------------- */
+.vision-boxes{
+  transition: ease all 1s;
+}
+.vision-boxes:hover{
+  transform: translateY(-50px);
+  background-color: #3E001F;
+  color: #fff;
+}
+/* ------------------------ about Page values ------------- */
+.values-line{
+  border-right: 1px solid #290013;
+}
 
 /* .overlay {
   position: absolute;
@@ -601,7 +635,6 @@ nav .home-nav:hover  .sub-menu-l{
 #portal input:focus{
   border: #3E001F solid 1px;
 }
-
 
 
 
