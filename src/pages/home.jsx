@@ -384,7 +384,7 @@ export const Home = () =>{
           </div>
 
 
-          <div></div>
+          <div>r</div>
         </section>
 
         <Footer/>
