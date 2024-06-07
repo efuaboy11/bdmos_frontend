@@ -42,7 +42,7 @@ export const ViewAllStudents = () =>{
   }
 
   const getAllStundent = async() => {
-    let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
+    let response = await fetch("https://bdmos.onrender.com/api/students/",{
       method: "GET",
       headers: {
         "Content-Type":"application/json"
