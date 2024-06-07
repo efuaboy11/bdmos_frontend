@@ -12,19 +12,26 @@ import AuthContext from "../../context/AuthContext"
 
 export const AddParent = () =>{
 
+  const {authTokens} = useContext(AuthContext)
+
+  const [students, setStudents] = useState([])
+  
+
 
   const [parentName, setParentName] = useState("")
   const [parentPhoneNumber, setparentPhoneNumber] = useState('')
   const [parentEmail, setParentEmail] = useState('')
   const [homeAddress, setHomeAddress] = useState('')
   const [ParentImg, setParentImg] = useState('')
-  const [childName, setChildName] = useState('')
+  const [childName, setChildName] = useState([])
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+
+  console.log(childName)
 
   const handlePassportFile = (event) => {
     // Check if any file is selected
@@ -59,16 +66,17 @@ export const AddParent = () =>{
     }
 
     const formData = new FormData()
-    formData.append("first_name", parentName);
-    formData.append("middle_name", parentPhoneNumber);
-    formData.append("last_name", parentEmail);
-    formData.append("last_name", childName);
-    formData.append("last_name", ParentImg);
+    formData.append("name", parentName);
+    formData.append("phone_number", parentPhoneNumber);
+    formData.append("email", parentEmail);
+    formData.append("address", homeAddress);
+    formData.append("children_name", childName);
+    formData.append("image", ParentImg);
 
     console.log(formData)
 
     try {
-      const response = await fetch("https://bdmos.onrender.com/api/students/", {
+      const response = await fetch("https://bdmos.onrender.com/api/parents/", {
         method: "POST",
         body: formData
       })
@@ -98,6 +106,44 @@ export const AddParent = () =>{
       console.log(error)
     }
   }
+
+  const getStudent = async() => {
+    try {
+      const response = await fetch("https://bdmos.onrender.com/api/students/", {
+        method: "GET",
+        headers:{
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      const data = await response.json()
+
+      if(response.status === 200){
+        const sortedData = data.sort((a, b) => a.first_name.localeCompare(b.first_name));
+        setStudents(sortedData)
+      }else{
+        console.error("Failed to fetch user details:", response.statusText)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getStudent()
+  }, [students])
+
+  const handleSelectChange = (event) => {
+    const options = event.target.options;
+    const selectedValues = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
+    setChildName(selectedValues);
+  };
+
 
 
   return(
@@ -167,7 +213,11 @@ export const AddParent = () =>{
 
                 <div className="col-md-12 mt-5">
                   <label htmlFor="" className="">Children Name </label>
-                  <textarea className={`form-control delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: true})} value={childName} onChange={(e) => setChildName(e.target.value)}type="text" placeholder="Mary, john, happy"></textarea>
+                  <select   className={`form-control form-select delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} onChange={handleSelectChange}type="text" placeholder="Mary, john, happy" multiple>
+                    {students && students.map((student) =>(
+                      <option value={student.id} key={student.id}>{student.first_name} {student.last_name}</option>
+                    ))}
+                  </select>
                   {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 

@@ -12,6 +12,15 @@ body{
 
 }
 
+.fixed-width-message {
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 .cursor-pointer{
   cursor: pointer;

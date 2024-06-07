@@ -1,3 +1,5 @@
+import {NotFound} from './pages/notFound';
+
 
 import { Home } from './pages/home';
 import {BrowserRouter as Router, Routes, Route } from "react-router-dom"
@@ -73,7 +75,11 @@ import { OurStory } from './pages/ourStory';
 import { Vision } from './pages/vision';
 import { OurValues } from './pages/values';
 import { Anthem } from './pages/anthem';
+import { Uniform } from './pages/uniform';
+import { Addmision } from './pages/admision';
+import { EditClass } from './pages/backendPages/editClassPage';
 ;
+
 
 
 
@@ -90,7 +96,9 @@ function App() {
             <Route path="/about/ourStory" element={<OurStory />} />
             <Route path="/about/Vision" element={<Vision />} />           
             <Route path="/about/ourValues" element={<OurValues />} />
-            <Route path="/about/ourAnthem" element={<Anthem />} />             
+            <Route path="/about/ourAnthem" element={<Anthem />} />
+            <Route path="/info/uniform" element={<Uniform />} />  
+            <Route path="/info/admission" element={<Addmision />} />                      
             <Route path="/portal" element={<Portal />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/application" element={<Application />} />
@@ -148,6 +156,7 @@ function App() {
               <Route path='/admin/editParent/:id' element={<EditParentPage/>}/>   
               <Route path='/admin/viewResultPage/' element={<ViewResultPage/>}/>   
               <Route path='/admin/editSchoolItem/:id' element={<EditSchoolItemPage/>}/>
+              <Route path='/admin/viewClass/:id' element={<EditClass/>}/>
               <Route path='/admin/resultPage' element={<ResultPage/>}/>
               <Route path='/admin/uploadScheme' element={<UploadScheme/>}/>
               <Route path='/admin/uploadSchemePage' element={<UploadSchemePage/>}/>
@@ -156,6 +165,8 @@ function App() {
               <Route path='/admin/viewGeneratedScratchNumber' element={<ViewGeneratedScratchNumber/>}/>
               <Route path='/admin/settings' element={<Settings/>}/>             
             </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
       </Router>

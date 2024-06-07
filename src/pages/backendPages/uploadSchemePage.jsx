@@ -3,8 +3,87 @@ import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const UploadSchemePage = () =>{
+  const [formValues, setFormValues] = useState([])
+  const [subjects, setSubjects] = useState([])
+
+  const {authTokens,
+    className,
+    setClassName,
+    term,
+    setTerm,
+    session,
+    setSession,
+    classe,
+    setClasse,
+    terms,
+    setTerms,
+    sessions,
+    setSessions,
+    date,
+    setDate} = useContext(AuthContext)
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      const response = await fetch(`https://bdmos.onrender.com/api/class/${classe}/`)
+      const data = await response.json()
+      setSubjects(data.all_subjects)
+    }
+
+    fetchSubjects()
+  }, [])
+
+  const handleChange = (index, e) => {
+    const values = [...formValues]
+    if (e.target.name === 'scheme'){
+      values[index][e.target.name] = e.target.files[0]
+    } else {
+      values[index][e.target.name] = e.target.value
+    }
+    setFormValues(values)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const formDataArray = formValues.map((value) => {
+      const formData = new FormData()
+      Object.keys(value).forEach((key) => {
+        formData.append(key, value[key])
+      })
+      return formData
+    })
+
+    const promises = formDataArray.map(async (formData) => {
+      const response = await fetch('https://bdmos.onrender.com/api/scheme/', {
+        method: "POST",
+        body: formData
+      })
+      return response.json()
+    })
+
+    Promise.all(promises).then((results) => {
+      console.log(results)
+    }).catch((error) => {
+      console.error("Error uploading schemes:", error)
+    })
+  }
+
+  useEffect(() => {
+    setFormValues(subjects.map(subject => ({
+      student_class: classe,
+      term: terms,
+      session: sessions,
+      date: date,
+      subject: subject.id,
+      scheme: null
+    })))
+  }, [subjects])
+
+  console.log(subjects)
 	return(
 		<div>
       <div className="position-sticky">
@@ -47,46 +126,18 @@ export const UploadSchemePage = () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-
-
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
-                      <tr>
-                        <td>MATH</td>
-                        <td><input type="file" /></td>
-                      </tr>
+                      {formValues.map((formValue, index) => (
+                        <tr key={index}>
+                          <td>MATH</td>
+                          <td><input type="file" name="scheme" onChange={(e) => handleChange(index, e)}/></td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
               </div>
 
-              <button className="admin-btn py-2 px-5 my-5">Upload</button>
+              <button className="admin-btn py-2 px-5 my-5" onClick={handleSubmit}>Upload</button>
 
 
             </section>

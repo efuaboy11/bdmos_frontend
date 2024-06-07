@@ -9,9 +9,7 @@ import { Alert } from "@mui/material"
 
 export const ViewEventUploaded = () => {
   const { authTokens } = useContext(AuthContext)
-
-  const [eventID, setEventID] = useState("")
-  const [eventName, setEventName] = useState("")
+  const [eventDate, seteventDate] = useState("")
   const [eventDatas, setEventDatas] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [selectedEventID, setSelectedEventID] = useState(null)
@@ -23,6 +21,32 @@ export const ViewEventUploaded = () => {
   const [alertSeverity, setAlertSeverity] = useState("")
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+
+  const filterAllEvent = async() => {
+    let url;
+    if (eventDate.length !== 0) {
+      url = `https://bdmos.onrender.com/api/events/?search=${eventDate}`;
+    } else {
+      getEvent();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setEventDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
 
   const getEvent = async () => {
     let response = await fetch("https://bdmos.onrender.com/api/events/", {
@@ -36,7 +60,8 @@ export const ViewEventUploaded = () => {
     const data = await response.json()
 
     if (response.ok) {
-      setEventDatas(data)
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setEventDatas(sortedData)
     } else {
       console.error("Failed to fetch events", response.statusText)
     }
@@ -89,8 +114,15 @@ export const ViewEventUploaded = () => {
   }
 
   useEffect(() => {
-    getEvent()
-  }, [])
+    if(!eventDate){
+      getEvent()
+    }else if(eventDate){
+      filterAllEvent()
+    }else{
+      getEvent()
+    }
+
+  }, [eventDatas])
 
   return (
     <div>
@@ -145,12 +177,9 @@ export const ViewEventUploaded = () => {
 
             <form>
               <div className="row add-student g-2">
-                <div className="col-sm-3 mb-4">
-                  <input type="text" className="p-2 form-dark border-radius admin-input" placeholder="Search by ID..." value={eventID} onChange={(e) => setEventID(e.target.value)} />
-                </div>
 
                 <div className="col-sm-3 mb-4">
-                  <input type="text" className="p-2 form-dark border-radius admin-input" placeholder="Search by Date.." value={eventName} onChange={(e) => setEventName(e.target.value)} />
+                  <input type="text" className="p-2 form-dark border-radius admin-input" placeholder="Search by Date.." value={eventDate} onChange={(e) => seteventDate(e.target.value)} />
                 </div>
 
               </div>

@@ -42,7 +42,7 @@ export const ViewAllStudents = () =>{
   }
 
   const getAllStundent = async() => {
-    let response = await fetch("https://bdmos.onrender.com/api/students/",{
+    let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
       method: "GET",
       headers: {
         "Content-Type":"application/json"
@@ -52,7 +52,8 @@ export const ViewAllStudents = () =>{
     const data = await response.json()
 
     if(response.ok){
-      setStudents(data)
+      const sortedData = data.sort((a, b) => a.first_name.localeCompare(b.first_name));
+      setStudents(sortedData)
     }else{
       console.error("Failed to fetch students", response.statusText)
     }

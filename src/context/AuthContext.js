@@ -15,6 +15,17 @@ export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(false)
 
     const [details, setDetails] = useState()
+
+    const [className, setClassName] = useState([])
+    const [term, setTerm] = useState([])
+    const [session, setSession] = useState([])
+
+    const [classe, setClasse] = useState("")
+    const [terms, setTerms] = useState("")
+    const [sessions, setSessions] = useState("")
+
+    const [date, setDate] = useState("")
+
     console.log(details)
 
     const navigate = useNavigate()
@@ -101,7 +112,21 @@ export const AuthProvider = ({children}) => {
         loginUser,
         logoutUser,
         details,
-        setDetails
+        setDetails,
+        className,
+        setClassName,
+        term,
+        setTerm,
+        session,
+        setSession,
+        classe,
+        setClasse,
+        terms,
+        setTerms,
+        sessions,
+        setSessions,
+        date,
+        setDate
     }
 
     return (

@@ -53,7 +53,8 @@ export const ViewAllTeacher = () =>{
     const data = await response.json()
 
     if(response.ok){
-      setTeachers(data)
+      const sortedData = data.sort((a, b) => a.first_name.localeCompare(b.first_name));
+      setTeachers(sortedData)
     }else{
       console.error("Failed to fetch students", response.statusText)
     }

@@ -25,7 +25,33 @@ export const ViewNotificationUploaded= () =>{
 
 
   
+  const filterAllNotification = async() => {
+    let url;
+    if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/notifications/?search=${date}`;
+    } else if (teacherName.length !== 0) {
+      url = `https://bdmos.onrender.com/api/notifications/?search=${teacherName}`;
+    } else {
+      getNotification();
+      return;
+    }
 
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
 
 
   const getNotification = async() => {
@@ -40,7 +66,8 @@ export const ViewNotificationUploaded= () =>{
     const data = await response.json()
 
     if(response.ok){
-      setDatas(data)
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setDatas(sortedData)
     }else{
       console.error("Failed to fetch students", response.statusText)
     }
@@ -95,7 +122,16 @@ export const ViewNotificationUploaded= () =>{
 
 
   useEffect(() =>{
-    getNotification()
+    if(!date && !teacherName){
+      getNotification()
+    }else if(date){
+      filterAllNotification()
+    }else if(teacherName){
+      filterAllNotification()
+    }else{
+      getNotification()
+    }
+
   },[datas])
 
   

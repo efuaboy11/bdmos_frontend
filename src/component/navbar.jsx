@@ -127,8 +127,8 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><a href="#goal" className="nav-link text-white">Uniforms</a></li>
-                          <li className="nav-item"><a href="#about" className="nav-link text-white ">Admission Procedure</a></li>
+                          <li className="nav-item"><Link to='/info/uniform' >Uniforms</Link></li>
+                          <li className="nav-item"><Link to='/info/admission'>Admission Procedure</Link></li>
                           <li className="nav-item"><a href="#extra-activity" className="nav-link text-white">BDOMS Fact Sheet</a></li>
 
                         </ul>

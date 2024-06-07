@@ -56,6 +56,9 @@ a{
   background-color: #D1D8C5;
 
 }
+.light-background3{
+  background-color: #F6F5F2;
+}
 .font-bold{
   font-weight: bold;
 }
@@ -500,6 +503,42 @@ nav .home-nav:hover  .sub-menu-l{
 /* ------------------------ about Page values ------------- */
 .values-line{
   border-right: 1px solid #290013;
+}
+
+/* --------------------------- info page uniform ---------------*/
+.uniform-h4{
+  padding: 20px 70px;
+  border-bottom: 1.5px #000 solid;
+
+}
+.uniform-boys-header{
+  padding: 10px;
+  border-bottom: 1.5px #F0EBE3 solid;
+
+}
+
+.uniform-girls-header{
+  padding: 10px;
+  border-bottom: 1.5px #F0EBE3 solid;
+
+}
+/* ----------------------------info Addmission procedure---------- */
+.admission-btn{
+  border: none;
+  padding: 10px 90px;
+  background-color: #3E001F;
+  color: #fff;
+  font-weight: bold;
+  transition: all ease 0.5s;
+  margin-top: 30px;
+}
+
+.admission-btn:hover{
+  background-color: #000;
+}
+.admission-h6 {
+  border-bottom: 1px solid #000;
+  padding: 10px 50px;
 }
 
 /* .overlay {

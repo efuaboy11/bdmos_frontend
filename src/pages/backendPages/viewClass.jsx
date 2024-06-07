@@ -1,5 +1,5 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
-import { Link } from "react-router-dom"
+import { Link,  useNavigate } from "react-router-dom"
 import {faPenSquare, faPenToSquare, faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
@@ -8,9 +8,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from "@mui/material"
 
 export const ViewClass = () =>{
+
+  const navigate = useNavigate()
+
+
   const [className, setClassName] = useState("") 
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens, setDetails} = useContext(AuthContext)
   const [datas, setdatas] = useState([])
+  console.log(datas)
 
 
   const [showModal, setShowModal] = useState(false)
@@ -21,7 +26,33 @@ export const ViewClass = () =>{
   const [alertSeverity, setAlertSeverity] = useState("")
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+  
 
+  const filterClass = async() => {
+    let url;
+    if (className.length !== 0) {
+      url = `https://bdmos.onrender.com/api/class/?search=${className}`;
+    } else {
+      getClass();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
 
   const getClass = async() => {
     let response = await fetch("https://bdmos.onrender.com/api/class/",{
@@ -49,6 +80,10 @@ export const ViewClass = () =>{
   const hideDeleteModal = () => {
     setShowModal(false)
     setSelectedClassID(null)
+  }
+
+  const handleEdit = (id) => {
+    editPage(id)
   }
 
   const deleteClass = async () => {
@@ -86,8 +121,42 @@ export const ViewClass = () =>{
       console.log(errorMessage)
     }
   }
+
+  const editPage = async (id) => {
+    setLoader(true)
+
+    let response = await fetch(`https://bdmos.onrender.com/api/class/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      setLoader(false)
+      setDetails(data)
+      navigate(`/admin/viewClass/${data.id}`)
+    } else {
+      setLoader(false)
+      setShowAlert(true)
+      setAlerts('There is an error in processing your data')
+      setAlertSeverity('error')
+    }
+  }
+
+
   useEffect(() =>{
-    getClass()
+    if(!className){
+      getClass()
+    }else if(className){
+      filterClass()
+    }else{
+      getClass()
+    }
+
   },[datas])
 
 	return(
@@ -113,7 +182,7 @@ export const ViewClass = () =>{
           </div>
 
           {showModal &&
-            <section>
+            <section className="overlay-background">
               <div className="admin-modal-container">
                 <div className="admin-modal-content">
                   <h5>Delete Class?</h5>
@@ -145,7 +214,7 @@ export const ViewClass = () =>{
 
             <form action="">
               <div className="row add-student">
-                <div className="col-sm-10 mb-4">
+                <div className="col-sm-4 mb-4">
                   <input type="text" className=" p-2 form-dark border-radius admin-input" placeholder="Search by Class..."  value={className} onChange={(e) => setClassName(e.target.value)}/>
                 </div>
 
@@ -177,8 +246,8 @@ export const ViewClass = () =>{
                         <tr>
                           <td>{data.id}</td>
                           <td>{data.name}</td>
-                          <td>{data.all_subjects.name}</td>
-                          <td>{<FontAwesomeIcon className="pe-3 cursor-pointer" icon={faPenToSquare}/>}  {<FontAwesomeIcon onClick={() => showDeleteModal(data.id)} className="cursor-pointer" icon={faTrashCan}/>}</td> 
+                          <td>{data.all_subjects[0]?.name}</td>
+                          <td>{<FontAwesomeIcon  onClick={() => handleEdit(data.id)} className="pe-3 cursor-pointer" icon={faPenToSquare}/>}  {<FontAwesomeIcon onClick={() => showDeleteModal(data.id)} className="cursor-pointer" icon={faTrashCan}/>}</td> 
                         </tr>
                       ))}
                     </tbody>

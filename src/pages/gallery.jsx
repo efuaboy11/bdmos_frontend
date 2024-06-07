@@ -75,7 +75,7 @@ export const Gallery = () =>{
         <div className="row py-5">
           <div className="col-xxl-12">
             <div className="row g-4">
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={chess1} alt="" width='100%'/>
                   <div className="dark-background p-2">
@@ -84,7 +84,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={outdoor} alt="" width='100%'/>
                   <div className="dark-background p-2">
@@ -93,7 +93,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={playground1} alt="" width='100%'/>
                   <div className="dark-background p-2">
@@ -102,7 +102,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={scrable1} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -111,7 +111,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={swing1} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -120,7 +120,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={engine1} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -129,7 +129,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={farm1} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2"> 
@@ -138,7 +138,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={sport14} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -147,7 +147,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={outdoor2} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -156,7 +156,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={uniform1} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -165,7 +165,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={playground3} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -174,7 +174,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              <div className="col-xxl-3 col-lg-4 col-md-6">
+              <div className="col-xxl-3 col-lg-4 col-sm-6">
                 <div>
                   <img src={pic} alt="" width='100%' height='240px'/>
                   <div className="dark-background p-2">
@@ -184,7 +184,7 @@ export const Gallery = () =>{
               </div>
 
               {datas.map((data) =>(
-                <div className="col-xxl-3 col-lg-4 col-md-6">
+                <div className="col-xxl-3 col-lg-4 col-sm-6">
                   <div>
                     <img src={data.image} alt="" width='100%' height='240px'/>
                     <div className="dark-background p-2">

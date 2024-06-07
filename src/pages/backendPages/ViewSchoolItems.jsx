@@ -12,7 +12,7 @@ export const ViewStudentItems = () => {
   const { authTokens, setDetails } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const [ID, setID] = useState("")
+  const [itemAmount, setItemAmount] = useState("")
   const [itemName, setItemName] = useState("")
   const [itemDatas, setItemDatas] = useState([])
 
@@ -24,6 +24,34 @@ export const ViewStudentItems = () => {
   const [alertSeverity, setAlertSeverity] = useState("")
   const [loader, setLoader] = useState(false)
   const [disableButton, setDisableButton] = useState(false)
+
+  const filterSchoolItems = async() => {
+    let url;
+    if (itemAmount.length !== 0) {
+      url = `https://bdmos.onrender.com/api/items/?search=${itemAmount}`;
+    } else if (itemName.length !== 0) {
+      url = `https://bdmos.onrender.com/api/items/?search=${itemName}`;
+    } else {
+      getAllItem();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setItemDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
 
   const getAllItem = async () => {
     let response = await fetch("https://bdmos.onrender.com/api/items/", {
@@ -37,7 +65,8 @@ export const ViewStudentItems = () => {
     const data = await response.json()
 
     if (response.ok) {
-      setItemDatas(data)
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setItemDatas(sortedData)
     } else {
       console.error("Failed to fetch students", response.statusText)
     }
@@ -116,8 +145,17 @@ export const ViewStudentItems = () => {
   }
 
   useEffect(() => {
-    getAllItem()
-  }, [])
+    if(!itemAmount && !itemName){
+      getAllItem()
+    }else if(itemAmount){
+      filterSchoolItems()
+    }else if(itemName){
+      filterSchoolItems()
+    }else{
+      getAllItem()
+    }
+
+  }, [itemDatas])
 
   return (
     <div>
@@ -171,11 +209,11 @@ export const ViewStudentItems = () => {
             <form>
               <div className="row add-student g-3">
                 <div className="col-sm-4 mb-4">
-                  <input type="text" className="p-2 form-dark border-radius view-student-input" placeholder="Search by ID..." value={ID} onChange={(e) => setID(e.target.value)} />
+                  <input type="text" className="p-2 form-dark border-radius view-student-input" placeholder="Search by name..." value={itemName} onChange={(e) => setItemName(e.target.value)} />
                 </div>
 
                 <div className="col-sm-4 mb-4">
-                  <input type="text" className="p-2 form-dark border-radius view-student-input" placeholder="Search by Name..." value={itemName} onChange={(e) => setItemName(e.target.value)} />
+                  <input type="text" className="p-2 form-dark border-radius view-student-input" placeholder="Search by Amount..." value={itemAmount} onChange={(e) => setItemAmount(e.target.value)} />
                 </div>
               </div>
             </form>

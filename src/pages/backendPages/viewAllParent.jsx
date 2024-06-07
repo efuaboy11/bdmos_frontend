@@ -27,8 +27,34 @@ export const ViewAllParent = () =>{
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
 
+
+  const filterAllParent = async() => {
+    let url;
+    if (parentName.length !== 0) {
+      url = `https://bdmos.onrender.com/api/parents/?search=${parentName}`;
+    } else {
+      getParents();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+
   const getParents = async() => {
-    let response = await fetch("https://bdmos.onrender.com/api/sessions",{
+    let response = await fetch("https://bdmos.onrender.com/api/parents/",{
       method: "GET",
       headers: {
         "Content-Type":"application/json",
@@ -62,7 +88,7 @@ export const ViewAllParent = () =>{
     }else{
       setLoader(true)
     }
-    let response = await fetch(`https://bdmos.onrender.com/api/sessions/${selectedParentID}`, {
+    let response = await fetch(`https://bdmos.onrender.com/api/parents/${selectedParentID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authTokens.access}`
@@ -91,7 +117,15 @@ export const ViewAllParent = () =>{
   }
 
   useEffect(() =>{
-    getParents()
+    if(!parentName){
+      getParents()
+    }else if(parentName){
+      filterAllParent()
+    }else{
+      getParents()
+    }
+
+
   },[datas])
 
 
@@ -116,7 +150,7 @@ export const ViewAllParent = () =>{
           </div>
 
           {showModal &&
-            <section>
+            <section className="overlay-background">
               <div className="admin-modal-container">
                 <div className="admin-modal-content">
                   <h5>Delete Parent Details?</h5>
@@ -175,17 +209,20 @@ export const ViewAllParent = () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td>1</td>
-                        <td><img src="" alt="" /></td>
-                        <td>Iseghohimhen Fred</td>
-                        <td>mark, micheal</td>
-                        <td>22 adolo college Road</td>
-                        <td>08079022633</td>
-                        <td>iseghohimhene@gmail.com</td>
-                        <td><FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} /></td>
+                        {datas.map((data) =>(
+                          <tr>
+                            <td>{data.id}</td>
+                            <td><img src={data.image} alt="" /></td>
+                            <td>{data.name}</td>
+                            <td>mike</td>
+                            <td>{data.address}</td>
+                            <td>{data.phone_number}</td>
+                            <td>{data.email}</td>
+                            <td><FontAwesomeIcon onClick={() => showDeleteModal(data.id)}  className="text-center cursor-pointer" icon={faTrashCan} /></td>
+                          </tr>
 
-                      </tr>
+
+                        ))}
 
                     </tbody>
                   </table>

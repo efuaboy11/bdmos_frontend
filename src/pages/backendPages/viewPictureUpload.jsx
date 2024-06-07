@@ -10,7 +10,7 @@ import { Alert } from "@mui/material"
 export const ViewPictureUploaded = () =>{
   const {authTokens, details} = useContext(AuthContext)
   
-  const [ID, setID] = useState("")
+  const [date, setDate] = useState("")
   const [datas, setdatas] = useState([])
 
   const [showModal, setShowModal] = useState(false)
@@ -23,7 +23,31 @@ export const ViewPictureUploaded = () =>{
   const [disablebutton, setdisablebutton] = useState(false)
 
 
+  const filterAllPicture = async() => {
+    let url;
+    if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/school_photos/?search=${date}`;
+    } else {
+      getPicture();
+      return;
+    }
 
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
 
   const getPicture = async() => {
     let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
@@ -37,7 +61,8 @@ export const ViewPictureUploaded = () =>{
     const data = await response.json()
 
     if(response.ok){
-      setdatas(data)
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setdatas(sortedData)
     }else{
       console.error("Failed to fetch students", response.statusText)
     }
@@ -91,7 +116,14 @@ export const ViewPictureUploaded = () =>{
 
 
   useEffect(() =>{
-    getPicture()
+    if(!date){
+      getPicture()
+    }else if(date){
+      filterAllPicture()
+    }else{
+      getPicture()
+    }
+
   },[datas])
 
 
@@ -145,13 +177,9 @@ export const ViewPictureUploaded = () =>{
             </div>
 
             <form action="">
-              <div className="row add-student justify-content-evenly">
-                <div className="col-sm-10 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by ID..." value={ID} onChange={(e) => setID(e.target.value)}/>
-                </div>
-
-                <div className="col-sm-1 mb-3">
-                  <input type="submit" className=" p-2 form-dark border-radius"/>
+              <div className="row add-student">
+                <div className="col-sm-4 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius admin-input " placeholder="Search by Date..." value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
               </div>            
             </form> 
