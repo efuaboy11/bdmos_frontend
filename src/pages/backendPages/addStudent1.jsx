@@ -15,7 +15,7 @@ export const AddStudent = () =>{
 
   const {authTokens} = useContext(AuthContext)
 
-  const [firstName, setFirstName] = useState(false)
+  const [firstName, setFirstName] = useState('')
   const [middleName, setMiddleName] = useState("")
   const [lastName, setLastName] = useState("")
   const [DOB, setDOB] = useState("")

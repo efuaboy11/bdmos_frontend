@@ -41,7 +41,7 @@ export const EditParent = () =>{
       setLoader(true)
     }
 
-    let response = await fetch(`https://bdmos.onrender.com/api/students/${parentName}`,{
+    let response = await fetch(`https://bdmos.onrender.com/api/parents/${parentName}`,{
       method: "GET",
       headers: {
         "Content-Type":"application/json",

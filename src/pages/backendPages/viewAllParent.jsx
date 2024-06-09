@@ -161,6 +161,7 @@ export const ViewAllParent = () =>{
                     <div>
                       <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
                       <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteParent}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+
                     </div>
                   </div>
                 </div>
@@ -190,8 +191,8 @@ export const ViewAllParent = () =>{
 
             <section className="container-lg navyblue-blackground-dash">
               <div className="view-content-height scroll-bar">
-                <div className="non-wrap-text">
-                  <p className=" ps-3 py-2">Event Upload</p>
+                <div>
+                  <p className=" ps-3 py-2">Parent Upload</p>
                   <table className="table1 ">
                     <thead>
                       <tr>

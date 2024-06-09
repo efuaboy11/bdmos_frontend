@@ -78,6 +78,8 @@ import { Anthem } from './pages/anthem';
 import { Uniform } from './pages/uniform';
 import { Addmision } from './pages/admision';
 import { EditClass } from './pages/backendPages/editClassPage';
+import { StudentPage } from './pages/backendPages/viewIndiviualStudent';
+import { TeacherPage } from './pages/backendPages/viewIndividualTeacher';
 ;
 
 
@@ -115,11 +117,12 @@ function App() {
               <Route path="/schoolItems" element={<SchoolItems />}/>
               <Route path='/admin' element={<AdminDashHome />}/>
               <Route path="/admin/viewAllStudent" element={<ViewAllStudents />}/>
-              <Route path="/admin/viewAllStudent/:id" />
+              <Route path="/admin/viewAllStudent/:id" element={<StudentPage />}/>
               <Route path="/admin/addStudent" element={<AddStudent />}/>
               <Route path="/admin/deleteStudent" element={<DeleteStudent />}/>
               <Route path='/admin/editStudent' element={<EditStudent/>}/>
               <Route path='/admin/viewAllTeacher' element={<ViewAllTeacher/>}/>
+              <Route path='/admin/viewAllTeacher/:id' element={<TeacherPage/>}/>
               <Route path='/admin/addTeacher' element={<AddTeacher/>}/>
               <Route path='/admin/deleteTeacher' element={<DeleteTeacher/>}/>
               <Route path='/admin/editTeacher' element={<EditTeacher />}/>

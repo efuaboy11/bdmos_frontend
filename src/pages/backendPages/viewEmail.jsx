@@ -128,7 +128,7 @@ export const ViewEmail = () => {
 
   }, [datas])
 
-  const editModal = (id, to, subject, body, date) => {
+  const emailContext = (id, to, subject, body, date) => {
     setEmailDetails([{ id, to, subject, body, date }]); // Corrected to set an array with a single object
     console.log([{ id, to, subject, body, date }]); // Log the new state object
     setShowEmailModal(true); // Show the email modal
@@ -292,13 +292,13 @@ export const ViewEmail = () => {
                         <tr key={data.id}>
                           <td>{data.id}</td>
                           <td>{data.to}</td>
-                          <td>{truncateText(data.body, 10)}</td>
+                          <td>{truncateText(data.body, 5)}</td>
                           <td>{data.date}</td>
                           <td>
                             <FontAwesomeIcon
                               className="pe-3 cursor-pointer"
                               icon={faEye}
-                              onClick={() => editModal(data.id, data.to, data.subject, data.body, data.date)}
+                              onClick={() => emailContext(data.id, data.to, data.subject, data.body, data.date)}
                             />
                             <FontAwesomeIcon
                               icon={faTrashCan}

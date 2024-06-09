@@ -44,7 +44,7 @@ export const DeleteParent = () =>{
     }
 
     try {
-      let response = await fetch(`https://bdmos.onrender.com/api/students/${parentName}/`, {
+      let response = await fetch(`https://bdmos.onrender.com/api/parents/${parentName}/`, {
         method: "DELETE",
         headers: {
           Authorization:`Bearer ${authTokens.access}`
@@ -53,7 +53,7 @@ export const DeleteParent = () =>{
 
       if (response.ok) {
         setShowAlert(true)
-        setAlerts("Student deleted Sucessfully")
+        setAlerts("Parent deleted Sucessfully")
         setAlertSeverity('success')
         setLoader(false)
         setdisablebutton(false)
@@ -116,7 +116,7 @@ export const DeleteParent = () =>{
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row justify-content-center mx-2">
                     <div className="col-md-10 mt-5">
-                      <input className={`form-control delete-student-input form-dark ${errors.deleteParent ? 'error-input' : ''}`} {...register('deleteParent', {required: true})} value={deleteParent} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mary Mark"/>
+                      <input className={`form-control delete-student-input form-dark ${errors.deleteParent ? 'error-input' : ''}`} {...register('deleteParent', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mary Mark"/>
                       {errors.deleteParent && <span style={{color: 'red'}}>This Feild is required</span>}
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">

@@ -1,16 +1,21 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewAllStudents = () =>{
+  const navigate  = useNavigate()
 
+  const { authTokens, setDetails } = useContext(AuthContext)
+  setDetails('')
   const [studentID, setStudentID] = useState("")
   const [studentName, setStudentName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
 
   const [students, setStudents] = useState([])
+
 
   const filterAllStudent = async() => {
     let url;
@@ -56,6 +61,28 @@ export const ViewAllStudents = () =>{
       setStudents(sortedData)
     }else{
       console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const handeStudentPage = (id) =>{
+    studentPage(id)
+  }
+
+  const studentPage = async (id) => {
+
+    let response = await fetch(`https://bdmos.onrender.com/api/students/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      }
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      setDetails(data)
+      navigate(`/admin/viewAllStudent/${data.id}`)
     }
   }
 
@@ -124,7 +151,7 @@ export const ViewAllStudents = () =>{
                             <div className="ps-3">
                               <h5>{student.username}</h5>
                               <p>{`${student.first_name} ${student.last_name}`}</p>
-                              <Link to={`/admin/viewAllStudent/${student.id}`}>View Profile</Link>
+                              <Link onClick={() => handeStudentPage(student.username)} >View Profile</Link>
                             </div>  
                           </div>
                         </div>

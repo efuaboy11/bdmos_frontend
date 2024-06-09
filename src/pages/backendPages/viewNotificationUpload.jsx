@@ -1,6 +1,6 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
+import {faEye, faL, faTrashCan, faUser, faX} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
@@ -15,7 +15,8 @@ export const ViewNotificationUploaded= () =>{
   const [datas, setDatas] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [selectedNotificationID, setSelectedNotificationID] = useState(null)
-
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationModal, setNotificationModal] = useState(false) 
   
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
@@ -134,6 +135,27 @@ export const ViewNotificationUploaded= () =>{
 
   },[datas])
 
+
+  const notificationContext = (text) =>{
+    setNotificationMessage(text)
+    console.log(text)
+    setNotificationModal(true)
+
+
+
+  }
+  const closeModal = () => {
+    setNotificationModal(false)
+  }
+
+  const truncateText = (text, wordLimit) => {
+    const words = text.split(' ');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+
   
 	return(
 		<div>
@@ -172,6 +194,31 @@ export const ViewNotificationUploaded= () =>{
               </div>
             </section>
           }
+          
+          {notificationModal && 
+            <section className="overlay-background">
+             <div className="admin-notification-modal-conatiner">
+               <div className="admin-notifiction-modal-content">
+                 {notificationMessage !== '' &&
+                  <div>
+                    <div className="d-flex justify-content-end">
+                     <p><FontAwesomeIcon className="cursor-pointer" onClick={closeModal}  icon={faX}/></p>                  
+                    </div>
+                    <p>{notificationMessage}</p>               
+                  </div>
+
+
+ 
+ 
+              
+                 }
+ 
+               </div>
+ 
+             </div>
+           </section>       
+          }
+
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -219,11 +266,12 @@ export const ViewNotificationUploaded= () =>{
                       {datas.map((data) =>(
                         <tr>
                           <td> {data.id} </td>
-                          <td>{data.message}</td>
+                          <td>{truncateText(data.message, 5)}</td>
                           <td>{data.date}</td>
                           <td>{data.teachers_name.first_name}</td>
-                          <td onClick={() => showDeleteModal(data.id)}>
-                            <FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} />
+                          <td>
+                          <FontAwesomeIcon onClick={() => notificationContext(data.message)} className="text-center cursor-pointer" icon={faEye} />
+                          <FontAwesomeIcon onClick={() => showDeleteModal(data.id)} className="text-center cursor-pointer ps-3" icon={faTrashCan}/>
                           </td>
                         </tr>
                       ))}

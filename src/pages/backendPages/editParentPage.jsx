@@ -11,12 +11,16 @@ import AuthContext from "../../context/AuthContext"
 
 
 export const EditParentPage = () =>{
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens, details} = useContext(AuthContext) 
 
-  const [parentName, setParentName] = useState(details ? details.first_name : "")
-  const [parentPhoneNumber, setParetNumber] = useState(details ? details.middle_name : "")
-  const [childName, setChildName] = useState(details ? details.last_name : "")
-  const [parentEmail, setParentEmail] = useState(details ? details.date_of_birth : "")
+  const [students, setStudents] = useState([])
+
+  
+  const [parentName, setParentName] = useState(details ? details.name : "")
+  const [homeAddress, setHomeAddress] = useState(details ? details.address : "")
+  const [parentPhoneNumber, setparentPhoneNumber] = useState(details ? details.phone_number: "")
+  const [childName, setChildName] = useState([])
+  const [parentEmail, setParentEmail] = useState(details ? details.email : "")
 
 
   const [alert, setAlert] = useState("")
@@ -25,7 +29,18 @@ export const EditParentPage = () =>{
   const [loader, setLoader] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [disablebutton, setdisablebutton] = useState(false)
+  
 
+  const handleSelectChange = (event) => {
+    const options = event.target.options;
+    const selectedValues = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
+    setChildName(selectedValues);
+  };
 
   const onSubmit = (data, e) =>{
     e.preventDefault()
@@ -49,15 +64,16 @@ export const EditParentPage = () =>{
     }
 
     const formData = new FormData()
-    formData.append("first_name", parentName);
-    formData.append("middle_name", parentPhoneNumber);
-    formData.append("last_name", parentEmail);
-    formData.append("date_of_birth", childName);
+    formData.append("name", parentName);
+    formData.append("phone_number", parentPhoneNumber);
+    formData.append("email", parentEmail);
+    formData.append("address", homeAddress);
+    formData.append("children_name", childName);
 
     console.log(formData)
 
     try {
-      const response = await fetch(`https://bdmos.onrender.com/api/students/${details.name}`, {
+      const response = await fetch(`https://bdmos.onrender.com/api/parents/${details.id}/`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${authTokens.access}`
@@ -85,6 +101,32 @@ export const EditParentPage = () =>{
       console.log(error)
     }
   }
+
+  const getStudent = async() => {
+    try {
+      const response = await fetch("https://bdmos.onrender.com/api/students/", {
+        method: "GET",
+        headers:{
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      const data = await response.json()
+
+      if(response.status === 200){
+        const sortedData = data.sort((a, b) => a.first_name.localeCompare(b.first_name));
+        setStudents(sortedData)
+      }else{
+        console.error("Failed to fetch user details:", response.statusText)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getStudent()
+  }, [students])
   return(
     <div>
       <div className="position-sticky">
@@ -113,37 +155,47 @@ export const EditParentPage = () =>{
         </section>
 
         <section className="container-lg">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row justify-content-center mx-2">
-              <div className="col-md-5 mt-5">
-                <label htmlFor="" className="form-label">Parent/Gudian Name</label>
-                <input className={`form-control delete-student-input form-dark ${errors.parentName ? 'error-input' : ''}`} {...register('parentName', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mr John Doe"/>
-                {errors.parentName && <span style={{color: 'red'}}>This Feild is required</span>}
-              </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="row g-2 mx-2">
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Parent/Gudian Name</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.parentName ? 'error-input' : ''}`} {...register('parentName', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mr John Doe"/>
+                  {errors.parentName && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Home Address</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.homeAddress ? 'error-input' : ''}`} {...register('homeAddress', {required: true})} value={homeAddress} onChange={(e) => setHomeAddress(e.target.value)}type="text" placeholder="adolo college Road"/>
+                  {errors.homeAddress && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
 
-              <div className="col-md-5 mt-5">
-                <label htmlFor="" className="form-label">Phone Number</label>
-                <input className={`form-control delete-student-input form-dark ${errors.parentPhoneNumber ? 'error-input' : ''}`} {...register('parentPhoneNumber', {required: true})} value={parentPhoneNumber} onChange={(e) => setParetNumber(e.target.value)}type="text" placeholder="08079022633"/>
-                {errors.parentPhoneNumber && <span style={{color: 'red'}}>This Feild is required</span>}
-              </div>
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Phone Number</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.parentPhoneNumber ? 'error-input' : ''}`} {...register('parentPhoneNumber', {required: true})} value={parentPhoneNumber} onChange={(e) => setparentPhoneNumber(e.target.value)}type="text" placeholder="08079022633"/>
+                  {errors.parentPhoneNumber && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
 
-              <div className="col-md-5 mt-5">
-                <label htmlFor="" className="form-label">Email Addresss</label>
-                <input className={`form-control delete-student-input form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}type="text" placeholder="parent@gmail.com"/>
-                {errors.parentEmail && <span style={{color: 'red'}}>This Feild is required</span>}
-              </div>
+                <div className="col-md-6 mt-5">
+                  <label htmlFor="" className="">Email Addresss</label>
+                  <input className={`form-control delete-student-input form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}type="text" placeholder="parent@gmail.com"/>
+                  {errors.parentEmail && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
 
-              <div className="col-md-10 mt-5">
-                <label htmlFor="" className="form-label">Children Name </label>
-                <input className={`form-control delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: true})} value={childName} onChange={(e) => setChildName(e.target.value)}type="text" placeholder="Mary, john, happy"/>
-                {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
-              </div>
+                <div className="col-md-12 mt-5">
+                  <label htmlFor="" className="">Children Name </label>
+                  <select   className={`form-control form-select delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} onChange={handleSelectChange}type="text" placeholder="Mary, john, happy" multiple>
+                    {students && students.map((student) =>(
+                      <option value={student.id} key={student.id}>{student.first_name} {student.last_name}</option>
+                    ))}
+                  </select>
+                  {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
+                </div>
 
-              <div className="col-md-10 pt-3 pb-5 mb-4">
-                <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+
+                <div className="col-md-10 pt-3 pb-5 mb-4">
+                  <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
 
         </section>
         

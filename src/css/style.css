@@ -541,6 +541,36 @@ nav .home-nav:hover  .sub-menu-l{
   padding: 10px 50px;
 }
 
+.student-application-modal-conatiner{
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+
+.student-application-modal-content{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  /* padding: 20px; */
+  border: 1px solid #888;
+  width: 95%;
+  max-width: 1200px;
+  height: 600px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  color: #000;
+  border-radius: 20px;
+}
+.student-application-form{
+  height: 500px;
+  padding: 0px;
+}
+
 /* .overlay {
   position: absolute;
   width: 100%;
@@ -946,9 +976,6 @@ footer li a:hover{
     .student-info-modal{
       width: 300px;
     
-    }
-    .button-sign-out{
-      display: none;
     }
   
   
