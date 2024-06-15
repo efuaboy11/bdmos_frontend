@@ -10,21 +10,11 @@ export const UploadSchemePage = () =>{
   const [formValues, setFormValues] = useState([])
   const [subjects, setSubjects] = useState([])
 
-  const {authTokens,
-    className,
-    setClassName,
-    term,
-    setTerm,
-    session,
-    setSession,
+  const {
     classe,
-    setClasse,
     terms,
-    setTerms,
     sessions,
-    setSessions,
-    date,
-    setDate} = useContext(AuthContext)
+    date} = useContext(AuthContext)
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -123,23 +113,23 @@ export const UploadSchemePage = () =>{
                         <th>File</th>
                       </tr>
                     </thead>
-                    
-
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      {formValues.map((formValue, index) => (
-                        <tr key={index}>
-                          <td>MATH</td>
-                          <td><input type="file" name="scheme" onChange={(e) => handleChange(index, e)}/></td>
-                        </tr>
-                      ))}
+                      {formValues.map((formValue, index) => {
+                        const subject = subjects.find(subject => subject.id === formValue.subject);
+                        return (
+                          <tr key={index}>
+                            <td>{subject ? subject.name : 'Loading...'}</td>
+                            <td>
+                              <input type="file" name="scheme" onChange={(e) => handleChange(index, e)}/>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
               </div>
-
               <button className="admin-btn py-2 px-5 my-5" onClick={handleSubmit}>Upload</button>
-
-
             </section>
           </div>
         </div>

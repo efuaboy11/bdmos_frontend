@@ -80,6 +80,16 @@ import { Addmision } from './pages/admision';
 import { EditClass } from './pages/backendPages/editClassPage';
 import { StudentPage } from './pages/backendPages/viewIndiviualStudent';
 import { TeacherPage } from './pages/backendPages/viewIndividualTeacher';
+import { FactSheet } from './pages/factSheet';
+import { InfantSchool } from './pages/infantSchool';
+import { InfantSchoolAbout } from './pages/infantSchoolAbout';
+import { JuniorSchool } from './pages/juniorSchool';
+import { JuniorSchoolAbout } from './pages/juniorSchoolAbout';
+import { CurriculumInfant } from './pages/curriculumInfant';
+import { CurriculumJunior } from './pages/curriclumJunior';
+import { Literacy } from './pages/curriculumLiteracy';
+import { Numeracy } from './pages/currNumeracy';
+import { Science } from './pages/curriculumScience';
 ;
 
 
@@ -100,7 +110,17 @@ function App() {
             <Route path="/about/ourValues" element={<OurValues />} />
             <Route path="/about/ourAnthem" element={<Anthem />} />
             <Route path="/info/uniform" element={<Uniform />} />  
-            <Route path="/info/admission" element={<Addmision />} />                      
+            <Route path="/info/admission" element={<Addmision />} />    
+            <Route path="/info/factSheet" element={<FactSheet />} />   
+            <Route path="/campus/infantSchool" element={<InfantSchool />} />   
+            <Route path="/campus/infantSchool/about" element={<InfantSchoolAbout />} />    
+            <Route path="/campus/juniorSchool" element={<JuniorSchool />} />   
+            <Route path="/campus/juniorSchool/about" element={<JuniorSchoolAbout />} />     
+            <Route path="/curriculum/infant" element={<CurriculumInfant />} />   
+            <Route path="/curriculum/junior" element={<CurriculumJunior />} />  
+            <Route path="/curriculum/junior/literacy" element={<Literacy />} />        
+            <Route path="/curriculum/junior/Numeracy" element={<Numeracy />} />     
+            <Route path="/curriculum/junior/science" element={<Science />} />              
             <Route path="/portal" element={<Portal />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/application" element={<Application />} />

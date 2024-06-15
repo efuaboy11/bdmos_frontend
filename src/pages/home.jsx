@@ -336,7 +336,7 @@ export const Home = () =>{
               </div>
             </div>
             <div className="link" data-aos="zoom-in"  data-aos-duration="1000">
-              <Link to="/gallery" className="btn btn-lg primary-background px-5 py-3 my-5">VIEW ALL</Link> 
+              <Link to="/gallery" className="  gallery-btn px-5 py-3 my-5">VIEW ALL</Link> 
             </div>
 
             

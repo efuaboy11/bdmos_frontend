@@ -3,8 +3,53 @@ import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
   import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
+import AuthContext from "../../context/AuthContext"
+import { useContext, useEffect, useState } from "react"
 
-export const ResultPage = () =>{
+export const ResultPage = () => {
+  const {authTokens,
+    className,
+    setClassName,
+    term,
+    setTerm,
+    session,
+    setSession,
+    classe,
+    setClasse,
+    terms,
+    setTerms,
+    sessions,
+    setSessions,
+    resultStudent,
+    setResultStudent,
+    studentID,} = useContext(AuthContext)
+
+  const [classname, setClassname] = useState("")
+
+  console.log('className IDs:', className.map(cls => cls.id));
+  console.log('classe:', classe);
+  console.log('class', classname);
+
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      const response = await fetch(`https://bdmos.onrender.com/api/students/${studentID}/`,{
+        method:"GET",
+        headers: {
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      const data = await response.json()
+      setResultStudent(data)
+    }
+
+    const classname = className.find(classn => classn.id === classe);
+    setClassname(classname)
+
+    fetchStudent()
+  }, [])
+
 	return(
     <div>
       <div className="position-sticky">
@@ -40,22 +85,22 @@ export const ResultPage = () =>{
                 <div className="row g-2">
                   <div className="col-md-3 col-sm-6">
                     <label htmlFor="" className="form-label">ID</label>
-                    <input type="text" className="admin-input compulsory form-dark"/>
+                    <input type="text" className="admin-input compulsory form-dark" disabled value={resultStudent?.id}/>
                   </div>
 
                   <div className="col-lg-3 col-md-3 col-sm-6">
                     <label htmlFor="" className="form-label">Name</label>
-                    <input type="text" className="admin-input compulsory form-dark"/>
+                    <input type="text" className="admin-input compulsory form-dark" disabled value={`${resultStudent?.first_name} ${resultStudent?.middle_name} ${resultStudent?.last_name}`}/>
                   </div>
 
                   <div className="col-lg-3 col-md-2 col-sm-5 col-6">
                     <label htmlFor="" className="form-label">Class</label>
-                    <input type="text" className="admin-input compulsory form-dark"/>
+                    <input type="text" className="admin-input compulsory form-dark" value={classname ? classname?.name : ""}/>
                   </div>
 
                   <div className="col-md-2 col-sm-4 col-6">
                     <label htmlFor="" className="form-label">sex</label>
-                    <input type="text" className="admin-input compulsory form-dark"/>
+                    <input type="text" className="admin-input compulsory form-dark" disabled value={resultStudent?.sex}/>
                   </div>
 
                   <div className="col-md-2 col-lg-1 col-sm-3 col-6">
@@ -463,8 +508,6 @@ export const ResultPage = () =>{
               </div>
             </div>
           </div>
-
-
         </div>
       </section>
 

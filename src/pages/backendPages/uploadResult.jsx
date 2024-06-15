@@ -2,14 +2,101 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const UploaadResult = () =>{
+
+  const {authTokens,
+    className,
+    setClassName,
+    term,
+    setTerm,
+    session,
+    setSession,
+    classe,
+    setClasse,
+    terms,
+    setTerms,
+    sessions,
+    setSessions,
+    setResultStudent,
+    studentID,
+    setStudentID} = useContext(AuthContext)
+
+  const getClass = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/class/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
   
-  const [studentID, setStudentID] = useState("")
-  const [className, setClassName] = useState("")
-  const [term, setTerm] = useState("")
-  const [session, setSession] = useState("")
+      const data = await response.json()
+  
+      if(response.ok){
+        setClassName(data)
+        console.log("Class Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getTerm = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/terms/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application"
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setTerm(data)
+        console.log("Term Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getSession = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/sessions/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application"
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setSession(data)
+        console.log("Session Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  useEffect(() => {
+    getClass()
+    getTerm()
+    getSession()
+  },[])
 
 	return(
 		<div>
@@ -41,31 +128,37 @@ export const UploaadResult = () =>{
                   <div className="row  mx-2">
 
                       <div className="col-md-6 mt-3">
-                        <label htmlFor="" className="form-label">Student ID</label>
-                        <input type="text" className=" admin-input form-control compulsory form-dark py-2 px-3"  placeholder="Student ID..." value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
+                        <label htmlFor="" className="form-label">Student Username</label>
+                        <input type="text" className=" admin-input form-control compulsory form-dark py-2 px-3"  placeholder="Student Username..." value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
                      </div>
 
                      <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Class</label>
-                        <select id="inputSex" className="form-select form-control compulsory form-dark admin-input  py-2 px-3 " value={className} onChange={(e) => setClassName(e.target.value)}>
-                          <option value="">...</option>
+                        <select className="form-select form-control compulsory form-dark" value={classe} onChange={(e) => setClasse(e.target.value)}>
+                          <option>...</option>
+                          {className && className.map((classe) =>(
+                            <option value={classe.id} key={classe.id}>{classe.name}</option>
+                          ))}
                         </select>
                      </div>
                       
                       <div  className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Term</label>
-                        <select id="inputSex" className="form-select form-control compulsory form-dark admin-input  py-2 px-3 " value={term} onChange={(e) => setTerm(e.target.value)}>
-                          <option value="">...</option>
-                          <option value="">First Term</option>
-                          <option value="">Second Term</option>
-                          <option value="">Last Term</option>
+                        <select className="form-select form-control compulsory form-dark" value={terms} onChange={(e) => setTerms(e.target.value)}>
+                          <option>...</option>
+                          {term && term.map((term) =>(
+                            <option value={term.id} key={term.id}>{term.name}</option>
+                          ))}
                         </select>
                       </div>
-                      <div  className="col-md-6 mt-3">
+                      <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Session</label>
-                        <select id="inputSex" className="form-select form-control compulsory form-dark admin-input  py-2 px-3 " value={session} onChange={(e) => setSession(e.target.value)}>
-                          <option value="">...</option>
-                          </select>
+                        <select className="form-select form-control compulsory form-dark" value={sessions} onChange={(e) => setSessions(e.target.value)}>
+                          <option>...</option>
+                          {session && session.map((session) =>(
+                            <option value={session.id} key={session.id}>{session.name}</option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
                         <Link to="/admin/resultPage" className="admin-btn py-2 px-5">Submit</Link>    

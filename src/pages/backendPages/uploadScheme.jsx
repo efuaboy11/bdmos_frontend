@@ -129,7 +129,7 @@ export const UploadScheme = () =>{
                           {className && className.map((classe) =>(
                             <option value={classe.id} key={classe.id}>{classe.name}</option>
                           ))}
-                          </select>
+                        </select>
                       </div>
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Term</label>
@@ -138,7 +138,7 @@ export const UploadScheme = () =>{
                           {term && term.map((term) =>(
                             <option value={term.id} key={term.id}>{term.name}</option>
                           ))}
-                          </select>
+                        </select>
                       </div>
 
                       <div className="col-md-6 mt-3">
@@ -148,11 +148,11 @@ export const UploadScheme = () =>{
                           {session && session.map((session) =>(
                             <option value={session.id} key={session.id}>{session.name}</option>
                           ))}
-                          </select>
+                        </select>
                       </div>
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Date</label>
-                        <input className="admin-input form-dark py-2 px-3" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)}/>
+                        <input className="admin-input form-dark py-2 px-3" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
                         <Link to="/admin/uploadSchemePage" className="admin-btn py-2 px-5">Submit</Link>

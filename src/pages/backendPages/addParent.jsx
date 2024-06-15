@@ -70,7 +70,7 @@ export const AddParent = () =>{
     formData.append("phone_number", parentPhoneNumber);
     formData.append("email", parentEmail);
     formData.append("address", homeAddress);
-    formData.append("children_name", childName);
+    formData.append("children_name", JSON.stringify(childName));
     formData.append("image", ParentImg);
 
     console.log(formData)
@@ -91,7 +91,7 @@ export const AddParent = () =>{
         setParentName("")
         setparentPhoneNumber("")
         setParentImg("")
-        setChildName('')
+        setChildName([])
       }else{
         const errorData = await response.json()
         const errorMessage = errorData.error
@@ -232,14 +232,8 @@ export const AddParent = () =>{
                 </div>
               </div>
             </form>
-
-
-
           </div>
         </section>
-        
-
-
       </div>
     </div>
   )  

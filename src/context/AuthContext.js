@@ -25,8 +25,10 @@ export const AuthProvider = ({children}) => {
     const [sessions, setSessions] = useState("")
 
     const [date, setDate] = useState("")
+    const [studentID, setStudentID] = useState("")
+    const [resultStudent, setResultStudent] = useState()
 
-    console.log(details)
+    // console.log(resultStudent)
 
     const navigate = useNavigate()
 
@@ -126,7 +128,11 @@ export const AuthProvider = ({children}) => {
         sessions,
         setSessions,
         date,
-        setDate
+        setDate,
+        studentID,
+        setStudentID,
+        resultStudent,
+        setResultStudent
     }
 
     return (

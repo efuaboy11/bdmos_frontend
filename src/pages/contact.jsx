@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Navbar } from "../component/navbar"
 import { useState } from "react"
 import { Footer } from "../component/footer"
+import {useForm, ValidationError} from "@formspree/react"
 
 export const Contact = () =>{
   const [contactName, setContactName] = useState("")
@@ -14,6 +15,11 @@ export const Contact = () =>{
   const isActive = (path) =>{
     return location.pathname === path
 
+  }
+
+  const [state, handleSubmit] = useForm("xrgnnzon");
+  if (state.succeeded) {
+    return <p>Thanks for joining!</p>;
   }
 
   return(
@@ -43,7 +49,7 @@ export const Contact = () =>{
         
 
           <div>
-            <form action="" className="row g-3">
+            <form action="" className="row g-3" onSubmit={handleSubmit}>
               <div className="col-md-11">
                 <label for="name" className="form-label">Name</label>
                 <input type="text" className="form-control" id="name" placeholder="e.g John Smith" value={contactName} onChange={(e) => setContactName(e.target.value)}/>
@@ -51,12 +57,12 @@ export const Contact = () =>{
 
               <div className="col-md-11">
                 <label for="email" className="form-label">Email</label>
-                <input type="email" className="form-control" id="name" placeholder="e.g @johnsmith.gmail.com" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)}/>
+                <input type="email" className="form-control" name="email" id="email" placeholder="e.g @johnsmith.gmail.com" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)}/>
               </div>
 
               <div className="mb-3 col-md-11">
                 <label for="diabilityYes" className="form-label">Message</label>
-                <textarea className="form-control" id="diabilityYes" rows="9" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                <textarea className="form-control" name="message" id="message" rows="9" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
               </div>
 
               <div className="col-12">

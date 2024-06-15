@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../img/verified.jpg"
 import { useState, useRef } from "react";
 import "../css/style.css"
+import pic2 from "../img/groupUniform7.JPG"
 
 
 
@@ -60,7 +61,7 @@ export const  Navbar = () =>{
 
   return(
     <div id="nav-frame">
-      <nav className="primary-background">
+      <nav className="primary-background nav-container">
         <div className="container-xxl">
           <div className="row">
             <div className="col-xxl-12">
@@ -129,7 +130,7 @@ export const  Navbar = () =>{
                         <ul className="navbar-nav px-3 pb-3 pt-5">
                           <li className="nav-item"><Link to='/info/uniform' >Uniforms</Link></li>
                           <li className="nav-item"><Link to='/info/admission'>Admission Procedure</Link></li>
-                          <li className="nav-item"><a href="#extra-activity" className="nav-link text-white">BDOMS Fact Sheet</a></li>
+                          <li className="nav-item"><Link to='/info/factSheet'>BDOMS Fact Sheet</Link></li>
 
                         </ul>
                       </div>
@@ -142,23 +143,22 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><a href="#goal" className="nav-link text-white">Uniforms</a></li>
-                          <li className="nav-item"><a href="#about" className="nav-link text-white ">Admission Procedure</a></li>
-                          <li className="nav-item"><a href="#extra-activity" className="nav-link text-white">BDOMS Fact Sheet</a></li>
-
+                          <li><img className="pt-4" src={pic2} alt="" width="150px"/></li>
+                          <li className="nav-item"><Link to='/campus/infantSchool' >Infant School</Link></li>
+                          <li className="nav-item"><Link to='/campus/juniorSchool' >Junior School</Link></li>
                         </ul>
                       </div>
                     </li>
 
                     <li className="nav-item home-nav">
                     <div className="d-flex px-4 pt-4">
-                      <p>CURICULUNM</p>
+                      <p>CURRICULUM</p>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><a href="#goal" className="nav-link text-white px-2">Curriculum -Infant School</a></li>
-                          <li className="nav-item"><a href="#about" className="nav-link text-white ps-2">Curriculum -Junior School</a></li>
+                          <li className="nav-item"><Link to='/curriculum/infant' >Curriculum -Infant School</Link></li>
+                          <li className="nav-item"><Link to='/curriculum/Junior' >Curriculum -Junior School</Link></li>
 
                         </ul>
                       </div>

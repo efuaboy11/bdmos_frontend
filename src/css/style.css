@@ -10,13 +10,29 @@ li{
   list-style: disc;
 }
 
-
+.overflow-hidden{
+  overflow: hidden;
+}
 
 
 
 a{
   white-space: nowrap;
   text-decoration: none;
+}
+.bg-purple{
+  background-color: #a66bbe;
+  color: white;
+}
+
+.bg-yellow{
+  background-color: #f99500;
+  color: #fff;
+}
+
+.bg-blue{
+  background-color: #009cff;
+  color: #fff;
 }
 
 .error-input{
@@ -39,7 +55,8 @@ a{
   color: white;
 }
 .red-background{
-  background-color: red;
+  background-color: #c72727;
+  color: #fff;
 }
 
 
@@ -51,6 +68,10 @@ a{
 .dark-background{
   background-color: #000;
   color: #FFF4F4;
+}
+.bg-dark{
+  background-color: #333;
+  color: #fff;
 }
 .light-background2{
   background-color: #D1D8C5;
@@ -179,8 +200,76 @@ input:focus{
   
 }
 
+/* --------------- Flip Card ------------------------ */
 
+.flip-card {
+  background-color: transparent;
+  width: 100%; /* Changed to 100% to fit within the column */
+  height: 250px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
 
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Safari */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  pointer-events: auto;
+  z-index: 100;
+}
+
+.flip-card-back {
+  background-color: #fff;
+  color: #000;
+  transform: rotateY(180deg);
+}
+
+/* ---------- Image overlay ------------------- */
+.image-container {
+  position: relative;
+  width: 100%; /* Set to 100% to fit within the flip-card */
+  height: 100%; /* Set to 100% to fit within the flip-card */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  z-index: 1; /* Ensure the overlay is on top */
+}
 
 
 
@@ -237,7 +326,7 @@ input:focus{
  top: 0;
 }
 
-nav{
+.nav-container{
  height: 100px;
  display: flex;
  align-items: center;
@@ -343,7 +432,7 @@ nav .home-nav:hover  .sub-menu-l{
   padding-bottom: 15px;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 20px;
+  border-radius: 30px;
   transition: ease all 0.5s;
 }
 
@@ -449,6 +538,14 @@ nav .home-nav:hover  .sub-menu-l{
   transform: scale(1.07);
 }
 
+#gallery .gallery-btn{
+  background-color: #290013;
+  color: #fff;
+}
+#gallery .gallery-btn:hover{
+  background: #000;
+}
+
 #gallery a:hover{
   color:white;
   background: rgb(79, 32, 13, 0.4) ;
@@ -522,6 +619,7 @@ nav .home-nav:hover  .sub-menu-l{
   border-bottom: 1.5px #F0EBE3 solid;
 
 }
+
 /* ----------------------------info Addmission procedure---------- */
 .admission-btn{
   border: none;
@@ -585,6 +683,142 @@ nav .home-nav:hover  .sub-menu-l{
   background: rgb(79, 32, 13, 0.5) ;
 } */
 
+/* ------------------ info fact sheet --------------------- */
+.fact-sheet-story{
+  height: 850px;
+}
+
+.fact-sheet-btn{
+  border: none;
+  background-color: #3E001F;
+  color: #fff;
+  padding: 15px;
+  transition: all ease 1s;
+
+}
+
+.fact-sheet-btn:hover{
+  background-color: #000;
+  color: #fff;
+}
+.fact-sheet-box-conatiner{
+  margin-bottom: 100px;
+
+}
+.fact-sheet-boxes{
+  justify-content: center;
+}
+
+.fact-sheet-box-2{
+  display: flex;
+  align-items: center;
+  background: #fff;
+  height: 250px;
+  padding: 10px;
+
+}
+
+.fact-sheet-box-2 p{
+  margin-bottom: 30px;
+  text-align: center;
+}
+/* ---------------------- Campus Infant school -------------- */
+.infant-school-btn{
+  background: #3E001F;
+  padding: 10px 0px;
+  width: 100%;
+}
+.infant-school-btn:hover{
+  background-color: #000;
+  color: #fff;
+}
+.infant-school-btn-Link:hover{
+  color: #fff;
+}
+
+/* -------------------- Campus Infant school About--------- */
+.infant-school-about-link {
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+
+}
+.infant-school-about-link-sub-container{
+  border: 1px solid #D8D3CD;
+  padding: 10px;
+
+}
+.infant-school-about-link-container{
+  border: 1px solid #D8D3CD;
+}
+/* ---------------------- Curriculum Infant School ----------------- */
+.curr-boxes{
+  border-radius: 15px;
+  transition: all ease 1s;
+
+}
+#curriculum ul li{
+  list-style: disc;
+
+}
+#curriculum img{
+  width: 100%;
+}
+
+
+.curr-boxes:hover{
+  background: #3E001F;
+  color: #fff;
+}
+.curr-infant-characteristic-box-2{
+  padding-bottom: 95px;
+}
+
+.curr-infant-characteristic-box-3{
+  padding-bottom: 120px;
+}
+
+
+.curr-infant-development-box-1{
+  padding-bottom: 130px;
+
+}
+
+
+/* --------------- Curriculum Junior School---------------- */
+.curr-junior-btn{
+  border: none;
+  background-color: #3E001F;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  transition: all ease 1s;
+}
+.curr-junior-btn:hover{
+  background-color: #000;
+  color: #fff;
+}
+/* -------------------------------Event--------------------- */
+.event-date{
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.event-btn{
+  background-color: #3E001F;
+  padding: 15px 40px;
+  border-radius: 10px;
+  transition: 1s ease all;
+  margin-top: 30px;
+
+}
+
+.event-btn:hover{
+  background-color: #000;
+  color: #fff;
+}
 
 
 /* Teacher application */
@@ -768,6 +1002,12 @@ footer li a:hover{
 
 @media (max-width: 1700px){
   @media (max-width: 1300px){
+    /* ------------------ info fact sheet --------------------- */
+    .fact-sheet-story{
+      height: 550px;
+    }
+
+
     #nav-frame .nav-frame-list-conatiner{
       display: none;
     }
@@ -803,6 +1043,10 @@ footer li a:hover{
   
   
   @media(max-width: 1100px){
+
+    .fact-sheet-boxes{
+      justify-content: start;
+    }
   
   
     /* dashboard  */
@@ -955,7 +1199,8 @@ footer li a:hover{
       margin-top: 1rem;
       
     }
-  
+
+
   
   
   
@@ -970,9 +1215,19 @@ footer li a:hover{
     }
     
   }
+
+  @media(max-width: 750px){
+    /* ------------------ info fact sheet --------------------- */
+    .fact-sheet-story{
+      height: 100%;
+    }
+  }
   
   
   @media(max-width: 500px){
+ 
+
+    
     .student-info-modal{
       width: 300px;
     
