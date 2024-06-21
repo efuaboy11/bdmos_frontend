@@ -39,16 +39,11 @@ export const Portal = () =>{
                           <p className="btn btn-lg primary-background app-btn">{loading ? <CircularProgress color="inherit"/> : "Login"}</p>
                         </div>
                       </form>
-                      <p className="p-3">Proudly developed by <a href="#">Ehiz</a></p>
+                      <p className="ps-3">Proudly developed by <a href="#">Ehiz</a></p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className=" portal-content">
-
-    
-
             </div>
           </div>
           

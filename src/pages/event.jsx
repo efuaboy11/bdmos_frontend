@@ -154,7 +154,7 @@ export const Events = () =>{
                 </section>
 
                 <div className="d-flex justify-content-center">
-                  <Link className="event-btn">View Blog</Link>
+                  <Link to='/event/blog' className="event-btn">View Blog</Link>
                 </div>
 
 

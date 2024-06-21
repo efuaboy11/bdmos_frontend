@@ -59,7 +59,7 @@ export const TeacherPage = () =>{
                                 <p>Years of Experience: {details.years_of_experience}</p>
                                 <p>Computer Skills: {details.computer_skills}</p>
                                 <p>Disablility Text:{details.disability_note} </p>
-                                <p>cv: <a href={details.cv} target="_blank" rel="noopener noreferrer">link</a></p>
+                                <p>cv: <a  href={details.cv} download={details.cv}>link</a></p>
                                 <p>First leaving school cert: <a href={details.flsc} target="_blank" rel="noopener noreferrer">link</a></p>
                                 <p>Waec/Neco/gce: <a href={details.waec_neco_nabteb_gce} target="_blank" rel="noopener noreferrer">link</a></p>
                                 <p>Secondary School Transcript: <a href={details.secondary_school_transcript} target="_blank" rel="noopener noreferrer">link</a></p>

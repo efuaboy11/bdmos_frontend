@@ -91,7 +91,7 @@ export const JuniorSchool = () =>{
                       <div>
                         <p>View our blog to see more off our recent event. Keep updated with BDOMS</p>
                         <div className="d-flex justify-content-center">
-                          <Link to='/info/admission' className="fact-sheet-btn ">LEARN MORE</Link>
+                          <Link to='/event/blog' className="fact-sheet-btn ">LEARN MORE</Link>
                         </div>
                        
                       </div>

@@ -27,8 +27,8 @@ export const ViewScheme = () =>{
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
 
-  const getParents = async() => {
-    let response = await fetch("https://bdmos.onrender.com/api/sessions",{
+  const getScheme = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/scheme/",{
       method: "GET",
       headers: {
         "Content-Type":"application/json",
@@ -62,7 +62,7 @@ export const ViewScheme = () =>{
     }else{
       setLoader(true)
     }
-    let response = await fetch(`https://bdmos.onrender.com/api/sessions/${selectedSchemeID}`, {
+    let response = await fetch(`https://bdmos.onrender.com/api/scheme/${selectedSchemeID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authTokens.access}`
@@ -91,7 +91,7 @@ export const ViewScheme = () =>{
   }
 
   useEffect(() =>{
-    getParents()
+    getScheme()
   },[datas])
 
 
@@ -182,15 +182,18 @@ export const ViewScheme = () =>{
                     
 
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      <tr>
-                        <td>1</td>
-                        <td>Primary 4</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td>4/5/20222</td>
-                        <td><FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} /></td>
+                      {datas.map((data) =>(
+                        <tr>
+                          <td>{data.id}</td>
+                          <td>Primary 4</td>
+                          <td>2021/2022</td>
+                          <td>First Term</td>
+                          <td>{data.date}</td>
+                          <td><FontAwesomeIcon className="text-center cursor-pointer" icon={faTrashCan} /></td>
 
-                      </tr>
+                        </tr>
+                      ))}
+                      
 
                     </tbody>
                   </table>

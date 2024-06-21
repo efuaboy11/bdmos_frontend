@@ -1,12 +1,15 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext, useEffect, useState } from "react"
+import { useState, useContext, useEffect } from "react"
+import { useForm } from "react-hook-form"
 import AuthContext from "../../context/AuthContext"
 
 export const UploaadResult = () =>{
 
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const navigate = useNavigate()
   const {authTokens,
     className,
     setClassName,
@@ -33,6 +36,7 @@ export const UploaadResult = () =>{
           Authorization: `Bearer ${authTokens.access}`
         }
       })
+      
   
       const data = await response.json()
   
@@ -91,6 +95,21 @@ export const UploaadResult = () =>{
     }
   }
 
+  const onSubmit = (data, e) =>{
+    e.preventDefault()
+    
+    if(isValid){
+      navigate("/admin/resultPage")
+      console.log(data)
+      setClassName('')
+      setStudentID('')
+      setSessions('')
+      setTerms('')
+    }else{
+      console.log('error')
+    }
+  }
+
 
   useEffect(() => {
     getClass()
@@ -124,44 +143,48 @@ export const UploaadResult = () =>{
                   <p className="text-center">PLEASE FILL IN THE REQUIRED DETAILS</p>
                 </div>
 
-               <form action="">
+               <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="row  mx-2">
 
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Student Username</label>
-                        <input type="text" className=" admin-input form-control compulsory form-dark py-2 px-3"  placeholder="Student Username..." value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
+                        <input type="text" className={`admin-input ${errors.username ? 'error-input' : ''} form-control compulsory form-dark py-2 px-3`} {...register('username', {required: true})} placeholder="Student Username..." value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
+                        {errors.username && <span style={{color: 'red'}}>This Feild is required</span>} 
                      </div>
 
                      <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Class</label>
-                        <select className="form-select form-control compulsory form-dark" value={classe} onChange={(e) => setClasse(e.target.value)}>
-                          <option>...</option>
+                        <select className={`admin-input ${errors.className ? 'error-input' : ''} form-control compulsory form-dark form-select`} {...register('className', {required: true})}  value={classe} onChange={(e) => setClasse(e.target.value)}>
+                          <option></option>
                           {className && className.map((classe) =>(
                             <option value={classe.id} key={classe.id}>{classe.name}</option>
                           ))}
                         </select>
+                        {errors.className && <span style={{color: 'red'}}>This Feild is required</span>} 
                      </div>
                       
                       <div  className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Term</label>
-                        <select className="form-select form-control compulsory form-dark" value={terms} onChange={(e) => setTerms(e.target.value)}>
-                          <option>...</option>
+                        <select className={`admin-input ${errors.term ? 'error-input' : ''} form-control compulsory form-dark form-select`} {...register('term', {required: true})}  value={terms} onChange={(e) => setTerms(e.target.value)}>
+                          <option></option>
                           {term && term.map((term) =>(
                             <option value={term.id} key={term.id}>{term.name}</option>
                           ))}
                         </select>
+                        {errors.term && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Session</label>
-                        <select className="form-select form-control compulsory form-dark" value={sessions} onChange={(e) => setSessions(e.target.value)}>
-                          <option>...</option>
+                        <select className={`admin-input ${errors.session ? 'error-input' : ''} form-control compulsory form-dark form-select`} {...register('session', {required: true})}  value={sessions} onChange={(e) => setSessions(e.target.value)}>
+                          <option></option>
                           {session && session.map((session) =>(
                             <option value={session.id} key={session.id}>{session.name}</option>
                           ))}
                         </select>
+                        {errors.session && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <Link to="/admin/resultPage" className="admin-btn py-2 px-5">Submit</Link>    
+                        <button type="submit"  className="admin-btn py-2 px-5">Submit</button>    
                       </div>
                   </div>
 

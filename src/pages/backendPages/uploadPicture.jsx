@@ -153,8 +153,7 @@ export const UploadPicture = () =>{
                         {errors.description && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>   
-                        
+                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>             
                       </div>
                   </div>
 

@@ -5,8 +5,9 @@ import { Navbar } from "../component/navbar";
 import { faAngleRight, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../component/footer";
 import principalPicture from "../img/principal.jpg"
-import awardPic from "../img/ribbon.png"
 import runningPic from "../img/gym_11390345.png"
+import binocularsPic from "../img/binoculars.png"
+import bookPic from "../img/book.png"
 
 export const Vision = () =>{
 	const location = useLocation();
@@ -89,7 +90,7 @@ export const Vision = () =>{
 
                 <div className="col-md-6 col-xxl-4">
                   <div className="boxing-shadow border-radius-20 p-3 vision-boxes">
-                    <img src={awardPic} alt="" width='100px' className="mb-5"/>
+                    <img src={binocularsPic} alt="" width='100px' className="mb-5"/>
                     <h3>VISION</h3>
                     <p className="pb-5">Our vision at BDOMS is to be a leading institution in early childhood and primary education, recognized for our commitment to excellence and innovation. We aspire to create a dynamic
                       learning community where every child is empowered to reach their full potential. By fostering a love for learning, promoting creativity, and instilling strong moral values, we aim to develop future leaders who are compassionate, responsible,
@@ -101,7 +102,7 @@ export const Vision = () =>{
 
                 <div className="col-md-6 col-xxl-4">
                   <div className="boxing-shadow border-radius-20 p-3 vision-boxes">
-                    <img src={runningPic} alt="" width='100px' className="pb-5"/>
+                    <img src={bookPic} alt="" width='100px' className="pb-5"/>
                     <h3>CORE VALUES</h3>
                     <div className="text-start pb-5">
                       <p>At BDOMS, our core values, the 5 C's, guide everything we do</p>

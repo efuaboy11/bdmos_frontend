@@ -82,17 +82,17 @@ export const  Navbar = () =>{
                   <ul className=" d-flex nav-frame-list">
                     <li className="nav-item home-nav">
                       <div className="d-flex px-4 pt-4">
-                        <Link to="/" >Home</Link>
+                        <Link to="/" className={`navbar-link ${isActive("/") ?"current": ""}`}>HOME</Link>
                         <FontAwesomeIcon icon={faAngleDown} className="pt-1 ps-2"/>
                       </div>
   
                       <div className="sub-menu-l pt-5">
                         <ul className="navbar-nav px-3 pb-3">
-                          <li className="nav-item"><a href="#goal" className="nav-link text-white">School goals</a></li>
-                          <li className="nav-item"><a href="#about" className="nav-link text-white">About</a></li>
-                          <li className="nav-item"><a href="#extra-activity" className="nav-link text-white">Extra School work</a></li>
-                          <li className="nav-item"><a href="#news" className="nav-link text-white">News</a></li>
-                          <li className="nav-item"><a href="#gallery" className="nav-link text-white">Photos</a></li>
+                          <li className="nav-item"><a href="#goal" className="navbar-link">School goals</a></li>
+                          <li className="nav-item"><a href="#about" className="navbar-link">About</a></li>
+                          <li className="nav-item"><a href="#extra-activity" className="navbar-link">Extra School work</a></li>
+                          <li className="nav-item"><a href="#news" className="navbar-link">News</a></li>
+                          <li className="nav-item"><a href="#gallery" className="navbar-link">Photos</a></li>
 
                         </ul>
                       </div>
@@ -107,18 +107,18 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><Link to='/about/ourStory'>Our Story</Link></li>
-                          <li className="nav-item"><Link to='/about/Vision'>Vision / Mission</Link></li>
-                          <li className="nav-item"><Link to='/about/ourValues'>Our core Values</Link></li>
-                          <li className="nav-item"><Link to='/about/ourAnthem'>School anthem</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/about/ourStory") ?"current": ""}`} to='/about/ourStory'>Our Story</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/about/Vision") ?"current": ""}`}  to='/about/Vision'>Vision / Mission</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/about/ourValues") ?"current": ""}`}  to='/about/ourValues'>Our core Values</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/about/ourAnthem") ?"current": ""}`}  to='/about/ourAnthem'>School anthem</Link></li>
                           <li className="nav-item"><a href="#gallery" className="nav-link text-white">Rules and Regulation</a></li>
 
                         </ul>
                       </div>
                     </li>
 
-                    <li className="nav-item">
-                      <Link to="/gallery" className={`nav-link p-4  ${isActive("/gallery") ?"current": ""}`}>GALLERY</Link> 
+                    <li className="nav-item  pt-4">
+                      <Link to="/gallery" className={`p-4 navbar-link  ${isActive("/gallery") ?"current": ""}`}>GALLERY</Link> 
                     </li>
 
                     <li className="nav-item home-nav">
@@ -128,9 +128,9 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><Link to='/info/uniform' >Uniforms</Link></li>
-                          <li className="nav-item"><Link to='/info/admission'>Admission Procedure</Link></li>
-                          <li className="nav-item"><Link to='/info/factSheet'>BDOMS Fact Sheet</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/info/uniform") ?"current": ""}`} to='/info/uniform' >Uniforms</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/info/admission") ?"current": ""}`} to='/info/admission'>Admission Procedure</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/info/factSheet") ?"current": ""}`} to='/info/factSheet'>BDOMS Fact Sheet</Link></li>
 
                         </ul>
                       </div>
@@ -143,9 +143,9 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li><img className="pt-4" src={pic2} alt="" width="150px"/></li>
-                          <li className="nav-item"><Link to='/campus/infantSchool' >Infant School</Link></li>
-                          <li className="nav-item"><Link to='/campus/juniorSchool' >Junior School</Link></li>
+                          <li><img className="" src={pic2} alt="" width="150px"/></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/campus/infantSchool") ?"current": ""}`}  to='/campus/infantSchool' >Infant School</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/campus/juniorSchool") ?"current": ""}`}  to='/campus/juniorSchool' >Junior School</Link></li>
                         </ul>
                       </div>
                     </li>
@@ -157,21 +157,21 @@ export const  Navbar = () =>{
                       </div>
                       <div className="sub-menu-l">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
-                          <li className="nav-item"><Link to='/curriculum/infant' >Curriculum -Infant School</Link></li>
-                          <li className="nav-item"><Link to='/curriculum/Junior' >Curriculum -Junior School</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/curriculum/infant") ?"current": ""}`}  to='/curriculum/infant' >Curriculum -Infant School</Link></li>
+                          <li className="nav-item"><Link className={`navbar-link ${isActive("/curriculum/Junior") ?"current": ""}`}  to='/curriculum/Junior' >Curriculum -Junior School</Link></li>
 
                         </ul>
                       </div>
                     </li>
 
-                    <li className="nav-item">
-                      <Link to="/event" className={`nav-link p-4 text-white ${isActive("/event") ?"current": ""}`}>EVENTS</Link>
+                    <li className="nav-item pt-4">
+                      <Link to="/event" className={` p-4 navbar-link ${isActive("/event") ?"current": ""}`}>EVENTS</Link>
                     </li>
 
 
 
-                    <li className="nav-item">
-                      <Link to="/portal" target="_blank" rel="noopener noreferrer" className={`nav-link p-4 text-white ${isActive("/portal") ?"current": ""}`}> PORTAL</Link>
+                    <li className="nav-item pt-4">
+                      <Link  to="/portal" target="_blank" rel="noopener noreferrer" className={`navbar-link p-4 ${isActive("/portal") ?"current": ""}`}> PORTAL</Link>
                     </li>
 
                     <li className="nav-item home-nav">
@@ -182,11 +182,11 @@ export const  Navbar = () =>{
                       <div className="sub-menu-l ms-3">
                         <ul className="navbar-nav px-3 pb-3 pt-5">
                           <li className="nav-item">
-                            <Link to="/application" className={`nav-link  text-white ${isActive("/application") ?"current": ""}`}>Work with us</Link>
+                            <Link  to="/application" className={`navbar-link   ${isActive("/application") ?"current": ""}`}>Work with us</Link>
                           </li>     
 
                           <li className="nav-item">
-                            <Link to="/contact" width='100%' className={`nav-link  text-white ${isActive("/contact") ?"current": ""}`}>Contact Us</Link>
+                            <Link to="/contact" width='100%' className={`navbar-link ${isActive("/contact") ?"current": ""}`}>Contact us</Link>
                           </li>          
 
                           </ul>
@@ -224,7 +224,7 @@ export const  Navbar = () =>{
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
                         <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
-                        <Link>HOME</Link>
+                        <Link to="/" className={`navbar-link ${isActive("/") ?"current": ""}`}>HOME</Link>
                       </div>
                     </div>
 
@@ -244,23 +244,23 @@ export const  Navbar = () =>{
                     <div style={{ display: isAboutdropdown ? 'block' : 'none' }}>
                       <ul className="ps-4">
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Our Story</Link> 
+                          <Link to="/about/ourStory"  className={`navbar-link ${isActive("/about/ourStory") ?"current": ""}`}>Our Story</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Vison/ mission</Link> 
+                          <Link to="/about/Vision" className={`navbar-link ${isActive("/about/Vision") ?"current": ""}`}>Vison/ mission</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Our Core Values</Link> 
+                          <Link to="/about/ourValues" className={`navbar-link ${isActive("/about/ourValues") ?"current": ""}`}>Our Core Values</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">School Anthem</Link> 
+                          <Link to="/about/ourAnthem" className={`navbar-link ${isActive("/about/ourAnthem") ?"current": ""}`}>School Anthem</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Rules and Regulation</Link> 
+                          <Link to="" className={`navbar-link ${isActive("") ?"current": ""}`}>Rules and Regulation</Link> 
                         </li>
                       </ul>
                     </div>
@@ -273,7 +273,7 @@ export const  Navbar = () =>{
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
                         <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
-                        <Link>GALLERY</Link>
+                        <Link to='/gallery'className={`navbar-link ${isActive("/gallery") ?"current": ""}`}>GALLERY</Link>
                       </div>
                     </div>
 
@@ -294,15 +294,15 @@ export const  Navbar = () =>{
                     <div style={{ display: isInfodropdown ? 'block' : 'none' }}>
                       <ul className="ps-4">
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Uniform</Link> 
+                          <Link to="/info/uniform" className={`navbar-link ${isActive("/info/uniform") ?"current": ""}`}>Uniform</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Admission Procedure</Link> 
+                          <Link to="/info/admission" className={`navbar-link ${isActive("/info/admission") ?"current": ""}`}>Admission Procedure</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">BDOMS Fact Sheet</Link> 
+                          <Link to="/info/factSheet" className={`navbar-link ${isActive("/info/factSheet") ?"current": ""}`}>BDOMS Fact Sheet</Link> 
                         </li>
                       </ul>
                     </div>
@@ -326,15 +326,11 @@ export const  Navbar = () =>{
                     <div style={{ display: campusDropdown ? 'block' : 'none' }}>
                       <ul className="ps-4">
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Add Parent</Link> 
+                          <Link to="/campus/infantSchool" className={`navbar-link ${isActive("/campus/infantSchool") ?"current": ""}`}>Infant School</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Delete Parent</Link> 
-                        </li>
-
-                        <li className={` ps-4 py-2`}>
-                          <Link to="">Edit Parent</Link> 
+                          <Link to="/campus/juniorSchool" className={`navbar-link ${isActive("/campus/juniorSchool") ?"current": ""}`}>Junior School</Link> 
                         </li>
                       </ul>
                     </div>
@@ -358,11 +354,11 @@ export const  Navbar = () =>{
                     <div style={{ display: currDropdown ? 'block' : 'none' }}>
                       <ul className="ps-4">
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Curriculunm -Infant</Link> 
+                          <Link to="/curriculum/infant" className={`navbar-link ${isActive("/curriculum/infant") ?"current": ""}`}>Curriculunm -Infant</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Cirriculunm -Junior</Link> 
+                          <Link to="/curriculum/Junior" className={`navbar-link ${isActive("/curriculum/Junior") ?"current": ""}`}>Cirriculunm -Junior</Link> 
                         </li>
                       </ul>
                     </div>
@@ -375,7 +371,7 @@ export const  Navbar = () =>{
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
                         <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
-                        <Link>EVENT</Link>
+                        <Link to="/event" className={`navbar-link ${isActive("/event") ?"current": ""}`}>EVENT</Link>
                       </div>
                     </div>
 
@@ -385,7 +381,7 @@ export const  Navbar = () =>{
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
                         <FontAwesomeIcon icon={faHouseCrack} className="pe-4" />
-                        <Link>PORTAL</Link>
+                        <Link to="/portal">PORTAL</Link>
                       </div>
                     </div>
 
@@ -406,11 +402,11 @@ export const  Navbar = () =>{
                     <div style={{ display: connectDropdown ? 'block' : 'none' }}>
                       <ul className="ps-4">
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Curriculunm -Infant</Link> 
+                          <Link to="/application" className={`navbar-link ${isActive("/application") ?"current": ""}`}>Work with us</Link> 
                         </li>
 
                         <li className={` ps-4 py-2`}>
-                          <Link to="">Cirriculunm -Junior</Link> 
+                          <Link to="/contact" className={`navbar-link ${isActive("/contact") ?"current": ""}`}>Contact us</Link> 
                         </li>
                       </ul>
                     </div>

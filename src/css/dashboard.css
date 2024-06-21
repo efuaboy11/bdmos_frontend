@@ -377,6 +377,9 @@ input:focus{
 .sucessfull{
   background-color: #1E5128;
 }
+.sucessfull-text{
+  color: green;
+}
 
 .pending{
   background-color: #FD8D14;

@@ -134,9 +134,7 @@ a{
   font-size: 80px;
 }
 .current{
-  border-bottom: 5px solid #FFF4F4;
-  border-radius: 50px;
-  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.3);
+  color: #000;
 }
 
 .yellow-background{
@@ -326,25 +324,27 @@ input:focus{
  top: 0;
 }
 
+.navbar-link:hover{
+  color: #000;
+  
+}
+
 .nav-container{
  height: 100px;
  display: flex;
  align-items: center;
 }
-.home-nav Link:hover{
-  color: blue;
-  
-}
-.home-nav Link{
-  color: #fff;
-}
+
+
 
 .sub-menu-l {
   display: none;
+  padding-top: 10px;
 
 }
 .sub-menu-l li{
-  border-bottom: 1px dotted #fff;
+  border-bottom: 1px solid #D1D8C5;
+  padding-bottom: 10px;
 }
 .sub-menu-l li:last-child{
   border: none;
@@ -651,7 +651,7 @@ nav .home-nav:hover  .sub-menu-l{
 
 .student-application-modal-content{
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
@@ -820,6 +820,16 @@ nav .home-nav:hover  .sub-menu-l{
   color: #fff;
 }
 
+/* --------------- Blog --------------- */
+.blog-container{
+  border-radius: 20px;
+}
+
+.blog-text{
+  margin-top: 15px;
+  height: 195px;
+
+}
 
 /* Teacher application */
 #heading p{

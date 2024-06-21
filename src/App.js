@@ -90,6 +90,9 @@ import { CurriculumJunior } from './pages/curriclumJunior';
 import { Literacy } from './pages/curriculumLiteracy';
 import { Numeracy } from './pages/currNumeracy';
 import { Science } from './pages/curriculumScience';
+import { Blog } from './pages/eventBlog';
+import ScrollToTop from './component/scrollToTop';
+import { SchemePage } from './pages/dashboardPages/schemePage';
 ;
 
 
@@ -102,6 +105,7 @@ function App() {
     <div>
       <Router>
         <AuthProvider>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -125,13 +129,16 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/application" element={<Application />} />
             <Route path="/event" element={<Events />} />
+            <Route path="/event/blog" element={<Blog />} />
+
 
 
             {/* Private Route */}
             <Route element={<PrivateRoute/>}>
               <Route path="/dashboard" element={<DashBoard />}/>
               <Route path="/paymentStep1" element={<PaymentStep1 />}/>
-              <Route path="/schemeStep1" element={<Scheme1 />}/>          
+              <Route path="/schemeStep1" element={<Scheme1 />}/>    
+              <Route path="/schemePage" element={<SchemePage />}/>                   
               <Route path="/resultStep1" element={<Result1 />}/>
               <Route path="/paymentHistory" element={<PaymentHistory />}/>
               <Route path="/schoolItems" element={<SchoolItems />}/>

@@ -8,8 +8,10 @@ import { Alert, CircularProgress } from "@mui/material"
 import { useForm } from "react-hook-form"
 
 export const EditSchoolItemPage = () =>{
+  
   const {authTokens, details} = useContext(AuthContext)
 
+  const [showModal, setShowModal] = useState(false)
 
   const [name, setName] = useState(details ? details.title : '')
   const [amount, setAmount] = useState(details ? details.price : '')
@@ -65,6 +67,7 @@ export const EditSchoolItemPage = () =>{
         setAlertSeverity("success")
         setLoader(false)
         setdisablebutton(false)
+        setShowModal(true)
       }else{
         const errorData = await response.json()
         const errorMessage = errorData.error
@@ -89,6 +92,24 @@ export const EditSchoolItemPage = () =>{
       </div>
 			<section>
         <div className="main-content">
+
+          {showModal &&
+            <section className="overlay-background">
+              <div className="admin-modal-container">
+                <div className="admin-modal-content">
+                  <h5 className="sucessfull-text">Sucess</h5>
+                  <hr />
+                  <p>School Item  successfully updated.</p>
+                  <div className="d-flex justify-content-between py-3">
+                    <div></div>
+                    <div>
+                      <Link to="/admin/EditSchoolItem" className="admin-modal-close mx-3">Done</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          }
           <div className="alert-container">
             <div className="alert-position">
               {showAlert && (
