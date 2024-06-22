@@ -1,8 +1,6 @@
 import { DashFrame } from "../../component/dashFrame"
 import "../../css/dashboard.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useContext } from "react"
-import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
@@ -11,9 +9,6 @@ import { Link } from "react-router-dom";
 
 export const Scheme1 = () =>{
 
-  const [alert, setAlert] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertSeverity, setAlertSeverity] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)

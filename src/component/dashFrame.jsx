@@ -148,23 +148,7 @@ export const DashFrame = () =>{
  
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/schoolItems") ?"active-dash-link": ""}`}>
             <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
-            <Link to="/schoolItems">SCHOOL ITEMS</Link>
-            <FontAwesomeIcon icon={faAngleDown} className="pe-4"/> 
-            <div className="dropdown-content" id="dropdown-content">
-              <ul>
-                <li className="nav-item ps-4 py-2">
-                  <a href="#" className="uniform-1">Purchase school wears</a>
-                </li>
-
-                <li className="nav-item ps-4 py-2">
-                  <a href="#" className="shoe-1">Purchase school shoe</a>
-                </li>
-
-                <li className="nav-item ps-4 py-2">
-                  <a href="#" className=" ">Purchase books</a>
-                </li>
-              </ul>
-            </div>
+            <Link to="/schoolStore">SCHOOL STORE</Link>
           </li>
 
           <li className={`nav-item ps-3 d-flex py-3 res ${isActiveDashLink("/resultStep1") ?"active-dash-link": ""}`}>
@@ -175,11 +159,6 @@ export const DashFrame = () =>{
           <li className={`nav-item ps-3 d-flex py-3 sch ${isActiveDashLink("/schemeStep1") ?"active-dash-link": ""}`}>
             <FontAwesomeIcon icon={faBookOpenReader} className="pe-4"/> 
             <Link to="/schemeStep1" >SCHEME OFF WORK</Link>
-          </li>
-
-          <li className={`nav-item ps-3 d-flex py-3 ${isActiveDashLink("/timetable") ?"active-dash-link": ""}`}>
-            <FontAwesomeIcon icon={faBookOpen} className="pe-4"/> 
-            <Link to="/timetable" >TIMETABLE</Link>
           </li>
         </ul>
         <div className="sidebar-bottom d-flex justify-content-between px-4">
@@ -194,13 +173,13 @@ export const DashFrame = () =>{
         <nav className="text-light d-flex align-items-center justify-content-between">
           <div className="menu-bar mx-3" onClick={showSidebar}><FontAwesomeIcon icon={faBars} className="sm-text dashboard-menu-bar"/> </div>
           <div className="d-flex align-items-center">
-            <a href="#" className="text-light pe-5"><FontAwesomeIcon icon={faBell} className="pe-4 sm-text"/> </a>
+            <a href="#" className="text-light"><FontAwesomeIcon icon={faBell} className="pe-4 sm-text"/> </a>
             <a href="#" className="text-light"> <FontAwesomeIcon icon={faCartShopping} className="pe-4 sm-text"/></a>
             <a href="#" className="mx-3 text-light   text-center student-info-link">
             <FontAwesomeIcon icon={faCircleUser} onClick={showStudentInfo} className="sm-text"/> 
             </a>
             <div className="">
-              <button className="me-3 button-sign-out" onClick={logoutUser}>Sign Out </button>
+              <button className=" button-sign-out" onClick={logoutUser}>Sign Out </button>
             </div>
           </div>
         </nav>  

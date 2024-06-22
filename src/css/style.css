@@ -77,6 +77,9 @@ a{
   background-color: #D1D8C5;
 
 }
+.light-text{
+  color: #B4B4B8;
+}
 .light-background3{
   background-color: #F6F5F2;
 }
@@ -145,6 +148,9 @@ a{
 .blue-background{
   color: #DFD7BF;
   background-color: blue;
+}
+.gold-text{
+  color: #DC6B19;
 }
 
 .green-background{

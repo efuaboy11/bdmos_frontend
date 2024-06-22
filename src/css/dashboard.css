@@ -751,6 +751,96 @@ tbody tr:nth-child(even){
 }
 
 
+/* -----------------  School Store------------ */
+.school-store-container{
+  background-color: #1A2130;
+  border: 0.5px inset #787A91;
+}
+
+.school-store-container img{
+  border-radius: 20px 20px 0px 0px;
+}
+.school-store-box{
+  border: 0.5px solid #000;
+  border-radius: 20px;
+
+
+}
+
+.school-store-cart-btn{
+  border: none;
+  background: linear-gradient(90deg, #03051E, #18122B);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.school-store-cart-btn:hover{
+  transform: translateY(-2px);
+}
+
+.school-store-buy-btn{
+  border: none;
+  background: linear-gradient(90deg, #597445, #365E32);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+.school-store-buy-btn:hover{
+  transform: translateY(-2px);
+}
+
+/*-------------------------------- Cart Page =------------------ */
+.cart-page-container{
+  background-color: #1A2130;
+  border: 0.5px inset #787A91;
+  height: 470px;
+
+
+}
+
+.cart-remove-btn{
+  border: none;
+  background: #D24545;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+}
+
+.cart-btn-input{
+  width: 50px;
+  border: none;
+  background-color: #18122B;
+  color: #fff;
+  border-radius: none;
+
+}
+
+.cart-btn-increase{
+  border: none;
+  background-color: #03001C;
+  color: #fff;
+  padding: 0px 10px;
+  
+}
+.cart-btn-checkout{
+  width: 100%;
+  border: none;
+  background: #357C3C;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+
 /* ------------------ ...............................Admin DashBoard ---------------------...............................................*/
 
 
@@ -868,6 +958,12 @@ tbody tr:nth-child(even){
 .border{
   border: 1px solid;
 }
+
+
+
+
+
+
 /* ----------------------------- Admin Hom ---------------------------- */
 .admin-home-table tr:nth-child(even){
   background-color: #18122B;

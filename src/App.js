@@ -17,7 +17,7 @@ import { Scheme1 } from './pages/dashboardPages/scheme1';
 import { Result1 } from './pages/dashboardPages/result1';
 import { PaymentHistory } from './pages/dashboardPages/paymentHistory';
 import { Evaluation } from './pages/dashboardPages/evaluation';
-import { SchoolItems } from './pages/dashboardPages/schoolItems';
+import { SchoolItems, SchoolStore } from './pages/dashboardPages/schoolStore';
 import {AdminDashHome} from "./pages/backendPages/adminDashHome";
 import {ViewAllStudents} from "./pages/backendPages/viewAllSudent"
 import {AddStudent} from "./pages/backendPages/addStudent1"
@@ -93,6 +93,7 @@ import { Science } from './pages/curriculumScience';
 import { Blog } from './pages/eventBlog';
 import ScrollToTop from './component/scrollToTop';
 import { SchemePage } from './pages/dashboardPages/schemePage';
+import { CartPage } from './pages/dashboardPages/cartPgae';
 ;
 
 
@@ -107,6 +108,8 @@ function App() {
         <AuthProvider>
           <ScrollToTop />
           <Routes>
+
+            {/* ------------------ Client Page -------------------------------- */}
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/about/ourStory" element={<OurStory />} />
@@ -135,13 +138,23 @@ function App() {
 
             {/* Private Route */}
             <Route element={<PrivateRoute/>}>
+
+              {/* ---------------------  Student Dashboard ----------------------------- */}
               <Route path="/dashboard" element={<DashBoard />}/>
               <Route path="/paymentStep1" element={<PaymentStep1 />}/>
               <Route path="/schemeStep1" element={<Scheme1 />}/>    
               <Route path="/schemePage" element={<SchemePage />}/>                   
               <Route path="/resultStep1" element={<Result1 />}/>
               <Route path="/paymentHistory" element={<PaymentHistory />}/>
-              <Route path="/schoolItems" element={<SchoolItems />}/>
+              <Route path="/schoolStore" element={<SchoolStore />}/>
+              <Route path="/schoolStore/cartPage" element={<CartPage />}/>
+
+
+
+
+
+
+              {/* ------------------------------ ADINM --------------------------------------- */}
               <Route path='/admin' element={<AdminDashHome />}/>
               <Route path="/admin/viewAllStudent" element={<ViewAllStudents />}/>
               <Route path="/admin/viewAllStudent/:id" element={<StudentPage />}/>
