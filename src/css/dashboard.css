@@ -376,6 +376,8 @@ input:focus{
 
 .sucessfull{
   background-color: #1E5128;
+  padding: 0px 10px;
+  border-radius: 10px 0px;
 }
 .sucessfull-text{
   color: green;
@@ -383,10 +385,14 @@ input:focus{
 
 .pending{
   background-color: #FD8D14;
+  padding: 0px 10px;
+  border-radius: 10px 0px;
 }
 
 .failed{
   background-color: #CD1818;
+  padding: 0px 10px;
+  border-radius: 10px 0px;
 }
 /* body{
   background: #03051E;
@@ -405,7 +411,7 @@ a{
 }
 
 .button-dashboard{
-  border: 1px solid  #1F1D36;
+  border: 1px inset  #787A91;
   padding: 10px;
   margin: 10px 0px;
   border-radius: 5px;
@@ -433,7 +439,56 @@ a{
 }
 
 
+.spinner {
+  width: 100px; /* Increased size */
+  height: 100px; /* Increased size */
+  border: 5px solid rgba(0, 0, 0, 0.1); /* Increased border size */
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
 
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.spinner-container{
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+.spinner-content{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1F1D36;
+  padding: 80px;
+  border: 1px insert #888;
+  width: 80%;
+  max-width: 600px;
+  
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  color: #fff;
+  /* border-radius: 20px; */
+
+}
+.spinner-sub-container{
+  display: flex;
+  justify-content: center;
+}
 /* body  */
 
 .student-info-modal{
@@ -503,8 +558,9 @@ a{
   background-color: #1F1D36;
   width: 250px;
 }
-.sidebar-bottom i{
-  font-size: xx-large;
+.sidebar-bottom .icon{
+  font-size: 25px;
+  padding-top: 5px;
 }
 .sidebar-bottom button{
   background: none;
@@ -970,16 +1026,24 @@ tbody tr:nth-child(even){
 }
 
 .admin-home-teacher-table-container{
-  border-radius: 20px;
   padding: 10px;
+  height: 520px;
+  background-color: #03001C;
+  border: 0.5px inset #000;
 
 }
 .admin-home-school-item-container{
-  background-color: #635985;
-  border-radius: 20px;
-  color: #000;
+  background-color: #03001C;
+  border: 0.5px inset #000;
+  color: #fff;
   font-weight: bold;
+  height: 520px;
 
+}
+
+.o{
+  overflow: hidden;
+  width: 100px;
 }
 .admin-home-school-item-button{
   background-color: #1F1D36;
@@ -1011,14 +1075,29 @@ tbody tr:nth-child(even){
 }
 
 .admin-home-email-table-container{
-  background: #222831;
-  border-radius: 20px;
+  background: #1A2130  ;
+  border: 0.5px inset #000;
   margin-top: 20px;
+  height: 520px;
 }
 .admin-home-email-table{
-  background-color: #635985;
+  border-bottom: #000 1px groove;
   margin: 10px;
   border-radius: 20px;
+  color: #fff;
+}
+
+.admin-home-parent-table-container{
+  background: #03001C;
+  border: 0.5px inset #000;
+  padding-top: 10px;
+  margin-top: 20px;
+  height: 520px;
+}
+
+.admin-home-parent-table{
+  border-bottom: #000 1px groove;
+  margin: 10px;
   color: #fff;
 }
 .error-input{
@@ -1170,6 +1249,54 @@ tbody tr:nth-child(even){
   border-radius: 5px;
 }
 
+/* -------------- Account Page ----------------------- */
+.account-page-link:hover{
+  color: #fff;
+  
+}
+.admin-payment-table{
+  max-height: 600px;
+}
+
+/* -----------------------------  Pending Payment-------------- */
+
+.admin-pending-payment-approve-btn{
+  border: 1px solid #888;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease 0.5s;
+  background-color: #114232;
+  color: #fff;
+
+}
+.admin-pending-payment-approve-btn:hover{
+  background-color: #1E5128;
+  color: white;
+}
+.admin-pending-payment-decline-btn:hover{
+  background-color: #373A40;
+  color: white;
+}
+
+
+
+
+
+
+
+
+.admin-pending-payment-decline-btn{
+  border: 1px solid #888;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease 0.5s;
+  background-color: #000;
+  color: #fff;
+
+
+}
+
+
 /* ------------------------- ViewSchoolItems -------------------------- */
 .view-schoolitems-table img{
   width: 40px;
@@ -1279,6 +1406,62 @@ tbody tr:nth-child(even){
   border-radius: 20px;
 
 }
+
+#view-result-page .view-result-delete-btn{
+  background: #A13333;
+  border: 1px inset #787A91;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.5s ease all;
+}
+#view-result-page .view-result-delete-btn:hover{
+  background: #950101;
+}
+
+#view-result-page .view-result-edit-btn{
+  background-color: #114232;
+  border: 1px inset #787A91;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+  transition: 0.5s ease all;
+  margin-left: 10px;
+}
+
+#view-result-page .view-result-edit-btn:hover{
+  background-color:#1E5128;
+}
+
+/* -----------------View Generate Scracth card -------------- */
+.generate-number-status{
+  padding-left: 10px;
+  width: 95px;
+  border-radius: 10px;
+}
+
+/* ---------------------- Scheme off work ------------------- */
+.scheme-download-link{
+  border: none;
+  background-color: #114232;
+  color: #fff;
+  padding: 0px 10px;
+  border-radius: 10px 0px;
+}
+
+.admin-view-scheme-page-btn{
+  border: none;
+  background: #C84B31;
+  padding: 10px 20px;
+  border-radius: 15px;
+  color: #fff;
+  margin-top: 30px;
+  transition: 1s ease all;
+}
+.admin-view-scheme-page-btn:hover{
+  background-color: #D21312;
+}
+
 
 /* -----------------Email View Email ---------------- */
 .admin-email-modal-conatiner{

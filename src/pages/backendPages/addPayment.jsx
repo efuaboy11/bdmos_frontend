@@ -2,7 +2,7 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
@@ -11,12 +11,10 @@ import AuthContext from "../../context/AuthContext"
 import { LoadingSpiner } from "../../component/spin"
 
 
-export const UploadEvent = () =>{
+export const AddPayment = () => {
+  const [paymentName, setPaymentName] = useState("")
   const {authTokens} = useContext(AuthContext)
 
-  const [img, setImgFile] = useState(null)
-  const [date, setdate ] = useState("")
-  const [event, setEvent] = useState("")
 
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
@@ -24,22 +22,22 @@ export const UploadEvent = () =>{
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
-  
+
 
   const onSubmit = (data, e) =>{
     e.preventDefault()
     setdisablebutton(true)
+
     if(isValid){
-    
       console.log(data)
-      addEvent(e)
+      addPayment(e)
     }else{
       console.log('error')
       setdisablebutton(false)
     }
   }
 
-  const addEvent = async(e) =>{
+  const addPayment = async(e) =>{
     e.preventDefault()
     if(loader){
       setLoader(false)
@@ -48,13 +46,11 @@ export const UploadEvent = () =>{
     }
 
     const formData = new FormData()
-    formData.append('image', img);
-    formData.append('date', date);
-    formData.append('description', event);
+    formData.append('name', paymentName);
     console.log(formData)
 
     try{
-      const response = await fetch('https://bdmos.onrender.com/api/events/',{
+      const response = await fetch("https://bdmos.onrender.com/api/bills/",{
         method: 'POST',
         body: formData,
         headers:{
@@ -63,14 +59,12 @@ export const UploadEvent = () =>{
       })
       if(response.status === 201){
         setShowAlert(true)
-        setAlert("Event Created Successfully")
+        setAlert("Payment Name Created Successfully")
         console.log('sucess')
         setAlertSeverity("success")
         setLoader(false)
         setdisablebutton(false)
-        setImgFile(null)
-        setdate('')
-        setEvent('')
+        setPaymentName('')
 
       }else{
         const errorData = await response.json()
@@ -88,16 +82,6 @@ export const UploadEvent = () =>{
     }
 
   }
-  const handleImgFile = (event) => {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      setImgFile(file); 
-    } else {
-      setImgFile(null); 
-    }
-  };
-
-
 	return(
 		<div>
       <div className="position-sticky">
@@ -105,9 +89,9 @@ export const UploadEvent = () =>{
       </div>
 			<section>
         <div className="main-content">
-          {loader &&
-            < LoadingSpiner/>
-          }
+        {loader &&
+          < LoadingSpiner/>
+        }
 
           <div className="alert-container">
             <div className="alert-position">
@@ -124,52 +108,40 @@ export const UploadEvent = () =>{
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>Upload Events</h5>
+                <h5>Add Payment</h5>
+                <p>Add Payment Method</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
 							  <Link to="/admin" >Dashboard /  </Link>
-                <Link to='/admin/ViewEventUploads'>View Event Uploaded</Link>
+                <Link to="/admin/accountPage">Account Page</Link>
 						  </div>
             </div>
+        
+          </div>
 
 
-            <section>
+            <section className="container-lg">
               <div className="boxing-shadow">
                 <div className="navyblue-blackground-dash py-4">
-                  <p className="text-center">PLEASE FILL IN THE REQUIRED DETAILS</p>
+                  <p className="text-center">PLEASE ENTER THE PAYMENT NAME YOU WANT TO ADD</p>
                 </div>
-
-               <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="row  mx-2">
-                      <div className="col-md-6 mt-3">
-                        <label htmlFor="" className="p-2">Image</label>
-                        <input className={`form-control  form-dark ${errors.img ? 'error-input' : ''}`} {...register('img', {required: true})} type="file" onChange={handleImgFile}/>
-                        {errors.img && <span style={{color: 'red'}}>This Feild is required</span>} 
-                      </div>
-                      <div className="col-md-6 mt-3">
-                        <label htmlFor="" className="p-2">Date</label>
-                        <input className={`form-control  form-dark ${errors.date ? 'error-input' : ''}`} {...register('date', {required: true})} type="date"  value={date} onChange={(e) => setdate(e.target.value)}/>
-                        {errors.date && <span style={{color: 'red'}}>This Feild is required</span>}
-
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <label htmlFor="" className="p-2">Event description</label>
-                        <textarea className={`form-control  form-dark ${errors.event ? 'error-input' : ''}`} {...register('event', {required: true})}  value={event} onChange={(e) => setEvent(e.target.value)}></textarea>
-                        {errors.event && <span style={{color: 'red'}}>This Feild is required</span>}
-                      </div>
-                      <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>   
-                        
-                      </div>
+                
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="row justify-content-center mx-2">
+                    <div className="col-md-10 mt-5">
+                      <input className={`form-control delete-student-input form-dark ${errors.paymentName ? 'error-input' : ''}`} {...register('paymentName', {required: true})} value={paymentName} onChange={(e) => setPaymentName(e.target.value)}type="text" placeholder="School fees"/>
+                      {errors.paymentName && <span style={{color: 'red'}}>This Feild is required</span>}
+                    </div>
+                    <div className="col-md-10 pt-3 pb-5 mb-4">
+                      <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>
+                    </div>
                   </div>
+                </form>
 
-               </form>
+
 
               </div>
             </section>
-
-        
-          </div>
         </div>
 
       </section>

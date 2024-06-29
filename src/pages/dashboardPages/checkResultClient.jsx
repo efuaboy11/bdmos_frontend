@@ -9,10 +9,11 @@ import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
+import { DashFrame } from "../../component/dashFrame"
 
 
 
-export const ViewResultPage = () =>{
+export const CheckResultClient = () =>{
 
   const {allResults, authTokens} = useContext(AuthContext)
   console.log(allResults)
@@ -21,9 +22,6 @@ export const ViewResultPage = () =>{
 
   const navigate = useNavigate()
 
-  const handleEdit = () =>{
-    navigate("/admin/editResultPage")
-  }
 
   const deleteResult = async (e) => {
     console.log("clicked")
@@ -79,7 +77,7 @@ export const ViewResultPage = () =>{
   return(
     <div>
       <div className="position-sticky">
-        <AdminDashFrame />
+        <DashFrame />
       </div>
       <section id="view-result-page">
         <div className="main-content">
@@ -445,12 +443,6 @@ export const ViewResultPage = () =>{
                   <p>{allResults[0].next_term_school_fees}</p>
                 </div>
               </div>
-            </div>
-
-
-            <div className="d-flex">
-             <button onClick={deleteResult}  disabled={disablebutton} className="view-result-delete-btn"> {loader ? <CircularProgress color="inherit" size='25px'/> : "Delete"}</button>
-             <button onClick={handleEdit} className="view-result-edit-btn">Edit</button>
             </div>
 
 

@@ -7,8 +7,188 @@ import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Pie } from "react-chartjs-2"
 import picture from "../../img/Untitled__1_-removebg-preview.png"
 import pic from "../../img/pic1.jpg"
+import { useEffect, useState, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const AdminDashHome = () =>{
+  const {authTokens, details} = useContext(AuthContext)
+
+  const [students, setStudents] = useState([]);
+  const [totalStudent, setTotalStudent] = useState(0);
+
+  const [teachers, setTeachers] = useState([])
+  const [totalTeachers, setTotalTeachers] = useState(0);
+
+  const [parents, setParents] = useState([])
+  const [totalParents, setTotalParents] = useState(0);
+
+  const [classe, setClasse] = useState([])
+  const [totalClass, setTotalClass] = useState(0);
+
+  const [schoolItems, setSchoolItems] = useState([])
+
+  const [emails, setEmails] = useState([])
+
+
+
+
+  const getAllStundent = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/students/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      },
+    });
+
+    const data = await response.json()
+    const Length = data.length
+    setTotalStudent(Length)
+
+    if(response.ok){
+      const sortedData = data.sort((a, b) => new Date(b.date_joined) - new Date(a.date_joined));
+      // Get the 5 most recent entries
+      const recentData = sortedData.slice(0, 5);
+      setStudents(recentData)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getAllTeacher = async() =>{
+    let response = await fetch('https://bdmos.onrender.com/api/teachers/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    const data = await response.json()
+    const Length = data.length
+    setTotalTeachers(Length)
+
+    if(response.ok){
+      const sortedData = data.sort((a, b) => new Date(b.date_joined) - new Date(a.date_joined));
+      // Get the 5 most recent entries
+      const recentData = sortedData.slice(0, 5);
+      setTeachers(recentData)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getParents = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/parents/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+    const Length = data.length
+    setTotalParents(Length)
+
+
+    if(response.ok){
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      // Get the 5 most recent entries
+      const recentData = sortedData.slice(0, 5);
+      setParents(recentData)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getClass = async() => {
+    let response = await fetch("https://bdmos.onrender.com/api/class/",{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+    const Length = data.length
+    setTotalClass(Length)
+
+    if(response.ok){
+      setClasse(data)
+    }else{
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getAllItem = async () => {
+    let response = await fetch("https://bdmos.onrender.com/api/items/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if (response.ok) {
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      // Get the 5 most recent entries
+      const recentData = sortedData.slice(0, 5);
+      setSchoolItems(recentData)
+    } else {
+      console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getEmails = async () => {
+    let response = await fetch("https://bdmos.onrender.com/api/send-email/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if (response.ok) {
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      // Get the 5 most recent entries
+
+      const recentData = sortedData.slice(0, 5);
+
+      setEmails(recentData)
+    } else {
+      console.error("Failed to fetch emails", response.statusText)
+    }
+  }
+
+  useEffect(() => {
+    getAllStundent()
+  },[students])
+
+  useEffect(() =>{
+    getAllTeacher()
+  }, [teachers])
+
+  useEffect(() =>{
+    getParents()
+  }, [parents])
+
+  useEffect(() =>{
+    getClass()
+  }, [classe])
+
+  useEffect(() =>{
+    getAllItem()
+  }, [schoolItems])
+
+  useEffect(() =>{
+    getEmails()
+  }, [emails])
+
+
   return(
     <div>
       <div className="position-sticky">
@@ -34,7 +214,7 @@ export const AdminDashHome = () =>{
                       <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
                         <div className="py-4 ">
                           <p>Students</p>
-                          <h1>100</h1>
+                          <h1>{totalStudent}</h1>
                         </div>
                         <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGraduate}/>
                       </div>
@@ -45,7 +225,7 @@ export const AdminDashHome = () =>{
                       <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
                         <div className="py-4 ">
                           <p>Teacher</p>
-                          <h1>32</h1> 
+                          <h1>{totalTeachers}</h1> 
                         </div>
                         <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUsers}/>
                       </div>
@@ -56,7 +236,7 @@ export const AdminDashHome = () =>{
                       <div className="navyblue-blackground-dash d-flex  justify-content-between px-3">
                         <div className="py-4">
                           <p>Parent</p>
-                          <h1>62</h1>
+                          <h1>{totalParents}</h1>
                         </div>
                         <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUserGroup}/>
                       </div>
@@ -67,7 +247,7 @@ export const AdminDashHome = () =>{
                       <div className="navyblue-blackground-dash d-flex justify-content-between px-3">
                         <div className="py-4 ">
                           <p>Classes</p>
-                          <h1>12</h1>
+                          <h1>{totalClass}</h1>
                         </div>
                         <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faSchool}/>
                       </div>
@@ -154,85 +334,42 @@ export const AdminDashHome = () =>{
 
         
         <section className="container-lg py-5 non-wrap-text">
-          <div className="table-responsive navyblue-blackground-dash">
+          <div className="navyblue-blackground-dash">
             <p className=" ps-3 py-2">Recently Added Student</p>
-            <table className="table1">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Class</th>
-                  <th>DOB</th>
-                  <th>Father Name</th>
-                  <th>Mother Name</th>
-                  <th>Mobile Number</th>
-                  <th>Address</th>
-                  <th>Session</th>
-                </tr>
-              </thead>
 
-              <tbody className="admin-home-table">
-                <tr>
-                  <td>SBHSISE234</td>
-                  <td>John Doe</td>
-                  <td>Basic 4</td>
-                  <td>01/02/2003</td>
-                  <td>Fred Doe</td>
-                  <td>Mary Doe</td>
-                  <td>080729022633</td>
-                  <td>22 john perkin street, london</td>
-                  <td>2023/2024</td>
-                </tr>
+            <div className="scroll-bar">
+              <table className="table1">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>DOB</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>sex</th>
+                  </tr>
+                </thead>
 
-                <tr>
-                  <td>SBHSISE234</td>
-                  <td>John Doe</td>
-                  <td>Basic 4</td>
-                  <td>01/02/2003</td>
-                  <td>Fred Doe</td>
-                  <td>Mary Doe</td>
-                  <td>080729022633</td>
-                  <td>22 john perkin street, london</td>
-                  <td>2023/2024</td>
-                </tr>
+                <tbody className="admin-home-table">
+                  {students.map((student) =>(
+                  <tr>
+                    <td>{student.username}</td>
+                    <td>{student.first_name} {student.last_name}</td>
+                    <td>{student.student_class}</td>
+                    <td>{student.date_of_birth}</td>
+                    <td>{student.father_name}</td>
+                    <td>{student.mother_name}</td>
+                    <td>{student.parents_phone_number}</td>
+                    <td>{student.sex}</td>
+                  </tr>
+                  ))}
 
-                <tr>
-                  <td>SBHSISE234</td>
-                  <td>John Doe</td>
-                  <td>Basic 4</td>
-                  <td>01/02/2003</td>
-                  <td>Fred Doe</td>
-                  <td>Mary Doe</td>
-                  <td>080729022633</td>
-                  <td>22 john perkin street, london</td>
-                  <td>2023/2024</td>
-                </tr>
+                </tbody>
+              </table>
+            </div>
 
-                <tr>
-                  <td>SBHSISE234</td>
-                  <td>John Doe</td>
-                  <td>Basic 4</td>
-                  <td>01/02/2003</td>
-                  <td>Fred Doe</td>
-                  <td>Mary Doe</td>
-                  <td>080729022633</td>
-                  <td>22 john perkin street, london</td>
-                  <td>2023/2024</td>
-                </tr>
-
-                <tr>
-                  <td>SBHSISE234</td>
-                  <td>John Doe</td>
-                  <td>Basic 4</td>
-                  <td>01/02/2003</td>
-                  <td>Fred Doe</td>
-                  <td>Mary Doe</td>
-                  <td>080729022633</td>
-                  <td>22 john perkin street, london</td>
-                  <td>2023/2024</td>
-                </tr>
-              </tbody>
-            </table>
 
             <div className="payment-link my-2">
               <Link to="/admin/viewAllStudent " className="button-dashboard">View All</Link>
@@ -245,65 +382,32 @@ export const AdminDashHome = () =>{
           <div className="row">
             <div className="col-xxl-12">
               <div className="row g-3">
-                <div className="col-md-9">
-                  <div className="scroll-bar-x admin-home-teacher-table-container navyblue-blackground-dash non-wrap-text">
+                <div className="col-lg-8 col-md-7 col-sm-6">
+                  <div className="admin-home-teacher-table-container  non-wrap-text">
                     <p className=" ps-3 py-2">Recently Added Teacher</p>
-                    <table className="table1">
 
-                      <tbody className="">
-                        <div className="admin-home-teacher-table">
-                          <tr>
-                            <td>SBHSISE234</td>
-                            <td>John Doe</td>
-                            <td>Basic one Teacher</td>
-                            <td>080729022633</td>
-                            <td>22 john perkin street, london</td>
-                          </tr>
-                        </div>
+                    <div className="scroll-bar">                  
+                      <table className="table1">
 
+                        <tbody className="">
+                          <div className="admin-home-teacher-table">
 
-                        <div className="admin-home-teacher-table">
-                          <tr>
-                            <td>SBHSISE234</td>
-                            <td>John Doe</td>
-                            <td>Basic one Teacher</td>
-                            <td>080729022633</td>
-                            <td>22 john perkin street, london</td>
-                          </tr>
-                        </div>
+                            {teachers.map((teacher) =>(
+                              <tr>
+                                <td>{teacher.username}</td>
+                                <td>{teacher.first_name} {teacher.last_name}</td>
+                                <td>{teacher.phone_number}</td>
+                                <td>{teacher.sex}</td>
+                                <td>{teacher.teacher_email}</td>
+                                <td>{teacher.permanent_residence}</td>
+                              </tr>
 
-                        <div className="admin-home-teacher-table">
-                          <tr>
-                            <td>SBHSISE234</td>
-                            <td>John Doe</td>
-                            <td>Basic one Teacher</td>
-                            <td>080729022633</td>
-                            <td>22 john perkin street, london</td>
-                          </tr>
-                        </div>
+                            ))}
 
-                        <div className="admin-home-teacher-table">
-                          <tr>
-                            <td>SBHSISE234</td>
-                            <td>John Doe</td>
-                            <td>Basic one Teacher</td>
-                            <td>080729022633</td>
-                            <td>22 john perkin street, london</td>
-                          </tr>
-                        </div>
-
-                        
-                        <div className="admin-home-teacher-table">
-                          <tr>
-                            <td>SBHSISE234</td>
-                            <td>John Doe</td>
-                            <td>Basic one Teacher</td>
-                            <td>080729022633</td>
-                            <td>22 john perkin street, london</td>
-                          </tr>
-                        </div>
-                      </tbody>
-                    </table>
+                          </div>
+                        </tbody>
+                      </table>
+                    </div>
 
                     <div className="payment-link my-2">
                       <Link to="/admin/viewAllTeacher" className="button-dashboard">View All</Link>
@@ -311,61 +415,27 @@ export const AdminDashHome = () =>{
                   </div>
                 </div>
 
-                <div className="col-md-3">
-                  <div className="admin-home-school-item-container p-3">
+                <div className="col-lg-4 col-md-5 col-sm-6">
+                  <div className="admin-home-school-item-container scroll-bar-y p-3">
                     <h6 className="py-2">Recent School Items</h6>
-
-                    <div className="mt-3 admin-home-school-item-box">
-                      <div className="d-flex justify-content-between"> 
-                        <div>
-                          <h6>Name: Bag</h6>
-                          <p>Amount: 5000</p>
-                        </div>
-                        <div>
-                          <img src={pic} alt=""/>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 admin-home-school-item-box">
-                      <div className="d-flex justify-content-between"> 
-                        <div>
-                          <h6>Name: Bag</h6>
-                          <p>Amount: 5000</p>
-                        </div>
-                        <div>
-                          <img src={pic} alt=""/>
+                    {schoolItems.map((schoolItem) =>(
+                      <div className="mt-3 admin-home-school-item-box">
+                        <div className="d-flex justify-content-between"> 
+                          <div>
+                            <h6>Name: {schoolItem.title}</h6>
+                            <p>Amount: {schoolItem.price}</p>
+                          </div>
+                          <div>
+                            <img src={schoolItem.image} alt=""/>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
 
-                    <div className="mt-3 admin-home-school-item-box">
-                      <div className="d-flex justify-content-between"> 
-                        <div>
-                          <h6>Name: Bag</h6>
-                          <p>Amount: 5000</p>
-                        </div>
-                        <div>
-                          <img src={pic} alt=""/>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 admin-home-school-item-box">
-                      <div className="d-flex justify-content-between"> 
-                        <div>
-                          <h6>Name: Bag</h6>
-                          <p>Amount: 5000</p>
-                        </div>
-                        <div>
-                          <img src={pic} alt=""/>
-                        </div>
-                      </div>
-                    </div>
 
                     
                     <div className="payment-link my-3">
-                      <Link to="/admin/viewSchooltItem" className="admin-home-school-item-button">View All</Link>
+                      <Link to="/admin/viewSchooltItem" className="button-dashboard">View All</Link>
                     </div>
                   </div>
 
@@ -382,49 +452,67 @@ export const AdminDashHome = () =>{
           <div className="row">
             <div className="col-xxl-12">
               <div className="row">
-                <div className="col-4">
-                  <div className="scroll-bar-x admin-home-email-table-container navyblue-blackground-dash non-wrap-text">
+                <div className="col-lg-4 col-md-5 col-sm-6">
+                  <div className="admin-home-email-table-container navyblue-blackground-dash non-wrap-text">
                     <p className=" ps-3 py-2">Recently Sent Email</p>
-                    <table className="table1">
 
-                      <tbody className="">
-                        <div className="admin-home-email-table">
-                          <tr>
-                            <td>12/11/2023</td>
-                            <td>iseghohimhene@gmail.com</td>
-                          </tr>
-                        </div>
+                    <div className="scroll-bar-x">
+                      <table className="table1">
 
-                        <div className="admin-home-email-table">
-                          <tr>
-                            <td>12/11/2023</td>
-                            <td>iseghohimhene@gmail.com</td>
-                          </tr>
-                        </div>
-
-                        <div className="admin-home-email-table">
-                          <tr>
-                            <td>12/11/2023</td>
-                            <td>iseghohimhene@gmail.com</td>
-                          </tr>
-                        </div>
-
-                        <div className="admin-home-email-table">
-                          <tr>
-                            <td>12/11/2023</td>
-                            <td>iseghohimhene@gmail.com</td>
-                          </tr>
-                        </div>
+                        <tbody className="">
+                          {emails.map((email) =>(
+                            <div className="admin-home-email-table">
+                              <tr>
+                                <td>{email.date}</td>
+                                <td>{email.to}</td>
+                              </tr>
+                            </div>
+                          ))}
 
 
-                      </tbody>
-                    </table>
+
+                        </tbody>
+                      </table>
+                    </div>
+
 
                     <div className="payment-link my-2">
-                      <Link to="/admin/viewAllTeacher" className="button-dashboard">View All</Link>
+                      <Link to="/admin/viewEmail" className="button-dashboard">View All</Link>
                     </div>
                   </div>
 
+                </div>
+
+                <div className="col-lg-8 col-md-7 col-sm-6">
+                  <div className=" admin-home-parent-table-container non-wrap-text">
+                    <p className=" ps-3 py-2">Recently Added Parent</p>
+                    <div className="scroll-bar-x"> 
+                      <table className="table1 ">
+
+                        <tbody className="">
+                          <div className="admin-home-parent-table">
+
+                            {parents.map((parent) =>(
+                              <tr>
+                                <td>{parent.name}</td>
+                                <td>{parent.children_name} {parent.last_name}</td>
+                                <td>{parent.address}</td>
+                                <td>{parent.phone_number}</td>
+                                <td>{parent.email}</td>
+                              </tr>
+
+                            ))}
+
+                          </div>
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                    <div className="payment-link my-2">
+                      <Link to="/admin/viewAllParent" className="button-dashboard">View All</Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

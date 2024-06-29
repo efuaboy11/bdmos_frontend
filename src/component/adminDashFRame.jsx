@@ -1,6 +1,6 @@
 import "../css/dashboard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faL, faUsers, faUserGraduate, faPeopleGroup, faMoneyBillTrendUp, faUpload, faMagnifyingGlass, faSchool, faEye, faEnvelopesBulk, faGear} from "@fortawesome/free-solid-svg-icons"
+import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faL, faUsers, faUserGraduate, faPeopleGroup, faMoneyBillTrendUp, faUpload, faMagnifyingGlass, faSchool, faEye, faEnvelopesBulk, faGear, faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
 import { useContext, useEffect,  useRef, useState} from "react"
 import { Link, useLocation} from "react-router-dom"
 import AuthContext from "../context/AuthContext"
@@ -177,28 +177,31 @@ export const AdminDashFrame = () =>{
             </div>
           </li>
 
-          <li className={`nav-item ps-3 py-3 hist ${isActiveDashLink("/paymentHistory") ?"active-dash-link": ""} dropdown-position`}>
+          <li className={`nav-item ps-3 py-3 hist ${isActiveDashLink("/admin/accountPage") ?"active-dash-link": ""} dropdown-position`}>
             <FontAwesomeIcon icon={faMoneyBillTrendUp} className="pe-4"/>     
-            <Link to="/paymentHistory" className={`payment-history-sidebar `}>ACCOUNT</Link>  
+            <Link to="/admin/accountPage" className={`payment-history-sidebar `}>ACCOUNT</Link>  
             <FontAwesomeIcon icon={faAngleDown} className={`${isAccountDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={tooAccountDropdown}/> 
             <div style={{ display: isAccountDropdownOpen ? 'block' : 'none' }}>
-              <ul >
-              <li className="nav-item ps-4 py-2">
-                  <a href="#" className="uniform-1">Add payment</a>
+              <ul className="ps-4">
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/addPayment">Add payment</Link>
+                </li>
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/paymentOptions">Payment Options</Link>
                 </li>
                <li className="nav-item ps-4 py-2">
-                  <a href="#" className="uniform-1">All payment</a>
+                  <Link to="/admin/allPayment">All payment</Link>
                 </li>
                 <li className="nav-item ps-4 py-2">
-                  <a href="#" className="uniform-1">Approved payment</a>
-                </li>
-
-                <li className="nav-item ps-4 py-2">
-                  <a href="#" className="shoe-1">Declined payment</a>
+                  <Link to="/admin/approvePayment">Approved payment</Link>
                 </li>
 
                 <li className="nav-item ps-4 py-2">
-                  <a href="#" className=" ">Pending payment</a>
+                  <Link to="/admin/declinePayment">Declined payment</Link>
+                </li>
+
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/pendingPayment">Pending payment</Link>
                 </li>
               </ul>
             </div>      
@@ -233,14 +236,6 @@ export const AdminDashFrame = () =>{
               <ul className="ps-4">
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/UploadResult") ?"active-dash-link": ""}`}>
                   <Link to="/admin/UploadResult">Upload Result</Link> 
-                </li>
-
-                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/deleteResult") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/deleteResult">Delete Result</Link> 
-                </li>
-
-                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/editResult") ?"active-dash-link": ""}`}>
-                  <Link to="/admin/editResult">Edit Result</Link> 
                 </li>
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/generateScratchNumber") ?"active-dash-link": ""}`}>
@@ -374,6 +369,11 @@ export const AdminDashFrame = () =>{
 
 
         </ul>
+
+        <div onClick={logoutUser} className="cursor-pointer  sidebar-bottom d-flex justify-content-between py-1 px-4">
+          <button>Sign out</button>
+          <FontAwesomeIcon className="icon" icon={faArrowRightFromBracket}/>
+        </div> 
 
       </div>
 

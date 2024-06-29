@@ -8,6 +8,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 export const UploadSchoolItems = () =>{
   const [itemName, setItemName] = useState("")
@@ -104,6 +105,9 @@ export const UploadSchoolItems = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
 
           <div className="alert-container">
             <div className="alert-position">
@@ -153,7 +157,7 @@ export const UploadSchoolItems = () =>{
                         {errors.img && <span style={{color: 'red'}}>This Feild is required</span>}
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>                    
+                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>                    
                       </div>
                   </div>
 

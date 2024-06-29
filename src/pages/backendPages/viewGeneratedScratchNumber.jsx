@@ -3,9 +3,41 @@ import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export const ViewGeneratedScratchNumber = () =>{
+
+  const { authTokens } = useContext(AuthContext)
+
+  const [datas, setdatas] = useState([])
+  
+  console.log(datas)
+
+  const getNumber = async () => {
+    let response = await fetch("https://bdmos.onrender.com/api/scratch_cards/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if (response.ok) {
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setdatas(sortedData)
+    } else {
+      console.error("Failed to fetch events", response.statusText)
+    }
+  }
+
+  useEffect(() =>{
+    getNumber()
+  }, [datas])
+
+
   const [session, setSessions] = useState("")
 	return(
 		<div>
@@ -25,14 +57,6 @@ export const ViewGeneratedScratchNumber = () =>{
 						  </div>
             </div>
 
-            <form action="">
-              <div className="row add-student">
-                <div className="col-sm-11 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by Session..." value={session} onChange={(e) => setSessions(e.target.value)}/>
-                </div>
-              </div>            
-            </form> 
-
 
 
             <section className="container-lg navyblue-blackground-dash">
@@ -43,70 +67,23 @@ export const ViewGeneratedScratchNumber = () =>{
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Session</th>
-                        <th>Term</th>
-                        <th>Actions</th>
-                        <th></th>
+                        <th>Number</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     
 
+
+
                     <tbody className="admin-home-table view-schoolitems-table ">
+                    {datas.map((data) =>(
                       <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
+                        <td>{data.created_at}</td>
+                        <td>{data.pin}</td>
+                        <td><p to="" className={`generate-number-status  ${data.usage_limit > 0 ? "sucessfull" : "failed"} ${data.usage_limit < 5 && "pending"} `} >{data.usage_limit} trials</p></td>
+                      </tr>          
+                    ))}
 
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>2021/2022</td>
-                        <td>First Term</td>
-                        <td></td>
-                        <td><Link to="" className="admin-btn py-2 px-5" >View</Link></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>

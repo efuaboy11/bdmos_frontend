@@ -1,6 +1,6 @@
 import "../css/dashboard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark} from "@fortawesome/free-solid-svg-icons"
+import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
 import { useContext, useEffect,  useRef, useState} from "react"
 import { Link, useLocation} from "react-router-dom"
 import AuthContext from "../context/AuthContext"
@@ -161,10 +161,10 @@ export const DashFrame = () =>{
             <Link to="/schemeStep1" >SCHEME OFF WORK</Link>
           </li>
         </ul>
-        <div className="sidebar-bottom d-flex justify-content-between px-4">
+        <div onClick={logoutUser} className="cursor-pointer  sidebar-bottom d-flex justify-content-between py-1 px-4">
           <button>Sign out</button>
-          <i className="bi bi-box-arrow-right"></i>
-        </div>
+          <FontAwesomeIcon className="icon" icon={faArrowRightFromBracket}/>
+        </div> 
 
       </div>
 

@@ -6,8 +6,8 @@ import { useContext, useEffect, useState } from "react"
 import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
-import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 
 export const AddStudent = () =>{
@@ -188,6 +188,10 @@ export const AddStudent = () =>{
           </div>
         </div>
 
+        {loader &&
+          < LoadingSpiner/>
+        }
+
 
         <section className="mt-3 container">
           <div className="row my-3 pb-4">
@@ -367,7 +371,7 @@ export const AddStudent = () =>{
             </div>
 
             <div className="py-4">
-              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
             </div>
            
           </form>

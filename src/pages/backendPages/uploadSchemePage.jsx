@@ -3,12 +3,38 @@ import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
-import { useContext, useEffect, useState } from "react"
+import { useState, useContext, useEffect } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
+
 
 export const UploadSchemePage = () =>{
   const [formValues, setFormValues] = useState([])
   const [subjects, setSubjects] = useState([])
+
+  const [alert, setAlert] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
+
+  const onSubmit = (data, e) =>{
+    e.preventDefault()
+    setdisablebutton(true)
+    if(isValid){
+    
+      console.log(data)
+      uploadScheme(e)
+    }else{
+      console.log('error')
+      setdisablebutton(false)
+    }
+  }
 
   const {
     classe,
@@ -36,8 +62,13 @@ export const UploadSchemePage = () =>{
     setFormValues(values)
   }
 
-  const handleSubmit = async (e) => {
+  const uploadScheme = async (e) => {
     e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
 
     const formDataArray = formValues.map((value) => {
       const formData = new FormData()
@@ -81,6 +112,22 @@ export const UploadSchemePage = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
+
+          <div className="alert-container">
+            <div className="alert-position">
+              {showAlert && (
+                <Alert
+                  severity={alertSeverity}
+                  onClose={() => setShowAlert(false)}
+                >
+                  {alert}
+                </Alert>
+              )}
+            </div>
+          </div>
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -104,32 +151,34 @@ export const UploadSchemePage = () =>{
 
 
             <section className="container-lg navyblue-blackground-dash">
-              <div className="view-content-height scroll-bar">
-                <div className="non-wrap-text">
-                  <table className="table1 ">
-                    <thead>
-                      <tr>
-                        <th>Subjects</th>
-                        <th>File</th>
-                      </tr>
-                    </thead>
-                    <tbody className="admin-home-table view-schoolitems-table ">
-                      {formValues.map((formValue, index) => {
-                        const subject = subjects.find(subject => subject.id === formValue.subject);
-                        return (
-                          <tr key={index}>
-                            <td>{subject ? subject.name : 'Loading...'}</td>
-                            <td>
-                              <input type="file" name="scheme" onChange={(e) => handleChange(index, e)}/>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="view-content-height scroll-bar">
+                  <div className="non-wrap-text">
+                    <table className="table1 ">
+                      <thead>
+                        <tr>
+                          <th>Subjects</th>
+                          <th>File</th>
+                        </tr>
+                      </thead>
+                      <tbody className="admin-home-table view-schoolitems-table ">
+                        {formValues.map((formValue, index) => {
+                          const subject = subjects.find(subject => subject.id === formValue.subject);
+                          return (
+                            <tr key={index}>
+                              <td>{subject ? subject.name : 'Loading...'}</td>
+                              <td>
+                                <input type="file" name="scheme" onChange={(e) => handleChange(index, e)}/>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <button className="admin-btn py-2 px-5 my-5" onClick={handleSubmit}>Upload</button>
+                <button className="admin-btn py-2 px-5 my-5" type="submit">Upload</button>
+              </form>
             </section>
           </div>
         </div>

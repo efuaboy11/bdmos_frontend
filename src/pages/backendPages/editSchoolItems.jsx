@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext"
 import { Alert } from "@mui/material"
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import { LoadingSpiner } from "../../component/spin"
 
 export const EditSchoolItem = () =>{
   const [item, setItem] = useState("")
@@ -68,6 +69,9 @@ export const EditSchoolItem = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -93,7 +97,7 @@ export const EditSchoolItem = () =>{
                       {errors.item && <span style={{color: 'red'}}>This Feild is required</span>}
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">
-                    <button type="submit"  className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>  
+                    <button type="submit"  className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>  
                       
                     </div>
                   </div>

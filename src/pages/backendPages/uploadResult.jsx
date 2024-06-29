@@ -101,10 +101,6 @@ export const UploaadResult = () =>{
     if(isValid){
       navigate("/admin/resultPage")
       console.log(data)
-      setClassName('')
-      setStudentID('')
-      setSessions('')
-      setTerms('')
     }else{
       console.log('error')
     }

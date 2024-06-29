@@ -6,6 +6,7 @@ import { useState, useContext, useEffect } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Alert, CircularProgress } from "@mui/material"
 import { useForm } from "react-hook-form"
+import { LoadingSpiner } from "../../component/spin"
 
 
 export const EditTeacherPage = () =>{
@@ -120,6 +121,9 @@ export const EditTeacherPage = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content ">
+        {loader &&
+          < LoadingSpiner/>
+        }
         <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
@@ -314,7 +318,7 @@ export const EditTeacherPage = () =>{
             </div>
 
             <div className="py-4">
-              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
             </div>
            
           </form>

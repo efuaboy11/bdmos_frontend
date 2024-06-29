@@ -9,56 +9,79 @@ import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
-import { LoadingSpiner } from "../../component/spin"
 
 
 
-export const ResultPage = () => {
+export const EditResultPage = () => {
   const [showModal, setShowModal] = useState(false)
   const {authTokens,
     className,
     term,
     session,
-    classe,
-    terms,
-    sessions,
     resultStudent,
     setResultStudent,
-    studentID,} = useContext(AuthContext)
+    allResults,
+    } = useContext(AuthContext)
+
+
+
+  const [subjects, setSubjects] = useState([])
 
   const [classname, setClassname] = useState("")
   const [termName, setTermName] = useState("")
   const [sessionName, setSessionName] = useState("")
 
-  const [subjects, setSubjects] = useState([])
-  const [subjectResults, setSubjectResults] = useState([]);
 
-  const [totalMarkObtain, setTotalMarkObtain] = useState("")
-  const [studentAverage, setStudentAverage] = useState("")
-  const [classAverage, setClassAverage] = useState("")
-  const [students, setStudents] = useState("")
-  const [position, setPosition] = useState("")
-  const [decision, setDecision] = useState("")
-  const [agility, setAgility] = useState("")
-  const [caring, setCaring] = useState("")
-  const [communication, setCommunication] = useState("")
-  const [loving, setLoving] = useState("")
-  const [puntuality, setPuntuality] = useState("")
-  const [seriousness, setSeriousness] = useState("")
-  const [socialization, setSocialization] = useState("")
-  const [attentiveness, setAttentiveness] = useState("")
-  const [handlingOfTools, setHandlingOfTools] = useState("")
-  const [honesty, setHonesty] = useState("")
-  const [leadership, setLeadership] = useState("")
-  const [music, setMusic] = useState("")
-  const [neatness, setNeatness] = useState("")
-  const [perserverance, setPerserverance] = useState("")
-  const [politeness, setPoliteness] = useState("")
-  const [tools, setTools] = useState("")
-  const [teacherComment, setTeacherComment] = useState("")
-  const [principalComment, setPrincipalComment] = useState("")
-  const [nextTermBegins, setNextTermBegins] = useState("")
-  const [nextTermSchoolFees, setNextTermSchoolFees] = useState("")
+  const resultDetails = allResults[0]
+  
+
+  const [studentID, setStudentID] = useState(resultDetails ? resultDetails.student : "")
+  const [classe, setclasse] = useState(resultDetails ? resultDetails.student_class : "")
+  const [sex, setSex] = useState(resultDetails ? resultDetails.sex : "")
+  const [terms, setTerm] = useState(resultDetails ? resultDetails.term : "")
+  const [sessions, setSession] = useState(resultDetails ? resultDetails.session : "")
+  const [totalMarkObtain, setTotalMarkObtain] = useState(resultDetails ? resultDetails.total_marks_obtain  : '')
+  const [studentAverage, setStudentAverage] = useState(resultDetails ? resultDetails.student_average : '')
+  const [classAverage, setClassAverage] = useState( resultDetails ? resultDetails.class_average : '')
+  const [students, setStudents] = useState(resultDetails ?  resultDetails.students : '' )
+  const [position, setPosition] = useState(resultDetails ? resultDetails.position : '')
+  const [decision, setDecision] = useState(resultDetails ? resultDetails.decision : '')
+  const [agility, setAgility] = useState(resultDetails ? resultDetails.agility : '')
+  const [caring, setCaring] = useState(resultDetails ? resultDetails.caring : '')
+  const [communication, setCommunication] = useState(resultDetails ? resultDetails.communication : "")
+  const [loving, setLoving] = useState(resultDetails ? resultDetails.loving : "")
+  const [puntuality, setPuntuality] = useState(resultDetails ? resultDetails.puntuality : "")
+  const [seriousness, setSeriousness] = useState(resultDetails ? resultDetails.seriousness : "")
+  const [socialization, setSocialization] = useState(resultDetails ? resultDetails.socialization : "")
+  const [attentiveness, setAttentiveness] = useState(resultDetails ? resultDetails.attentiveness : "")
+  const [handlingOfTools, setHandlingOfTools] = useState(resultDetails ? resultDetails.handling_of_tools : '')
+  const [honesty, setHonesty] = useState(resultDetails ? resultDetails.honesty : "")
+  const [leadership, setLeadership] = useState(resultDetails ? resultDetails.leadership : "")
+  const [music, setMusic] = useState(resultDetails ? resultDetails.music : "")
+  const [neatness, setNeatness] = useState(resultDetails ? resultDetails.neatness : "")
+  const [perserverance, setPerserverance] = useState(resultDetails ? resultDetails.perserverance : "")
+  const [politeness, setPoliteness] = useState(resultDetails ? resultDetails.politeness : "")
+  const [tools, setTools] = useState(resultDetails ? resultDetails.tools : "")
+  const [teacherComment, setTeacherComment] = useState(resultDetails ? resultDetails.teacher_comment : "")
+  const [principalComment, setPrincipalComment] = useState(resultDetails ? resultDetails.principal_comment : "")
+  const [nextTermBegins, setNextTermBegins] = useState(resultDetails ? resultDetails.next_term_begins : "")
+  const [nextTermSchoolFees, setNextTermSchoolFees] = useState(resultDetails ? resultDetails.next_term_school_fees : "")
+
+  const [sList, setSList] = useState([])
+  const [sUsername, setSUsername] = useState("")
+  
+  const [subjectResults, setSubjectResults] = useState(
+    resultDetails.subject_results.map((subject) => ({
+      subject: subject.subject,
+      total_ca: subject.total_ca,
+      exam_score: subject.exam,
+      total: subject.total,
+      grade: subject.grade,
+      position: subject.position,
+    }))
+  );
+
+  console.log(subjectResults)
 
 
   const [alert, setAlert] = useState("")
@@ -81,10 +104,9 @@ export const ResultPage = () => {
     }
   }
 
-
   useEffect(() => {
-    const fetchStudent = async () => {
-      const response = await fetch(`https://bdmos.onrender.com/api/students/${studentID}/`, {
+    const fetchStudents = async () => {
+      const response = await fetch(`https://bdmos.onrender.com/api/students/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +114,23 @@ export const ResultPage = () => {
         },
       });
       const data = await response.json();
-      setResultStudent(data);
+      setSList(data);
+    }
+
+    const fetchStudent = async (username) => {
+      try {
+        const response = await fetch(`https://bdmos.onrender.com/api/students/${username}/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        });
+        const data = await response.json();
+        setResultStudent(data);
+      } catch (error) {
+        console.error("Error fetching student:", error);
+      }
     };
 
     const fetchSubjects = async () => {
@@ -101,19 +139,24 @@ export const ResultPage = () => {
       );
       const data = await response.json();
       setSubjects(data.all_subjects);
-      setSubjectResults(
-        data.all_subjects.map((subject) => ({
-          subject: subject.id,
-          total_ca: "",
-          exam_score: "",
-          total: "",
-          grade: "",
-          position: "",
-        }))
-      );
     };
 
-    fetchStudent();
+    fetchStudents()
+
+    if (sList.length > 0 && studentID !== undefined) {
+      const targetId = typeof studentID === 'string' ? studentID : String(studentID);
+      
+      const student = sList.find((s) => s.id === targetId);
+      
+      if (student) {
+        setSUsername(student.username);
+      }
+    }
+
+    if (sUsername) {
+      fetchStudent(sUsername);
+    }
+
     fetchSubjects()
 
     if (className.length > 0 && classe !== undefined) {
@@ -149,7 +192,7 @@ export const ResultPage = () => {
         console.error(`Session with ID ${targetSessionId} not found`)
       }
     }
-  }, [authTokens.access, studentID, setResultStudent, className, classe]);
+  }, [authTokens.access, studentID, setResultStudent, className, classe, sUsername, sList]);
 
   const handleSubjectChange = (index, e) => {
     const values = [...subjectResults];
@@ -169,11 +212,11 @@ export const ResultPage = () => {
 
 
     const resultData = {
-      student: resultStudent.id,
+      student: studentID,
       student_class: classe,
       term: terms,
       session: sessions,
-      sex: resultStudent.sex,
+      sex: sex,
       total_marks_obtain: totalMarkObtain,
       student_average: studentAverage,
       class_average: classAverage,
@@ -204,8 +247,8 @@ export const ResultPage = () => {
     };
 
     try {
-      const response = await fetch('https://bdmos.onrender.com/api/result/', {
-        method: 'POST',
+      const response = await fetch(`https://bdmos.onrender.com/api/result/${resultDetails.id}/`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens.access}`
@@ -216,7 +259,7 @@ export const ResultPage = () => {
 
       if(response.ok){
         setShowAlert(true)
-        setAlert("Result Uploaded Successfully")
+        setAlert("Result Upadate Successfully")
         console.log('sucess')
         setAlertSeverity("success")
         setLoader(false)
@@ -241,6 +284,46 @@ export const ResultPage = () => {
       console.error('Error submitting result:', error);
     }
   };
+
+  const sendSubjectResult = async (subjectResults) => {
+
+    for (const subjectResult of subjectResults) {
+
+      const { id, result, subject, total_ca, exam, total, grade, position } = subjectResult;
+  
+      const apiUrl = `https://bdmos.onrender.com/api/subject_result/${id}/`;
+      
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+          body: JSON.stringify({
+            id,
+            result,
+            subject,
+            total_ca,
+            exam,
+            total,
+            grade,
+            position
+          }),
+        });
+    
+        if (!response.ok) {
+          throw new Error(`Failed to update subject result with ID ${id}`);
+        }
+    
+        const data = await response.json();
+        console.log(`Subject result with ID ${id} updated successfully:`, data);
+      } catch (error) {
+        console.error(`Error updating subject result with ID ${id}:`, error.message);
+      }
+    }
+  };
+  
   
 	return(
     <div>
@@ -248,9 +331,6 @@ export const ResultPage = () => {
         <AdminDashFrame />
       </div>
       <section className="main-content">
-        {loader &&
-          < LoadingSpiner/>
-        }
         <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
@@ -311,7 +391,7 @@ export const ResultPage = () => {
                   <div className="row g-2">
                     <div className="col-md-3 col-sm-6">
                       <label htmlFor="" className="form-label">ID</label>
-                      <input type="text" className="admin-input compulsory form-dark" disabled value={resultStudent?.id}/>
+                      <input type="text" className="admin-input compulsory form-dark" disabled value={resultDetails?.student}/>
                     </div>
 
                     <div className="col-lg-3 col-md-3 col-sm-6">
@@ -326,7 +406,7 @@ export const ResultPage = () => {
 
                     <div className="col-md-2 col-sm-4 col-6">
                       <label htmlFor="" className="form-label">sex</label>
-                      <input type="text" className="admin-input compulsory form-dark" disabled value={resultStudent?.sex}/>
+                      <input type="text" className="admin-input compulsory form-dark" disabled value={resultDetails.sex} onChange={(e) => setSex(e.target.value)}/>
                     </div>
 
                     <div className="col-md-2 col-lg-1 col-sm-3 col-6">
@@ -336,7 +416,7 @@ export const ResultPage = () => {
 
                     <div className="col-md-2 col-sm-6 col-6">
                       <label htmlFor="" className="form-label">Term</label>
-                      <input type="text" className="admin-input compulsory form-dark" disabled value={termName || ""}/>
+                      <input type="text" className="admin-input compulsory form-dark" disabled value={termName || ""} />
                     </div>
 
                     <div className="col-lg-2 col-md-3 col-sm-3 col-6">
@@ -400,7 +480,7 @@ export const ResultPage = () => {
                                     <tr key={index}>
                                       <td>{subjectName}</td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="total_ca" value={subject.total_ca} onChange={(e) => handleSubjectChange(index, e)} /></td>
-                                      <td><input className={` admin-input form-dark`}   type="text" name="exam" value={subject.exam} onChange={(e) => handleSubjectChange(index, e)} /></td>
+                                      <td><input className={` admin-input form-dark`}   type="text" name="exam_score" value={subject.exam_score} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="total" value={subject.total} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="grade" value={subject.grade} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="position" value={subject.position} onChange={(e) => handleSubjectChange(index, e)} /></td>
@@ -673,7 +753,7 @@ export const ResultPage = () => {
               </div>
             </div>
             <div className="my-5">
-              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
             </div>
            
           </form>

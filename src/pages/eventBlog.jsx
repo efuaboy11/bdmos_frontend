@@ -5,12 +5,41 @@ import { Navbar } from "../component/navbar";
 import { faAngleRight, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../component/footer";
 import pic1 from "../img/outdoor32.JPG"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../context/AuthContext"
 export const Blog = () =>{
 	const location = useLocation();
 	const isActive = (path) =>{
 		return location.pathname === path
 
 	}
+  const { authTokens } = useContext(AuthContext)
+  const [eventDatas, setEventDatas] = useState([])
+
+  const getEvent = async () => {
+    let response = await fetch("https://bdmos.onrender.com/api/events/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+    });
+
+    const data = await response.json()
+
+    if (response.ok) {
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setEventDatas(sortedData)
+    } else {
+      console.error("Failed to fetch events", response.statusText)
+    }
+  }
+
+  useEffect(() => {
+    getEvent()
+
+
+  }, [eventDatas])
 	return(
 		<div>
 			<Navbar />
@@ -38,53 +67,21 @@ export const Blog = () =>{
               <div className="row">
                 <div className="col-xxl-12">
                   <div className="row g-3">
-                    <div className="col-xxl-3 col-lg-4 col-sm-6">
+                    {eventDatas.map((eventData) =>(
+                      <div className="col-xxl-3 col-lg-4 col-sm-6">
                       <div className="light-background2 p-4 blog-container">
-                        <img src={pic1} alt="" width='100%'/>
+                        <img src={eventData.image} alt="" width='100%'/>
                         <div className="d-flex pt-3">
-                          <p className="bg-purple event-date">01/04/2022</p>
+                          <p className="bg-purple event-date">{eventData.date}</p>
                         </div>
                         <div className="scroll-bar-black-y blog-text">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate voluptas quibusdam veritatis, optio debitis dicta nostrum molestias eligendi accusantium blanditiis laborum excepturi. Odit necessitatibus consequuntur atque aliquid tempora voluptas deserunt asperiores vel repellendus sed distinctio, mollitia soluta repudiandae quasi error, magni totam quis nobis exercitationem culpa dignissimos. Eligendi est minima vel vero. Voluptate distinctio saepe veniam culpa, et iste harum pariatur dolorem temporibus neque officia consequatur officiis. Incidunt nesciunt impedit et, corporis id omnis perferendis enim veniam aperiam facere dolor tempore quam a delectus non optio odit sequi minima reprehenderit nemo iste unde accusantium. Error beatae consequuntur culpa facilis quis!</p>
-                        </div>
-                      </div>
-                    </div>
+                          <p>{eventData.description}</p>
 
-                    <div className="col-xxl-3 col-lg-4 col-sm-6">
-                      <div className="light-background2 p-4 blog-container">
-                        <img src={pic1} alt="" width='100%'/>
-                        <div className="d-flex pt-3">
-                          <p className="bg-purple event-date">01/04/2022</p>
-                        </div>
-                        <div className="scroll-bar-black-y blog-text">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate voluptas quibusdam veritatis, optio debitis dicta nostrum molestias eligendi accusantium blanditiis laborum excepturi. Odit necessitatibus consequuntur atque aliquid tempora voluptas deserunt asperiores vel repellendus sed distinctio, mollitia soluta repudiandae quasi error, magni totam quis nobis exercitationem culpa dignissimos. Eligendi est minima vel vero. Voluptate distinctio saepe veniam culpa, et iste harum pariatur dolorem temporibus neque officia consequatur officiis. Incidunt nesciunt impedit et, corporis id omnis perferendis enim veniam aperiam facere dolor tempore quam a delectus non optio odit sequi minima reprehenderit nemo iste unde accusantium. Error beatae consequuntur culpa facilis quis!</p>
                         </div>
                       </div>
-                    </div>
+                      </div>
+                    ))}
 
-                    <div className="col-xxl-3 col-lg-4 col-sm-6">
-                      <div className="light-background2 p-4 blog-container">
-                        <img src={pic1} alt="" width='100%'/>
-                        <div className="d-flex pt-3">
-                          <p className="bg-purple event-date">01/04/2022</p>
-                        </div>
-                        <div className="scroll-bar-black-y blog-text">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate voluptas quibusdam veritatis, optio debitis dicta nostrum molestias eligendi accusantium blanditiis laborum excepturi. Odit necessitatibus consequuntur atque aliquid tempora voluptas deserunt asperiores vel repellendus sed distinctio, mollitia soluta repudiandae quasi error, magni totam quis nobis exercitationem culpa dignissimos. Eligendi est minima vel vero. Voluptate distinctio saepe veniam culpa, et iste harum pariatur dolorem temporibus neque officia consequatur officiis. Incidunt nesciunt impedit et, corporis id omnis perferendis enim veniam aperiam facere dolor tempore quam a delectus non optio odit sequi minima reprehenderit nemo iste unde accusantium. Error beatae consequuntur culpa facilis quis!</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-xxl-3 col-lg-4 col-sm-6">
-                      <div className="light-background2 p-4 blog-container">
-                        <img src={pic1} alt="" width='100%'/>
-                        <div className="d-flex pt-3">
-                          <p className="bg-purple event-date">01/04/2022</p>
-                        </div>
-                        <div className="scroll-bar-black-y blog-text">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate voluptas quibusdam veritatis, optio debitis dicta nostrum molestias eligendi accusantium blanditiis laborum excepturi. Odit necessitatibus consequuntur atque aliquid tempora voluptas deserunt asperiores vel repellendus sed distinctio, mollitia soluta repudiandae quasi error, magni totam quis nobis exercitationem culpa dignissimos. Eligendi est minima vel vero. Voluptate distinctio saepe veniam culpa, et iste harum pariatur dolorem temporibus neque officia consequatur officiis. Incidunt nesciunt impedit et, corporis id omnis perferendis enim veniam aperiam facere dolor tempore quam a delectus non optio odit sequi minima reprehenderit nemo iste unde accusantium. Error beatae consequuntur culpa facilis quis!</p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

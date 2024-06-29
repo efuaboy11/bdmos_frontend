@@ -1,6 +1,6 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link,  useNavigate } from "react-router-dom"
-import {faPenSquare, faPenToSquare, faTrashCan, faUser} from "@fortawesome/free-solid-svg-icons"
+import {faPenSquare, faPenToSquare, faTrashCan, faUpload, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
@@ -208,7 +208,7 @@ export const ViewClass = () =>{
                 <p>List Off Class uploaded</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="/admin/AddClass" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faUser} className="px-2"/>Upload Classes</Link>
+							  <Link to="/admin/AddClass" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faUpload} className="px-2"/>Upload Classes</Link>
 						  </div>
             </div>
 

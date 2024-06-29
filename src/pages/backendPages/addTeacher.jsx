@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Alert } from "@mui/material"
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import { LoadingSpiner } from "../../component/spin"
 
 
 export const AddTeacher = () =>{
@@ -240,6 +241,9 @@ export const AddTeacher = () =>{
             )}
           </div>
         </div>
+        {loader &&
+          < LoadingSpiner/>
+        }
         <section className="mt-3 container">
           <div className="row my-3 pb-4">
             <div className="col-md-8 col-sm-6 col-6">
@@ -480,7 +484,7 @@ export const AddTeacher = () =>{
             </div>
 
             <div className="py-4">
-              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
             </div>
            
           </form>

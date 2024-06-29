@@ -2,41 +2,28 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
 import { useContext, useEffect, useState } from "react"
-import Alert from '@mui/material/Alert';
-import React from 'react'
-import { useForm } from "react-hook-form"
-import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { DashFrame } from "../../component/dashFrame"
+import { DownloadLink } from "../../component/DownloadLink"
 import { LoadingSpiner } from "../../component/spin"
+import { Alert } from "@mui/material"
 
+export const AdminSchemePage = () =>{
 
-export const DeleteParent = () =>{
-  const [parentName, setParentName] = useState('')
-  const {authTokens} = useContext(AuthContext)
+  const {authTokens, allScheme, loadingModal} = useContext(AuthContext)
 
+  const schemeData = allScheme
 
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
-  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
 
-  const onSubmit = (data, e) =>{
-    e.preventDefault()
-    setdisablebutton(true)
-    if(isValid){
-    
-      console.log(data)
-      deleteParent(e)
-    }else{
-      console.log('error')
-      setdisablebutton(false)
-    }
-  }
-
-  const deleteParent = async (e) => {
+  const deleteScheme = async (e) => {
+    console.log("clicked")
     e.preventDefault();
     if(loader){
       setLoader(false)
@@ -45,7 +32,7 @@ export const DeleteParent = () =>{
     }
 
     try {
-      let response = await fetch(`https://bdmos.onrender.com/api/parents/${parentName}/`, {
+      let response = await fetch(`https://bdmos.onrender.com/api/scheme/${schemeData.id}/`, {
         method: "DELETE",
         headers: {
           Authorization:`Bearer ${authTokens.access}`
@@ -54,12 +41,11 @@ export const DeleteParent = () =>{
 
       if (response.ok) {
         setShowAlert(true)
-        setAlerts("Parent deleted Sucessfully")
+        setAlerts("scheme deleted Sucessfully")
         setAlertSeverity('success')
         setLoader(false)
         setdisablebutton(false)
         console.log('sucess')
-        setParentName('')
       } else {
         let errorData = await response.json();
         const errorMessage = errorData.error
@@ -74,15 +60,19 @@ export const DeleteParent = () =>{
       console.error("Error occurred while deleting user:", error);
       alert("An error occurred while trying to delete the user. Please try again.");
     }
-  };
+ };
+
 
 	return(
 		<div>
       <div className="position-sticky">
-        <AdminDashFrame />
+      <AdminDashFrame />
       </div>
 			<section>
         <div className="main-content">
+          {loadingModal &&
+            < LoadingSpiner/>
+          }
 
           <div className="alert-container">
             <div className="alert-position">
@@ -97,54 +87,64 @@ export const DeleteParent = () =>{
             </div>
           </div>
 
-          {loader &&
-          < LoadingSpiner/>
-        }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>delete Parent</h5>
+                <h5>View Scheme</h5>
+                <p>This are the list off scheme off work for this term</p>
               </div>
-              <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-							  <Link to="/admin" >Dashboard /  </Link>
-                <Link to='/admin/viewAllParent'>  View Parent</Link>
-						  </div>
             </div>
 
-
-            <section>
-              <div className="boxing-shadow">
-                <div className="navyblue-blackground-dash py-4">
-                  <p className="text-center">PLEASE ENTER THE STUDENT ID YOU WANT TO DELETE</p>
+            <form action="">
+              <div className="row add-student">
+                <div className="col-sm-4 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius admin-input" placeholder="Search by Subject..."/>
                 </div>
-                
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="row justify-content-center mx-2">
-                    <div className="col-md-10 mt-5">
-                      <input className={`form-control delete-student-input form-dark ${errors.deleteParent ? 'error-input' : ''}`} {...register('deleteParent', {required: true})} value={parentName} onChange={(e) => setParentName(e.target.value)}type="text" placeholder="Mary Mark"/>
-                      {errors.deleteParent && <span style={{color: 'red'}}>This Feild is required</span>}
-                    </div>
-                    <div className="col-md-10 pt-3 pb-5 mb-4">
-                      <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>
-                    </div>
-                  </div>
-                </form>
+              </div>            
+            </form> 
 
 
 
+            <section className="container-lg navyblue-blackground-dash">
+              <div className="view-content-height scroll-bar">
+                <div className="non-wrap-text">
+                  <table className="table1 ">
+                    <thead>
+                      <tr>
+                        <th>Subjects</th>
+                        <th>Link</th>
+                      </tr>
+                    </thead>
+                    <tbody className="admin-home-table view-schoolitems-table ">
+                      {schemeData.map((schemeDat, index) => (
+                        <tr key={index}>
+                          <td>{schemeDat.subject}</td>
+                          <td>
+                            <DownloadLink
+                              url={schemeDat.scheme}
+                              fileName={`Scheme_${schemeDat.subject}.pdf`}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                 
+
+
+                </div>
               </div>
             </section>
 
-        
+            <div className="container-lg">
+              <button onClick={deleteScheme}  disabled={disablebutton} className="admin-view-scheme-page-btn">Delete</button>
+            </div>
           </div>
         </div>
-
       </section>
+
+      
 		</div>
 	)
-  
-
- 
-
-
 }

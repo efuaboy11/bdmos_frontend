@@ -8,6 +8,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 
 export const AddParent = () =>{
@@ -23,7 +24,7 @@ export const AddParent = () =>{
   const [parentEmail, setParentEmail] = useState('')
   const [homeAddress, setHomeAddress] = useState('')
   const [ParentImg, setParentImg] = useState('')
-  const [childName, setChildName] = useState([])
+  const [childName, setChildName] = useState()
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
@@ -70,7 +71,7 @@ export const AddParent = () =>{
     formData.append("phone_number", parentPhoneNumber);
     formData.append("email", parentEmail);
     formData.append("address", homeAddress);
-    formData.append("children_name", JSON.stringify(childName));
+    formData.append("children_name", childName);
     formData.append("image", ParentImg);
 
     console.log(formData)
@@ -152,6 +153,9 @@ export const AddParent = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content ">
+       {loader &&
+          < LoadingSpiner/>
+        }
         <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
@@ -207,17 +211,13 @@ export const AddParent = () =>{
 
                 <div className="col-md-6 mt-5">
                   <label htmlFor="" className="">Email Addresss</label>
-                  <input className={`form-control delete-student-input form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}type="text" placeholder="parent@gmail.com"/>
+                  <input className={`form-control delete-student-input form-dark ${errors.parentEmail ? 'error-input' : ''}`} {...register('parentEmail', {required: true})} value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}   type="text" placeholder="parent@gmail.com"/>
                   {errors.parentEmail && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
                 <div className="col-md-12 mt-5">
                   <label htmlFor="" className="">Children Name </label>
-                  <select   className={`form-control form-select delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} onChange={handleSelectChange}type="text" placeholder="Mary, john, happy" multiple>
-                    {students && students.map((student) =>(
-                      <option value={student.id} key={student.id}>{student.first_name} {student.last_name}</option>
-                    ))}
-                  </select>
+                  <textarea   className={`form-control  delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} type="text" placeholder="Mary, john, happy" rows="3" value={childName} onChange={(e) => setChildName(e.target.value)}></textarea>
                   {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
@@ -228,7 +228,7 @@ export const AddParent = () =>{
                 </div>
 
                 <div className="col-md-10 pt-3 pb-5 mb-4">
-                  <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+                  <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>
                 </div>
               </div>
             </form>

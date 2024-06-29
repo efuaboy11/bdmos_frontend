@@ -1,6 +1,6 @@
 import { AdminDashFrame } from "../../component/adminDashFRame";
 import { Link } from "react-router-dom";
-import { faTrashCan, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faUpload, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
@@ -168,7 +168,7 @@ export const ViewSubject = () => {
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
                 <Link to="/admin/addSubject" className="light-navyblue-background p-3 border-radius">
-                  <FontAwesomeIcon icon={faUser} className="px-2" />
+                  <FontAwesomeIcon icon={faUpload} className="px-2" />
                   Upload Subject
                 </Link>
               </div>

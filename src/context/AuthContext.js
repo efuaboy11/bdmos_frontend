@@ -27,6 +27,12 @@ export const AuthProvider = ({children}) => {
     const [date, setDate] = useState("")
     const [studentID, setStudentID] = useState("")
     const [resultStudent, setResultStudent] = useState()
+    const [scratchCards, setScratchCard] = useState([])
+    const [allResults, setAllResults] = useState([])
+
+    const [allScheme, setAllScheme] = useState([])
+
+    const [loadingModal, setLoadingModal] = useState(false)
 
     // console.log(resultStudent)
 
@@ -104,6 +110,8 @@ export const AuthProvider = ({children}) => {
     }, [authTokens])
 
     const contextData = {
+        loadingModal, 
+        setLoadingModal,
         user,
         authTokens,
         password,
@@ -132,7 +140,13 @@ export const AuthProvider = ({children}) => {
         studentID,
         setStudentID,
         resultStudent,
-        setResultStudent
+        setResultStudent,
+        scratchCards,
+        setScratchCard,
+        allResults,
+        setAllResults,
+        allScheme, 
+        setAllScheme
     }
 
     return (

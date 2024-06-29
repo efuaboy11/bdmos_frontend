@@ -7,6 +7,7 @@ import AuthContext from "../../context/AuthContext"
 import { Alert } from "@mui/material"
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import { LoadingSpiner } from "../../component/spin"
 
 export const DeleteTeacher = () =>{
   const [teacherID, setTeacherID] = useState("")
@@ -79,6 +80,9 @@ export const DeleteTeacher = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
 
           <div className="alert-container">
             <div className="alert-position">
@@ -116,7 +120,7 @@ export const DeleteTeacher = () =>{
                       <input className="delete-teacher-input form-dark py-2 px-3" type="text" placeholder="Search Teacher ID..."  value={teacherID} onChange={(e) => setTeacherID(e.target.value)}/>
                     </div>
                     <div className="col-md-10 pt-3 pb-5 mb-4">
-                    <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+                    <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>
                       
                     </div>
                   </div>

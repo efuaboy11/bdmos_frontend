@@ -6,6 +6,7 @@ import { useContext,  useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Alert, CircularProgress } from "@mui/material"
 import { useForm } from "react-hook-form"
+import { LoadingSpiner } from "../../component/spin"
 
 export const EditSchoolItemPage = () =>{
   
@@ -92,6 +93,9 @@ export const EditSchoolItemPage = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
 
           {showModal &&
             <section className="overlay-background">
@@ -149,7 +153,7 @@ export const EditSchoolItemPage = () =>{
                         {errors.amount && <span style={{color: 'red'}}>This Feild is required</span>}
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">
-                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "update"}</button>
+                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
                         
                       </div>
                   </div>

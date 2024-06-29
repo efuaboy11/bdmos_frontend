@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom";
+import { AdminDashFrame } from "../../component/adminDashFRame"
 
-export const Scheme1 = () =>{
+export const AdminScheme = () =>{
 
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -115,7 +116,7 @@ export const Scheme1 = () =>{
       if(response.ok){
         setAllScheme(data)
         console.log(allScheme)
-        navigate("/schemePage")
+        navigate("/admin/ViewSchemePage")
         console.log(data)
       } else{
         alert(data.error)
@@ -141,7 +142,7 @@ export const Scheme1 = () =>{
   const [disablebutton, setdisablebutton] = useState(false)
   return(
     <div>
-      <DashFrame />
+      <AdminDashFrame />
       <div className="main-content">
       <section className="payment-form container-lg">
         <section className="boxing-shadow">

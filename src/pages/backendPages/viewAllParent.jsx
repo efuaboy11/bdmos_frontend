@@ -160,7 +160,7 @@ export const ViewAllParent = () =>{
                     <div></div>
                     <div>
                       <button className="admin-modal-close mx-3"  onClick={hideDeleteModal}>Cancel</button>
-                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteParent}>{loader ? <CircularProgress color="inherit"/> : "Delete"}</button>
+                      <button className="admin-modal-delete" disabled={disablebutton} onClick={deleteParent}>{loader ? <CircularProgress size="100%" color="inherit"/> : "Delete"}</button>
 
                     </div>
                   </div>
@@ -215,7 +215,7 @@ export const ViewAllParent = () =>{
                             <td>{data.id}</td>
                             <td><img src={data.image} alt="" /></td>
                             <td>{data.name}</td>
-                            <td>mike</td>
+                            <td>{data.children_name}</td>
                             <td>{data.address}</td>
                             <td>{data.phone_number}</td>
                             <td>{data.email}</td>

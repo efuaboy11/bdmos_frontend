@@ -1,6 +1,6 @@
 import { AdminDashFrame } from "../../component/adminDashFRame"
 import { Link, useNavigate } from "react-router-dom"
-import { faPenToSquare, faTrashCan, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faCartShopping, faPenToSquare, faTrashCan, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
@@ -202,7 +202,7 @@ export const ViewStudentItems = () => {
                 <p>List School Items for Sale</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
-                <Link to="/admin/uploadSchoolItems" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faUser} className="px-2" />Upload Item</Link>
+                <Link to="/admin/uploadSchoolItems" className="light-navyblue-background p-3 border-radius"><FontAwesomeIcon icon={faCartShopping} className="px-2" />Upload Item</Link>
               </div>
             </div>
 
