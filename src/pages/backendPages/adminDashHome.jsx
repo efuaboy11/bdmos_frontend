@@ -451,7 +451,7 @@ export const AdminDashHome = () =>{
         <section className="container-lg pt-5 non-wrap-text">
           <p className="pb-2">Recent Payment</p>
           <div className="navyblue-blackground-dash">
-            <div className="">
+            <div className="scroll-bar">
               <table className="table1">
               <thead>
                     <tr>
