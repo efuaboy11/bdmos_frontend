@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { useForm } from "react-hook-form"
 import { CircularProgress } from "@mui/material"
+import { LoadingSpiner } from "../../component/spin"
 
 export const ViewStudentResult = () =>{
   const [scratchPin, setScratchPin] = useState("")
@@ -172,6 +173,9 @@ export const ViewStudentResult = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
@@ -240,9 +244,7 @@ export const ViewStudentResult = () =>{
 
                       <div className="col-md-10 pt-3 pb-5 mb-4">
                         <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>
-                          {loader ? (
-                            <CircularProgress color="inherit" size="20px"/>
-                          ) : "Submit"}
+                         Submit
                         </button>
                       </div>
 

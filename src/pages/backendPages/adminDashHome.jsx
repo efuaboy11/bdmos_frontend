@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AdminDashFrame, DashFrame } from "../../component/adminDashFRame"
 import {BarchartFrame, PieChartFrame} from "../../component/chatFrame"
-import { faBookOpenReader, faBuildingColumns, faCartShopping, faChalkboardTeacher, faChartLine, faDollarSign, faNewspaper, faPeopleGroup, faPlus, faSchool, faUser, faUserGraduate, faUserGroup, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpenReader, faBuildingColumns, faCartShopping, faChalkboardTeacher, faChartLine, faDollarSign, faNewspaper, faPeopleGroup, faPlus, faSchool, faTrash, faUser, faUserGraduate, faUserGroup, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Pie } from "react-chartjs-2"
@@ -28,6 +28,8 @@ export const AdminDashHome = () =>{
   const [schoolItems, setSchoolItems] = useState([])
 
   const [emails, setEmails] = useState([])
+
+  const [paymentHistory, setPaymentHistory] = useState([])
 
 
 
@@ -73,6 +75,31 @@ export const AdminDashHome = () =>{
       setTeachers(recentData)
     }else{
       console.error("Failed to fetch students", response.statusText)
+    }
+  }
+
+  const getAllPayment = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/all_payments/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        const recentData = sortedData.slice(0, 5);
+        setPaymentHistory(recentData)
+        console.log("All Payment Type Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -188,6 +215,10 @@ export const AdminDashHome = () =>{
     getEmails()
   }, [emails])
 
+  useEffect(() => {
+    getAllPayment()
+  },[paymentHistory])
+
 
   return(
     <div>
@@ -301,6 +332,7 @@ export const AdminDashHome = () =>{
 
 
         </div>
+
         <div className="admin-chart-container mx-3">
           <div className="row  py-3">
             <div className="col-xxl-12">
@@ -331,6 +363,53 @@ export const AdminDashHome = () =>{
           </div>
 
         </div>
+
+        <section className="container-lg pt-5 non-wrap-text">
+          <p className="pb-2">Recent Payment</p>
+          <div className="navyblue-blackground-dash">
+            <div className="">
+              <table className="table1">
+              <thead>
+                    <tr>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
+                      <th>Student ID</th>
+                      <th>Reason</th>
+                      <th>Status</th>
+                      <th>Amount</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+
+                  <tbody className="admin-home-table">
+                    {paymentHistory.map((data) =>(
+                      <tr>
+                        <td>{data.created_at}</td>
+                        <td>{data.updated_at}</td>
+                        <td>{data.transaction_id}</td>
+                        <td>{data.fee_type}</td>
+                        <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
+                        <td>{data.amount}</td>
+                        <td><a href="#" className="button-dashboard">View</a></td>
+                      </tr>
+                    ))}
+
+
+
+                  </tbody>
+              </table>
+
+              
+            </div>
+
+
+            
+          </div>
+          <div className="my-4 d-flex justify-content-center">
+            <Link to='/admin/allPayment' className="button-dashboard ">View All</Link>
+
+          </div>
+        </section>
 
         
         <section className="container-lg py-5 non-wrap-text">

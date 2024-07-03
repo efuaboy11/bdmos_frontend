@@ -20,6 +20,41 @@ export const PendingPayment = () => {
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+
+
+  const {authTokens} = useContext(AuthContext)
+
+  const [datas, setDatas] = useState([])
+
+
+
+  const getPendingPayment = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/transactions/pending/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        setDatas(sortedData)
+        console.log("approved Payment Type Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getPendingPayment()
+  },[datas])
 	return(
 		<div>
       <div className="position-sticky">
@@ -84,82 +119,29 @@ export const PendingPayment = () => {
                 <table className="table1">
                   <thead>
                     <tr>
-                      <th>Transaction Date</th>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
                       <th>Student ID</th>
                       <th>Reason</th>
                       <th>Status</th>
                       <th>Amount</th>
-                      <th>Recipit</th>
-                      <th className="text-center">Action</th>
-                      <th></th>
+                      <th>Details</th>
                     </tr>
                   </thead>
 
                   <tbody className="admin-home-table">
-                  <tr>
-                    <td>01/02/2002</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off fees</td>
-                    <td><p className="pending">Pending</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td>
+                    {datas.map((data) =>(
+                      <tr>
+                        <td>{data.created_at}</td>
+                        <td>{data.updated_at}</td>
+                        <td>{data.transaction_id}</td>
+                        <td>{data.fee_type}</td>
+                        <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
+                        <td>{data.amount}</td>
+                        <td><a href="#" className="button-dashboard">View</a></td>
+                      </tr>
+                    ))}
 
-                      <div className="d-flex justify-content-between">
-                        <div></div>
-                        <div>
-                          <button className="admin-pending-payment-decline-btn me-3">Decline</button>
-                          <button className="admin-pending-payment-approve-btn">
-                            {loader ? <CircularProgress color="inherit" /> : "Approve"}
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
-
-                  <tr>
-                    <td>10/04/2005</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off P.T.A</td>
-                    <td><p className="pending">Pending</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td>
-                      <div className="d-flex justify-content-between">
-                        <div></div>
-                        <div>
-                          <button className="admin-pending-payment-decline-btn me-3">Decline</button>
-                          <button className="admin-pending-payment-approve-btn">
-                            {loader ? <CircularProgress color="inherit" /> : "Approve"}
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
-
-                  <tr>
-                    <td>01/02/2011</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off fees</td>
-                    <td><p className="pending">Pending</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td>
-
-                      <div className="d-flex justify-content-between">
-                        <div></div>
-                        <div>
-                          <button className="admin-pending-payment-decline-btn me-3">Decline</button>
-                          <button className="admin-pending-payment-approve-btn">
-                            {loader ? <CircularProgress color="inherit" /> : "Approve"}
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
 
 
                   </tbody>

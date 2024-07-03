@@ -172,7 +172,7 @@ export const PaymentOptions = () => {
 
           </div>
 
-          <section className="container-lg py-5 non-wrap-text">
+          <section className="container-lg py-1 non-wrap-text">
             <div className="navyblue-blackground-dash">
 
               <div className="scroll-bar admin-payment-table">

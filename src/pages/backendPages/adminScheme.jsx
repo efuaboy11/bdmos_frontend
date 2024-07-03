@@ -29,6 +29,10 @@ export const AdminScheme = () =>{
     classe,
   setClasse,} = useContext(AuthContext)
 
+  const checkScheme = () => {
+    navigate("/admin/ViewSchemePage")
+  }
+
   const getClass = async () => {
     try {
       let response = await fetch("https://bdmos.onrender.com/api/class/", {
@@ -97,37 +101,6 @@ export const AdminScheme = () =>{
       console.log(error)
     }
   }
-
-  const checkScheme = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      let response = await fetch(`https://bdmos.onrender.com/api/check_scheme/?student_class=${classe}&session=${sessions}&term=${terms}`,{
-        method: "GET",
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-      })
-  
-      const data = await response.json()
-  
-      if(response.ok){
-        setAllScheme(data)
-        console.log(allScheme)
-        navigate("/admin/ViewSchemePage")
-        console.log(data)
-      } else{
-        alert(data.error)
-      }
-    } catch (error) {
-      console.log("Error", error)
-    } finally{
-      setLoading(false)
-    }
-  }
-  
 
   useEffect(() => {
     getClass()

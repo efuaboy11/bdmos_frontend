@@ -750,6 +750,7 @@ a{
   justify-content: center;
 }
 
+
 .table1{
   width: 100%;
   border-collapse: collapse;
@@ -806,7 +807,26 @@ tbody tr:nth-child(even){
   border-color: #000;
 }
 
+/* -------------------- Make Payemnt-------------------- */
+.make-payment-link-container{
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+.make-payment-link{
+  text-decoration: underline;
+  color: blue;
 
+}
+
+/* ---------------- Notification----------- */
+.notification-container{
+  background-color: #1A2130;
+  border: 0.5px inset #787A91;
+}
+.notification-sub-container{
+  border-bottom: 0.5px solid #000;
+}
 /* -----------------  School Store------------ */
 .school-store-container{
   background-color: #1A2130;

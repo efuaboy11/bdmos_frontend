@@ -1,12 +1,16 @@
 import "../css/style.css"
 import { Link } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 
 export const Portal = () =>{
-  const {username, password, setUsername, setPassword, loginUser, loading} = useContext(AuthContext)
-  
+  const {username, password, setUsername, setPassword, loginUser, loading, disablebutton} = useContext(AuthContext)
+  const [ischecked, setIschecked] = useState(false)
+
+  const handlecheckboxChange = ()=>{
+    setIschecked(!ischecked)
+  }
  
   return(
     <div>
@@ -24,19 +28,24 @@ export const Portal = () =>{
                     </div>
                   </div>
 
-                  <div className="col-lg-5 row mt-5 ">
+                  <div className="col-lg-5 row mt-4 ">
                     <div className="portal-form  forms">
-                      <h1 className="pb-5 text-primary1 sign-in-text ps-3">Sign In</h1>
+                      <h1 className="pb-5 text-primary1  ps-3">Sign In</h1>
                       <form action="" className="m-3">
                         <div className="form-input">
-                          <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                          <input className="portal-input mb-4" type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
                         </div>
                         <div className="portal-input-password">
-                          <input type="password" id="password" placeholder="Password" className="password-input" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                          <input className="portal-input mb-1" type={`${ischecked ? "text": "password"}`} id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        </div>
+
+                        <div className="d-flex ">
+                          <input type="checkbox"className="me-1 cursor-pointer" onChange={handlecheckboxChange}/>
+                          <p>Show password</p>
                         </div>
                         
-                        <div className="my-5 py-5" onClick={loginUser}>
-                          <p className="btn btn-lg primary-background app-btn">{loading ? <CircularProgress color="inherit"/> : "Login"}</p>
+                        <div className="my-4 py-5" >
+                          <button  disabled={disablebutton} onClick={loginUser}>{loading ? <CircularProgress color="inherit"/> : "Login"}</button>
                         </div>
                       </form>
                       <p className="ps-3">Proudly developed by <a href="#">Ehiz</a></p>

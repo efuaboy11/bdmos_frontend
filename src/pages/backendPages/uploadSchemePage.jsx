@@ -16,7 +16,7 @@ export const UploadSchemePage = () =>{
   const [formValues, setFormValues] = useState([])
   const [subjects, setSubjects] = useState([])
 
-  const [alert, setAlert] = useState("")
+  // const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
@@ -87,7 +87,9 @@ export const UploadSchemePage = () =>{
     })
 
     Promise.all(promises).then((results) => {
+      setLoader(false)
       console.log(results)
+      alert(results[0].non_field_errors)
     }).catch((error) => {
       console.error("Error uploading schemes:", error)
     })

@@ -283,26 +283,12 @@ export const ResultPage = () => {
         }
 
         <div className="container-lg">
-          <div className="row py-5">
-            <div className="col-xxl-12">
-              <div className="row align-items-center">
-                <div className="col-3 d-none d-md-block">
-                  <img className="result-page-img" src={pic} alt="" />
-                </div>
-
-                <div className="col-6 text-md-center  pt-3">
-                  <h4>BDOMS RESULT SHIT</h4>
-                  <p>Please fill the details</p>
-                </div>
-
-                <div className="col-md-3 col-6 d-flex justify-content-end">
-                  <img className="result-page-img" src={pic} alt="" />
-                </div>
-
-
-              </div>
+          <section>
+            <div className="text-center py-5 mt-5">
+              <h4>BDOMS RESULT SHIT</h4>
+              <p>Please fill the details</p>
             </div>
-          </div>
+          </section>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="boxing-shadow p-3">

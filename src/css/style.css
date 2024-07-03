@@ -16,6 +16,7 @@ li{
 
 
 
+
 a{
   white-space: nowrap;
   text-decoration: none;
@@ -939,11 +940,9 @@ nav .home-nav:hover  .sub-menu-l{
 
 
 
-#portal input{
+#portal .portal-input{
   display: block;
   border: none;
-  margin-bottom: 20px;
-  margin-right: 10px;
   width: 100%;
   padding: 15px;
   border-radius: 5px;
@@ -963,9 +962,11 @@ nav .home-nav:hover  .sub-menu-l{
   color: #FFF4F4;
   transition: all ease-in 0.5s;
   font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
 }
 #portal button:hover{
-  opacity: 0.5;
+  background-color: #290013;
 }
 #portal form{
   margin-bottom: 100px;

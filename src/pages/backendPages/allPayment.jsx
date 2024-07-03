@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 
-
 export const AllPayment = () => {
   const [studentID, setStudentID] = useState('')
   const [date, setDate] = useState("")
@@ -20,6 +19,42 @@ export const AllPayment = () => {
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+
+  const {authTokens} = useContext(AuthContext)
+
+  const [datas, setDatas] = useState([])
+
+
+
+  const getAllPayment = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/all_payments/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        setDatas(sortedData)
+        console.log("All Payment Type Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  
+
+  useEffect(() => {
+    getAllPayment()
+  },[datas])
 	return(
 		<div>
       <div className="position-sticky">
@@ -78,52 +113,35 @@ export const AllPayment = () => {
 
           </div>
 
-          <section className="container-lg pt-5 non-wrap-text">
+          <section className="container-lg pt-1 non-wrap-text">
             <div className="navyblue-blackground-dash">
               <div className="scroll-bar admin-payment-table">
                 <table className="table1">
                   <thead>
                     <tr>
-                      <th>Transaction Date</th>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
                       <th>Student ID</th>
                       <th>Reason</th>
                       <th>Status</th>
                       <th>Amount</th>
-                      <th>Recipit</th>
-                      <th>Action</th>
+                      <th>Details</th>
                     </tr>
                   </thead>
 
                   <tbody className="admin-home-table">
-                  <tr>
-                    <td>01/02/2002</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off fees</td>
-                    <td><p className="sucessfull">Successful</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
+                    {datas.map((data) =>(
+                      <tr>
+                        <td>{data.created_at}</td>
+                        <td>{data.updated_at}</td>
+                        <td>{data.transaction_id}</td>
+                        <td>{data.fee_type}</td>
+                        <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
+                        <td>{data.amount}</td>
+                        <td><a href="#" className="button-dashboard">View</a></td>
+                      </tr>
+                    ))}
 
-                  <tr>
-                    <td>10/04/2005</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off P.T.A</td>
-                    <td><p className="failed">Failed</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
-
-                  <tr>
-                    <td>01/02/2011</td>
-                    <td>SBHSISE34</td>
-                    <td>Payment off fees</td>
-                    <td><p className="pending">Pending</p></td>
-                    <td>$30,000</td>
-                    <td><a href="#" className="button-dashboard">View</a></td>
-                    <td><FontAwesomeIcon icon={faTrash}/></td>
-                  </tr>
 
 
                   </tbody>

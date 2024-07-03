@@ -12,27 +12,56 @@ import { Alert } from "@mui/material"
 
 export const AdminSchemePage = () =>{
 
-  const {authTokens, allScheme, loadingModal} = useContext(AuthContext)
+  const {authTokens,
+    sessions,
+    terms,
+    allScheme, 
+    setAllScheme,
+    classe,
+    loadingModal,} = useContext(AuthContext)
 
   const schemeData = allScheme
 
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
-  const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const deleteScheme = async (e) => {
-    console.log("clicked")
-    e.preventDefault();
-    if(loader){
-      setLoader(false)
-    }else{
-      setLoader(true)
-    }
+  const checkScheme = async () => {
+    setLoading(true)
 
     try {
-      let response = await fetch(`https://bdmos.onrender.com/api/scheme/${schemeData.id}/`, {
+      let response = await fetch(`https://bdmos.onrender.com/api/check_scheme/?student_class=${classe}&session=${sessions}&term=${terms}`,{
+        method: "GET",
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        setAllScheme(data)
+        console.log(allScheme)
+        console.log(data)
+      } else{
+        alert(data.error)
+      }
+    } catch (error) {
+      console.log("Error", error)
+    } finally{
+      setLoading(false)
+    }
+  }
+
+  const deleteScheme = async (id) => {
+    console.log("clicked")
+    setLoading(true)
+
+    try {
+      let response = await fetch(`https://bdmos.onrender.com/api/scheme/${id}/`, {
         method: "DELETE",
         headers: {
           Authorization:`Bearer ${authTokens.access}`
@@ -43,7 +72,6 @@ export const AdminSchemePage = () =>{
         setShowAlert(true)
         setAlerts("scheme deleted Sucessfully")
         setAlertSeverity('success')
-        setLoader(false)
         setdisablebutton(false)
         console.log('sucess')
       } else {
@@ -52,16 +80,20 @@ export const AdminSchemePage = () =>{
         setShowAlert(true)
         setAlerts('There is an error in processing your data')
         setAlertSeverity('error')
-        setLoader(false)
         setdisablebutton(false)
         console.log(errorMessage)
       }
     }catch (error) {
       console.error("Error occurred while deleting user:", error);
       alert("An error occurred while trying to delete the user. Please try again.");
+    } finally{
+      setLoading(false)
     }
  };
 
+ useEffect(() => {
+  checkScheme()
+ }, [allScheme])
 
 	return(
 		<div>
@@ -118,12 +150,17 @@ export const AdminSchemePage = () =>{
                     <tbody className="admin-home-table view-schoolitems-table ">
                       {schemeData.map((schemeDat, index) => (
                         <tr key={index}>
-                          <td>{schemeDat.subject}</td>
+                          <td>{schemeDat.subject_name?.name}</td>
                           <td>
                             <DownloadLink
                               url={schemeDat.scheme}
                               fileName={`Scheme_${schemeDat.subject}.pdf`}
                             />
+                          </td>
+                          <td>
+                            <button disabled={disablebutton} className="admin-view-scheme-page-btn" onClick={() => deleteScheme(schemeDat.id)}>
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -136,10 +173,6 @@ export const AdminSchemePage = () =>{
                 </div>
               </div>
             </section>
-
-            <div className="container-lg">
-              <button onClick={deleteScheme}  disabled={disablebutton} className="admin-view-scheme-page-btn">Delete</button>
-            </div>
           </div>
         </div>
       </section>

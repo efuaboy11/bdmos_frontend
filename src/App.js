@@ -16,7 +16,6 @@ import { PaymentStep1 } from './pages/dashboardPages/paymentStep1';
 import { Scheme1 } from './pages/dashboardPages/scheme1';
 import { Result1 } from './pages/dashboardPages/result1';
 import { PaymentHistory } from './pages/dashboardPages/paymentHistory';
-import { Evaluation } from './pages/dashboardPages/evaluation';
 import { SchoolItems, SchoolStore } from './pages/dashboardPages/schoolStore';
 import {AdminDashHome} from "./pages/backendPages/adminDashHome";
 import {ViewAllStudents} from "./pages/backendPages/viewAllSudent"
@@ -105,6 +104,8 @@ import { PendingPayment } from './pages/backendPages/pendingPayment';
 import { PaymentOptions } from './pages/backendPages/paymentOption';
 import { AdminScheme } from './pages/backendPages/adminScheme';
 import { AdminSchemePage } from './pages/backendPages/adminSchemePage';
+import { NoticeBoard } from './pages/dashboardPages/noticeBoard';
+import { MakePaymentPage } from './pages/dashboardPages/makePaymentPage';
 ;
 
 
@@ -153,11 +154,14 @@ function App() {
               {/* ---------------------  Student Dashboard ----------------------------- */}
               <Route path="/dashboard" element={<DashBoard />}/>
               <Route path="/paymentStep1" element={<PaymentStep1 />}/>
+              <Route path="/makePaymentPage" element={<MakePaymentPage />}/>
+
               <Route path="/schemeStep1" element={<Scheme1 />}/>    
               <Route path="/schemePage" element={<SchemePage />}/>                   
               <Route path="/resultStep1" element={<Result1 />}/>
               <Route path="/checkResult" element={<CheckResultClient />}/>
               <Route path="/paymentHistory" element={<PaymentHistory />}/>
+              <Route path="/noticeBoard" element={<NoticeBoard />}/>              
               <Route path="/schoolStore" element={<SchoolStore />}/>
               <Route path="/schoolStore/cartPage" element={<CartPage />}/>
 
@@ -211,20 +215,29 @@ function App() {
               <Route path='/admin/uploadEvent' element={<UploadEvent/>}/> 
               <Route path='/admin/uploadNotification' element={<UploadNotification/>}/> 
               <Route path='/admin/uploadPicture' element={<UploadPicture/>}/> 
+
+
               <Route path='/admin/ViewEventUploads' element={<ViewEventUploaded/>}/> 
               <Route path='/admin/ViewNotificationUploads' element={<ViewNotificationUploaded/>}/> 
               <Route path='/admin/ViewPictureUploads' element={<ViewPictureUploaded/>}/> 
               <Route path='/admin/ViewSchemeUploads' element={<AdminScheme/>}/>  
               <Route path='/admin/ViewSchemePage' element={<AdminSchemePage/>}/> 
+
+
               <Route path='/admin/AddSession' element={<AddSession/>}/> 
               <Route path='/admin/AddClass' element={<AddClass/>}/> 
               <Route path='/admin/addSubject' element={<AddSubject/>}/> 
+
+
               <Route path='/admin/viewClass' element={<ViewClass/>}/>          
               <Route path='/admin/viewSession' element={<ViewSession/>}/>            
-              <Route path='/admin/viewSubject' element={<ViewSubject/>}/>  
+              <Route path='/admin/viewSubject' element={<ViewSubject/>}/>
+
               <Route path='/admin/sendEmail' element={<SendEmail/>}/>
               <Route path='/admin/sendBulkEmail' element={<SendBulkEmail/>}/>
               <Route path='/admin/viewEmail' element={<ViewEmail/>}/>
+
+
               <Route path='/admin/editStudent/:id' element={<EditStudentPage/>}/>   
               <Route path='/admin/editTeacher/:id' element={<EditTeacherPage/>}/>   
               <Route path='/admin/editParent/:id' element={<EditParentPage/>}/>   

@@ -100,23 +100,9 @@ export const CheckResultClient = () =>{
           }
           <div className="container-xxl">
             <section>
-              <div className="row py-5">
-                <div className="col-xxl-12">
-                  <div className="row align-items-center">
-                    <div className="col-3 d-none d-md-block">
-                      <img className="result-page-img" src={pic} alt="" />
-                    </div>
-
-                    <div className="col-6 text-md-center  pt-3">
-                      <h4>BDOMS RESULT SHIT</h4>
-                      <p>Please fill the details</p>
-                    </div>
-
-                    <div className="col-md-3 col-6 d-flex justify-content-end">
-                      <img className="result-page-img" src={pic} alt="" />
-                    </div>
-                  </div>
-                </div>
+              <div className="text-center py-5 mt-5">
+                <h4>BDOMS RESULT SHIT</h4>
+                <p>Please fill the details</p>
               </div>
             </section>
 
@@ -125,11 +111,11 @@ export const CheckResultClient = () =>{
                 <div>
                   <div className="row ">
                     <p className="col-lg-2 col-sm-3">ID: {allResults[0].student}</p>
-                    <p className="col-lg-4 col-md-6 col-sm-8 ">Name: Iseghohimhen Ehizefua Oghenekevwe</p>
-                    <p className="col-lg-2 col-sm-3">Class: {allResults[0].student_class}</p>
+                    <p className="col-lg-4 col-md-6 col-sm-8 ">Name:  {`${allResults[0].student_name.first_name} ${allResults[0].student_name.last_name}`}</p>
+                    <p className="col-lg-2 col-sm-3">Class: {allResults[0].class_name.name}</p>
                     <p className="col-lg-2 col-sm-3">Sex: {allResults[0].sex}</p>   
-                    <p className="col-lg-2 col-md-3 col-sm-5">Session: {allResults[0].session}</p>
-                    <p className="col-lg-2 col-sm-3">term: {allResults[0].term}</p>
+                    <p className="col-lg-2 col-md-3 col-sm-5">Session: {allResults[0].session_name.name}</p>
+                    <p className="col-lg-2 col-sm-3">term: {allResults[0].term_name.name}</p>
                     <p className="col-lg-2 col-md-3 col-sm-5">Total Mark Obtain: {allResults[0].total_marks_obtain}</p>
                     <p className="col-lg-2 col-sm-4">Student Average: {allResults[0].student_average}%</p>
                     <p className="col-lg-2 col-sm-4">class Average: {allResults[0].class_average}%</p>
@@ -163,7 +149,7 @@ export const CheckResultClient = () =>{
                               <tbody>
                                 {allResults[0].subject_results.map((result) =>(
                                   <tr>
-                                    <td>{result.subject}</td>
+                                    <td>{result.subject_name.name}</td>
                                     <td>{result.total_ca}</td>
                                     <td>{result.exam}</td>
                                     <td>{result.total}</td>

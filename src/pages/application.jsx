@@ -3,14 +3,26 @@ import "../css/style.css"
 import { Link, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Navbar } from "../component/navbar"
-import { useState } from "react"
-import React from "react"
-import {useForm} from "react-hook-form"
 import { Footer } from "../component/footer"
+import { useState, useContext } from "react"
+import Alert from '@mui/material/Alert';
+import React from 'react'
+import { useForm } from "react-hook-form"
+import CircularProgress from '@mui/material/CircularProgress';
+import AuthContext from "../context/AuthContext"
+import { LoadingSpiner } from "../component/spin"
 
 export const Application = () =>{
+  const {authTokens} = useContext(AuthContext)
+
+  const [alert, setAlert] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("")
+  const [loader, setLoader] = useState("")
+  const [disablebutton, setdisablebutton] = useState(false)
 
   const [firstName, setFirstName] = useState("")
+  const [middleName, setMiddleName] = useState("")
   const [lastName, setLastName] = useState("")
   const [TempoparyResidence, setTemporaryResidence] = useState("")
   const [permanentResidence, setpermanentResdience] = useState("")
@@ -106,14 +118,109 @@ export const Application = () =>{
 
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
 
-  const onSubmit = (data) =>{
+  const onSubmit = (data,e) =>{
+    e.preventDefault()
+    setdisablebutton(true)
     if (isValid){
       try{
         console.log(data);
+        sendApplication(e)
 
       }catch (error){
         console.error('Failed to submit', error)
+        setdisablebutton(false)
       }
+    }
+
+  }
+
+  const sendApplication = async(e) =>{
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append("first_name", firstName);
+    formData.append("middle_name", middleName);
+    formData.append("last_name", lastName);
+    formData.append( "username", "none")
+    formData.append("temporary_residence", TempoparyResidence);
+    formData.append("permanent_residence", permanentResidence);
+    formData.append( "state_of_origin", SOG);
+    formData.append("city_or_town", city);
+    formData.append("sex", sex);
+    formData.append("phone_number", number);
+    formData.append("teacher_email", email);
+    formData.append("date_of_birth", DOB);
+    formData.append( "maritial_status", maritalStatus);
+    formData.append( "years_of_experience", YOE);
+    formData.append( "computer_skills", computerSkills);
+    formData.append( "disability", disabilityOption);
+    formData.append( "disability_note", disability);
+    formData.append( "passport", passportFile);
+    formData.append( "flsc", firstCertFile);
+    formData.append( "cv", cv);
+    formData.append(  "waec_neco_nabteb_gce", WAECFile);
+    formData.append(  "secondary_school_transcript", SSCETranscriptFile);
+    formData.append(  "university_polytech_institution_cer", universityFile);
+    formData.append(  "university_polytech_institution_cer_trans", universityFile);
+    formData.append(  "other_certificate", otherCertFile);
+    formData.append(  "teacher_speech", employmentReason);
+
+
+    console.log(formData)
+
+    try{
+      const response = await fetch('https://bdmos.onrender.com/api/send-teacher-application-email/',{
+        method: 'POST',
+        body: formData,
+        headers:{
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      if(response.status === 201){
+        setShowAlert(true)
+        setAlert("Teacher Application sent Successfully")
+        console.log('sucess')
+        setAlertSeverity("success")
+        setLoader(false)
+        setdisablebutton(false)
+        setFirstName("")
+        setLastName("")
+        TempoparyResidence("")
+        permanentResidence("")
+        SOG("")
+        city("")
+        number("")
+        email("")
+        DOB("")
+        disabilityOption("")
+        religion("")
+        maritalStatus("")
+        disability("")
+        YOE("")
+        computerSkills("")
+        experience("")
+        employmentReason("")
+
+
+
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        setShowAlert(true)
+        setAlert('There is an error processing your data')
+        setAlertSeverity("error")
+        console.log(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
+
+      }
+    }catch (error){
+      console.log(error)
     }
 
   }
@@ -131,6 +238,23 @@ export const Application = () =>{
   return(
     <div>
       <Navbar />
+      <div className="alert-container">
+        <div className="alert-position">
+          {showAlert && (
+            <Alert
+              severity={alertSeverity}
+              onClose={() => setShowAlert(false)}
+            >
+              {alert}
+            </Alert>
+          )}
+        </div>
+      </div>
+
+      {loader &&
+        < LoadingSpiner/>
+      }
+
       <section id="heading" className="light-background2 mt-5">
         <div className="container-lg">
           <div className="d-md-flex d-inline justify-content-between">
@@ -157,13 +281,18 @@ export const Application = () =>{
           <p className="fw-bold">instruction: Please try to fill up the form</p>
           <div>
             <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <label for="name" className="form-label">First Name</label>
                 <input type="text" id="name" placeholder="e.g John"  className={`form-control compulsory ${errors.firstname ? 'error-input' : ''}`} {...register('firstname', {required: true})} value={firstName} onChange={(e) => setFirstName(e.target.value.toLowerCase())}/>
                 {errors.firstname && <span style={{ color: 'red' }}>First Name is required</span>}
 
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
+                <label for="inputPassword4" className="form-label">Middle Name</label>
+                <input type="text" className={`form-control compulsory ${errors.middleName ? 'error-input' : ''}`} {...register('middleName', {required: true})} value={middleName} onChange={(e) => setMiddleName(e.target.value.toLowerCase())} id="inputPassword4" placeholder="e.g Mike Smith"/>
+                {errors.middleName && <span style={{ color: 'red' }}>Middle Name is required</span>}
+              </div>
+              <div className="col-md-4">
                 <label for="inputPassword4" className="form-label">last Name</label>
                 <input type="text" className={`form-control compulsory ${errors.lastName ? 'error-input' : ''}`} {...register('lastName', {required: true})} value={lastName} onChange={(e) => setLastName(e.target.value.toLowerCase())} id="inputPassword4" placeholder="e.g Mike Smith"/>
                 {errors.lastName && <span style={{ color: 'red' }}>Last Name is required</span>}
@@ -281,12 +410,12 @@ export const Application = () =>{
               </div>
               <div className="col-md-4">
                 <label for="" className="form-label">Have you taught in any school in the past</label>
-                <select id="" className={`form-control form-select compulsory ${errors.YOE ? 'error-input' : ''}`} {...register('YOE', {required: true})} value={YOE} onChange={(e) => setYOE(e.target.value.toLowerCase())}>
+                <select id="" className={`form-control form-select compulsory ${errors.YOE ? 'error-input' : ''}`} {...register('experience', {required: true})} value={experience} onChange={(e) => setExperience(e.target.value.toLowerCase())}>
                   <option></option>
                   <option value='no'>No</option>
                   <option value='yes'>Yes</option>
                 </select>
-                {errors.YOE && <span style={{ color: 'red' }}>This feild is required</span>}
+                {errors.experience && <span style={{ color: 'red' }}>This feild is required</span>}
               </div>
               <div className="col-md-4">
                 <label for="" className="form-label">Do you have basic computer skills</label>
@@ -299,8 +428,8 @@ export const Application = () =>{
               </div>
               <div className="col-md-4">
                 <label for="" className="form-label">How many years have you taught</label>
-                <input type="text" className={`form-control compulsory ${errors.experience ? 'error-input' : ''}`} {...register('experience', {required: true})} value={experience} onChange={(e) => setExperience(e.target.value.toLowerCase())}/>
-                {errors.experience && <span style={{ color: 'red' }}>This field is required</span>}
+                <input type="text" className={`form-control compulsory ${errors.YOE ? 'error-input' : ''}`} {...register('YOE', {required: true})} value={YOE} onChange={(e) => setYOE(e.target.value.toLowerCase())}/>
+                {errors.YOE && <span style={{ color: 'red' }}>This field is required</span>}
               </div>
               <div>
                 <h5 className="text-secondary1">Upload your document below</h5>

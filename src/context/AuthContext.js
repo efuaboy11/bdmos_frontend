@@ -34,41 +34,58 @@ export const AuthProvider = ({children}) => {
 
     const [loadingModal, setLoadingModal] = useState(false)
 
+    const [makePaymentDetails, setMakePaymentDetails] = useState([])
+
+    const [disablebutton, setdisablebutton] = useState(false)
+
     // console.log(resultStudent)
 
     const navigate = useNavigate()
 
     const loginUser = async (e) => {
         e.preventDefault()
-        if(loading){
-            setLoading(false)
-        }else{
-            setLoading(true)
-        }
+        setLoading(true)
+        setdisablebutton(true)
 
-        let response = await fetch("https://bdmos.onrender.com/api/signin/", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
+        try {
+            let response = await fetch("https://bdmos.onrender.com/api/signin/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
             })
-        })
-        const data = await response.json()
 
-        if(response.status === 200){
-            setAuthToken(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem("authTokens", JSON.stringify(data))
-            setLoading(false)
-
-            if(data.role === "ADMIN"){
-                navigate("/admin")
+            const data = await response.json()
+    
+            if(response.status === 200){
+                setAuthToken(data)
+                setUser(jwtDecode(data.access))
+                localStorage.setItem("authTokens", JSON.stringify(data))
+                setLoading(false)
+                setdisablebutton(false)
+    
+                if(data.role === "ADMIN"){
+                    navigate("/admin")
+                }else{
+                    navigate("/dashboard")
+                }
             }else{
-                navigate("/dashboard")
+                console.log(data)
+                if(!username){
+                    alert(data.username)
+                } else{
+                    alert(data.password)
+                }
             }
+            
+        } catch (error) {
+            console.log("Error", error)
+        } finally{
+            setLoading(false)
         }
     }
 
@@ -146,7 +163,9 @@ export const AuthProvider = ({children}) => {
         allResults,
         setAllResults,
         allScheme, 
-        setAllScheme
+        setAllScheme,
+        makePaymentDetails, 
+        setMakePaymentDetails
     }
 
     return (

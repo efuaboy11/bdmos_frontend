@@ -171,7 +171,7 @@ export const UploadScheme = () =>{
                       </div>
                       <div className="col-md-6 mt-3">
                         <label htmlFor="" className="form-label">Date</label>
-                        <input className={`admin-input ${errors.date ? 'error-input' : ''} form-control compulsory form-dark form-select`} {...register('date', {required: true})}  type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+                        <input className={`admin-input ${errors.date ? 'error-input' : ''} form-control compulsory form-dark`} {...register('date', {required: true})}  type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
                         {errors.date && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>
                       <div className="col-md-10 pt-3 pb-5 mb-4">

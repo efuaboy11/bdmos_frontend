@@ -9,6 +9,7 @@ import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
+import { LoadingSpiner } from "../../component/spin"
 
 
 
@@ -74,7 +75,7 @@ export const EditResultPage = () => {
     resultDetails.subject_results.map((subject) => ({
       subject: subject.subject,
       total_ca: subject.total_ca,
-      exam_score: subject.exam,
+      exam: subject.exam,
       total: subject.total,
       grade: subject.grade,
       position: subject.position,
@@ -88,7 +89,7 @@ export const EditResultPage = () => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
-  const [loader, setLoader] = useState("")
+  const [loader, setLoader] = useState(false)
   const [disablebutton, setdisablebutton] = useState(false)
 
   const onSubmit = (data, e) =>{
@@ -284,46 +285,6 @@ export const EditResultPage = () => {
       console.error('Error submitting result:', error);
     }
   };
-
-  const sendSubjectResult = async (subjectResults) => {
-
-    for (const subjectResult of subjectResults) {
-
-      const { id, result, subject, total_ca, exam, total, grade, position } = subjectResult;
-  
-      const apiUrl = `https://bdmos.onrender.com/api/subject_result/${id}/`;
-      
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authTokens.access}`,
-          },
-          body: JSON.stringify({
-            id,
-            result,
-            subject,
-            total_ca,
-            exam,
-            total,
-            grade,
-            position
-          }),
-        });
-    
-        if (!response.ok) {
-          throw new Error(`Failed to update subject result with ID ${id}`);
-        }
-    
-        const data = await response.json();
-        console.log(`Subject result with ID ${id} updated successfully:`, data);
-      } catch (error) {
-        console.error(`Error updating subject result with ID ${id}:`, error.message);
-      }
-    }
-  };
-  
   
 	return(
     <div>
@@ -331,6 +292,9 @@ export const EditResultPage = () => {
         <AdminDashFrame />
       </div>
       <section className="main-content">
+        {loader &&
+          < LoadingSpiner/>
+        }
         <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
@@ -350,11 +314,11 @@ export const EditResultPage = () => {
               <div className="admin-modal-content">
                 <h5 className="sucessfull-text">Sucess</h5>
                 <hr />
-                <p>Result  successfully uploaded.</p>
+                <p>Result  successfully Updat.</p>
                 <div className="d-flex justify-content-between py-3">
                   <div></div>
                   <div>
-                    <Link to="/admin/UploadResult" className="admin-modal-close mx-3">Done</Link>
+                    <Link to="/admin/ViewStudentResult" className="admin-modal-close mx-3">Done</Link>
                   </div>
                 </div>
               </div>
@@ -363,26 +327,12 @@ export const EditResultPage = () => {
         }
 
         <div className="container-lg">
-          <div className="row py-5">
-            <div className="col-xxl-12">
-              <div className="row align-items-center">
-                <div className="col-3 d-none d-md-block">
-                  <img className="result-page-img" src={pic} alt="" />
-                </div>
-
-                <div className="col-6 text-md-center  pt-3">
-                  <h4>BDOMS RESULT SHIT</h4>
-                  <p>Please fill the details</p>
-                </div>
-
-                <div className="col-md-3 col-6 d-flex justify-content-end">
-                  <img className="result-page-img" src={pic} alt="" />
-                </div>
-
-
-              </div>
+          <section>
+            <div className="text-center py-5 mt-5">
+              <h4>BDOMS RESULT SHIT</h4>
+              <p>Please fill the details</p>
             </div>
-          </div>
+          </section>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="boxing-shadow p-3">
@@ -480,7 +430,7 @@ export const EditResultPage = () => {
                                     <tr key={index}>
                                       <td>{subjectName}</td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="total_ca" value={subject.total_ca} onChange={(e) => handleSubjectChange(index, e)} /></td>
-                                      <td><input className={` admin-input form-dark`}   type="text" name="exam_score" value={subject.exam_score} onChange={(e) => handleSubjectChange(index, e)} /></td>
+                                      <td><input className={` admin-input form-dark`}   type="text" name="exam" value={subject.exam} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="total" value={subject.total} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="grade" value={subject.grade} onChange={(e) => handleSubjectChange(index, e)} /></td>
                                       <td><input className={` admin-input form-dark`}   type="text" name="position" value={subject.position} onChange={(e) => handleSubjectChange(index, e)} /></td>
@@ -753,7 +703,7 @@ export const EditResultPage = () => {
               </div>
             </div>
             <div className="my-5">
-              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+              <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>Submit</button>
             </div>
            
           </form>
