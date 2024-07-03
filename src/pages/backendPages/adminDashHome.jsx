@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AdminDashFrame, DashFrame } from "../../component/adminDashFRame"
 import {BarchartFrame, PieChartFrame} from "../../component/chatFrame"
-import { faBookOpenReader, faBuildingColumns, faCartShopping, faChalkboardTeacher, faChartLine, faDollarSign, faNewspaper, faPeopleGroup, faPlus, faSchool, faTrash, faUser, faUserGraduate, faUserGroup, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpenReader, faBuildingColumns, faCartShopping, faChalkboardTeacher, faChartLine, faDollarSign, faNewspaper, faPeopleGroup, faPlus, faSchool, faTrash, faUser, faUserGraduate, faUserGroup, faUserPlus, faUsers, faX } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import { Pie } from "react-chartjs-2"
@@ -30,6 +30,19 @@ export const AdminDashHome = () =>{
   const [emails, setEmails] = useState([])
 
   const [paymentHistory, setPaymentHistory] = useState([])
+
+  const [showReciptModal, setShowReciptModal] = useState(false)
+  const [paymentDetails, setPaymentDetails] = useState([])
+
+
+  const recieptContext =(status, studentID, reason, amount, session, term, createdDate, updatedDate) =>{
+    setPaymentDetails([{status, studentID, reason, amount, session, term, createdDate, updatedDate}])
+    setShowReciptModal(true)
+  }
+
+  const closeModal = () => {
+    setShowReciptModal(false)
+  }
 
 
 
@@ -226,6 +239,77 @@ export const AdminDashHome = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content">
+
+        {showReciptModal &&
+            <section className="overlay-background">
+              <div className="admin-allPayment-modal-conatiner">
+                <div className="admin-allPayment-modal-content">
+                  {paymentDetails.length > 0 && (
+                    <div>
+                      <div className="d-flex justify-content-end">
+                        <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal}/>
+                      </div>
+                      <div>
+                        <h6 className="font-bold text-center admin-allPayment-h6">PAYMENT RECIEPT</h6>
+                      </div>
+
+                      <div className="pt-5">
+                        <p className="pb-2"><span className="pe-2">STATUS:</span><span className={`${paymentDetails[0].status == "Pending" ? "pending" : "sucessfull"} ${paymentDetails[0].status == "Declined" && "failed"} text-white1 px-3 py-1`}>{paymentDetails[0].status} </span></p>
+                        <p className="pb-2"><span>PAID TO</span>: BDOMS/fredita Children Academy</p>
+                        <p className="pb-2"><span>PAID BY</span>: {paymentDetails[0].studentID}</p>
+                        <p className="pb-2"><span>PAYMENT REASON</span>: {paymentDetails[0].reason}</p>
+                        <p className="pb-2"><span>AMOUNT</span>: {paymentDetails[0].amount}</p>
+                        <p className="pb-2"><span>SESSION</span>: {paymentDetails[0].session}</p>
+                        <p className="pb-2"><span>TERM</span>: {paymentDetails[0].term}</p>
+                        <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}2021/2022</p>
+                        <p className="pb-2"><span>UPDATED_AT</span>:{paymentDetails[0].updatedDate}</p>
+                      </div>
+
+                      <div className="row pt-5 pb-4">
+                        <div className="col-6">
+                          <div className="admin-allPayment-signatries">
+                            <div className="d-flex">
+                              <div>
+                              <p className="first-p">MANAEMENT</p>
+                              <p className="px-3">Signature of Mangement</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-6">
+                          <div className="admin-allPayment-signatries">
+                            <div className="d-flex">
+                              <div>
+                                <p className="first-p">{paymentDetails[0].createdDate}</p>
+                                <p className="px-5">Date</p>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                      <div className="light-background2">
+                        <div className="p-2">
+                          <div>
+                            <p>For more information you contact us through:</p>
+                            <p>Phone Number: 08060918549, 0807284591</p>
+                            <p>Email: iseghohimhene@gmail.com</p>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )}
+
+                </div>
+              </div>
+            </section>
+          
+          }
         <div className="container-lg">
           <div className="d-flex justify-content-between align-items-center admin-home-header">
             <div>
@@ -390,7 +474,7 @@ export const AdminDashHome = () =>{
                         <td>{data.fee_type}</td>
                         <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
                         <td>{data.amount}</td>
-                        <td><a href="#" className="button-dashboard">View</a></td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
                       </tr>
                     ))}
 

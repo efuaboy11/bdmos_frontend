@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DashFrame } from "../../component/dashFrame"
-import { faBookOpenReader, faBuildingColumns, faCartShopping, faChartLine, faDollarSign, faNewspaper, faTrash, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpenReader, faBuildingColumns, faCartShopping, faChartLine, faDollarSign, faNewspaper, faTrash, faUser, faX } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { faBell } from "@fortawesome/free-regular-svg-icons"
 import picture from "../../img/happy-students-jumping-with-flat-design.png"
@@ -10,6 +10,46 @@ import { useState, useEffect, useContext } from "react"
 export const DashBoard = () =>{
   const {authTokens} = useContext(AuthContext)
   const [datas, setDatas] = useState([])
+  const [paymentDatas, setPaymentDatas] = useState([])
+
+  const [showReciptModal, setShowReciptModal] = useState(false)
+  const [paymentDetails, setPaymentDetails] = useState([])
+
+
+  const recieptContext =(status, reason, amount, session, term, createdDate, updatedDate) =>{
+    setPaymentDetails([{status,  reason, amount, session, term, createdDate, updatedDate}])
+    setShowReciptModal(true)
+  }
+
+  const closeModal = () => {
+    setShowReciptModal(false)
+  }
+
+
+  const getAllPayment = async () => {
+    try {
+      let response = await fetch("https://bdmos.onrender.com/api/payments/", {
+        method: "GET",
+        headers: {
+          "Content-Type":"application",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+  
+      const data = await response.json()
+  
+      if(response.ok){
+        const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        setPaymentDatas(sortedData)
+        console.log("All Payment Type Gotten Successfully")
+      } else{
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
@@ -44,6 +84,10 @@ export const DashBoard = () =>{
 
   },[datas])
 
+  useEffect(() => {
+    getAllPayment()
+  },[datas])
+
   return(
     <div>
       <div  className="position-sticky">
@@ -51,6 +95,77 @@ export const DashBoard = () =>{
       </div>
       <div>
         <div className="main-content">
+
+          {showReciptModal &&
+            <section className="overlay-background">
+              <div className="admin-allPayment-modal-conatiner">
+                <div className="admin-allPayment-modal-content">
+                  {paymentDetails.length > 0 && (
+                    <div>
+                      <div className="d-flex justify-content-end">
+                        <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal}/>
+                      </div>
+                      <div>
+                        <h6 className="font-bold text-center admin-allPayment-h6">PAYMENT RECIEPT</h6>
+                      </div>
+
+                      <div className="pt-5">
+                        <p className="pb-2"><span className="pe-2">STATUS:</span><span className={`${paymentDetails[0].status == "Pending" ? "pending" : "sucessfull"} ${paymentDetails[0].status == "Declined" && "failed"} text-white1 px-3 py-1`}>{paymentDetails[0].status} </span></p>
+                        <p className="pb-2"><span>PAID TO</span>: BDOMS/fredita Children Academy</p>
+                        <p className="pb-2"><span>PAID BY</span>: SBHSISE35</p>
+                        <p className="pb-2"><span>PAYMENT REASON</span>: {paymentDetails[0].reason}</p>
+                        <p className="pb-2"><span>AMOUNT</span>: {paymentDetails[0].amount}</p>
+                        <p className="pb-2"><span>SESSION</span>: {paymentDetails[0].session}</p>
+                        <p className="pb-2"><span>TERM</span>: {paymentDetails[0].term}</p>
+                        <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}2021/2022</p>
+                        <p className="pb-2"><span>UPDATED_AT</span>:{paymentDetails[0].updatedDate}</p>
+                      </div>
+
+                      <div className="row pt-5 pb-4">
+                        <div className="col-6">
+                          <div className="admin-allPayment-signatries">
+                            <div className="d-flex">
+                              <div>
+                              <p className="first-p">MANAEMENT</p>
+                              <p className="px-3">Signature of Mangement</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-6">
+                          <div className="admin-allPayment-signatries">
+                            <div className="d-flex">
+                              <div>
+                                <p className="first-p">{paymentDetails[0].createdDate}</p>
+                                <p className="px-5">Date</p>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                      <div className="light-background2">
+                        <div className="p-2">
+                          <div>
+                            <p>For more information you contact us through:</p>
+                            <p>Phone Number: 08060918549, 0807284591</p>
+                            <p>Email: iseghohimhene@gmail.com</p>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )}
+
+                </div>
+              </div>
+            </section>
+          
+          }
           <section className="container-lg">        
             <div className="d-flex justify-content-between align-items-center admin-home-header">
               <div>
@@ -197,54 +312,26 @@ export const DashBoard = () =>{
                   <table className="table1">
                     <thead>
                       <tr>
-                        <th>Transaction Date</th>
+                        <th>Created Date</th>
+                        <th>Updated Date</th>
                         <th>Reason</th>
                         <th>Status</th>
                         <th>Amount</th>
-                        <th>Recipit</th>
+                        <th>Details</th>
                       </tr>
                     </thead>
 
                     <tbody className="admin-home-table">
-                    <tr>
-                      <td>01/02/2002</td>
-                      <td>Payment off fees</td>
-                      <td><p className="sucessfull">Successful</p></td>
-                      <td>$30,000</td>
-                      <td><a href="#" className="button-dashboard">View</a></td>
-                    </tr>
-
-                    <tr>
-                      <td>10/04/2005</td>
-                      <td>Payment off P.T.A</td>
-                      <td><p className="failed">Failed</p></td>
-                      <td>$30,000</td>
-                      <td><a href="#" className="button-dashboard">View</a></td>
-                    </tr>
-
-                    <tr>
-                      <td>01/02/2011</td>
-                      <td>Payment off fees</td>
-                      <td><p className="pending">Pending</p></td>
-                      <td>$30,000</td>
-                      <td><a href="#" className="button-dashboard">View</a></td>
-                    </tr>
-
-                    <tr>
-                      <td>01/02/2011</td>
-                      <td>Payment off fees</td>
-                      <td><p className="pending">Pending</p></td>
-                      <td>$30,000</td>
-                      <td><a href="#" className="button-dashboard">View</a></td>
-                    </tr>
-
-                    <tr>
-                      <td>01/02/2011</td>
-                      <td>Payment off fees</td>
-                      <td><p className="pending">Pending</p></td>
-                      <td>$30,000</td>
-                      <td><a href="#" className="button-dashboard">View</a></td>
-                    </tr>
+                      {paymentDatas.map((data) =>(
+                        <tr>
+                          <td>{data.created_at}</td>
+                          <td>{data.updated_at}</td>
+                          <td>{data.fee_type}</td>
+                          <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
+                          <td>{data.amount}</td>
+                          <td><Link className="button-dashboard" onClick={() => recieptContext(data.status,  data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
+                        </tr>
+                      ))}
 
 
                     </tbody>

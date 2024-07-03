@@ -5,12 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 export const ViewAllTeacher = () =>{
   const navigate  = useNavigate()
 
   const { authTokens, setDetails } = useContext(AuthContext)
   setDetails('')
+
+  const [loader, setLoader] = useState(false)
 
 
   const [teacherID, setTeacherID] = useState("")
@@ -67,6 +70,7 @@ export const ViewAllTeacher = () =>{
   }
   
   const handleTeacherPage = (id) =>{
+    setLoader(true)
     teacherPage(id)
   }
 
@@ -84,7 +88,10 @@ export const ViewAllTeacher = () =>{
 
     if (response.ok) {
       setDetails(data)
+      setLoader(false)
       navigate(`/admin/viewAllTeacher/${data.id}`)
+    }else{
+      setLoader(false)
     }
   }
 
@@ -109,6 +116,9 @@ export const ViewAllTeacher = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">

@@ -1,9 +1,10 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link, useNavigate } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faL, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 export const ViewAllStudents = () =>{
   const navigate  = useNavigate()
@@ -15,6 +16,8 @@ export const ViewAllStudents = () =>{
   const [phoneNumber, setPhoneNumber] = useState("")
 
   const [students, setStudents] = useState([])
+
+  const [loader, setLoader] = useState(false)
 
 
   const filterAllStudent = async() => {
@@ -65,10 +68,13 @@ export const ViewAllStudents = () =>{
   }
 
   const handeStudentPage = (id) =>{
+    setLoader(true)
+
     studentPage(id)
   }
 
   const studentPage = async (id) => {
+
 
     let response = await fetch(`https://bdmos.onrender.com/api/students/${id}`, {
       method: "GET",
@@ -82,8 +88,13 @@ export const ViewAllStudents = () =>{
 
     if (response.ok) {
       setDetails(data)
+      setLoader(false)
       navigate(`/admin/viewAllStudent/${data.id}`)
+    }else{
+      setLoader(false)
+    
     }
+
   }
 
   useEffect(() => {
@@ -107,6 +118,9 @@ export const ViewAllStudents = () =>{
       </div>
 			<section>
         <div className="main-content">
+          {loader &&
+            < LoadingSpiner/>
+          }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
