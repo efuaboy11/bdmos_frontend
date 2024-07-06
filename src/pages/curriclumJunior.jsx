@@ -39,7 +39,7 @@ export const CurriculumJunior = () =>{
           <div className="row">
             <div className="col-xxl-12">
               <div className="row g-3 justify-content-center">
-                <div className="col-3">
+                <div className="col-xxl-3 col-md-6 col-lg-4">
                   <div>
                     <img src={pic1} width="100%" alt="" />
                     <div className="d-flex justify-content-center">
@@ -49,7 +49,7 @@ export const CurriculumJunior = () =>{
                   </div>
                 </div>
 
-                <div className="col-3">
+                <div className="col-xxl-3 col-md-6 col-lg-4">
                   <div>
                     <img src={pic2} width="100%" alt="" />
                     <div className="d-flex justify-content-center">
@@ -58,7 +58,7 @@ export const CurriculumJunior = () =>{
                   </div>
                 </div>
 
-                <div className="col-3">
+                <div className="col-xxl-3 col-md-6 col-lg-4">
                   <div>
                     <img src={pic3} width="100%" alt="" />
                     <div className="d-flex justify-content-center">

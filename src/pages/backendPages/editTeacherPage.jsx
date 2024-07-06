@@ -84,7 +84,7 @@ export const EditTeacherPage = () =>{
     console.log(formData)
 
     try {
-      const response = await fetch(`https://bdmos.onrender.com/api/teachers/${details.username}`, {
+      const response = await fetch(`https://bdmos.onrender.com/api/teachers/${details.username}/`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${authTokens.access}`

@@ -106,6 +106,9 @@ import { AdminScheme } from './pages/backendPages/adminScheme';
 import { AdminSchemePage } from './pages/backendPages/adminSchemePage';
 import { NoticeBoard } from './pages/dashboardPages/noticeBoard';
 import { MakePaymentPage } from './pages/dashboardPages/makePaymentPage';
+import { StudentPassword } from './pages/backendPages/studentPassword';
+import { SettingsStep2 } from './pages/backendPages/settingsStep2';
+import { SettingStep3 } from './pages/backendPages/settingStep3';
 ;
 
 
@@ -177,6 +180,7 @@ function App() {
               <Route path="/admin/addStudent" element={<AddStudent />}/>
               <Route path="/admin/deleteStudent" element={<DeleteStudent />}/>
               <Route path='/admin/editStudent' element={<EditStudent/>}/>
+              <Route path='/admin/studentDetails' element={<StudentPassword/>}/>
 
 
               <Route path='/admin/viewAllTeacher' element={<ViewAllTeacher/>}/>
@@ -250,7 +254,11 @@ function App() {
               <Route path='/admin/generateScratchNumber' element={<GenerateScratchNumber/>}/>
               <Route path='/admin/scratchNumberPage' element={<ScratchNumberPage/>}/>
               <Route path='/admin/viewGeneratedScratchNumber' element={<ViewGeneratedScratchNumber/>}/>
-              <Route path='/admin/settings' element={<Settings/>}/>             
+
+
+              <Route path='/admin/settings' element={<Settings/>}/>    
+              <Route path='/admin/settings-2' element={<SettingsStep2/>}/>    
+              <Route path='/admin/settings-3' element={<SettingStep3/>}/>        
             </Route>
 
             <Route path="*" element={<NotFound />} />

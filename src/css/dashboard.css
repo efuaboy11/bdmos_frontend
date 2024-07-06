@@ -22,6 +22,7 @@ body{
 
 
 
+
 .cursor-pointer{
   cursor: pointer;
 }
@@ -121,6 +122,66 @@ a:hover{
   margin-left: 130px;
   color: #fff;
 }
+/* -------------------------  form-progress ----------------------*/
+/* --------------- Step------------ */
+
+.form-progress{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.form-progress .step{
+  position: relative;
+  text-align: center;
+  
+}
+
+.form-progress .step .bullet{
+  position: relative;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: inline-block;
+
+}
+.form-progress .step:last-child .bullet::before,
+.form-progress .step:last-child .bullet::after{
+  display: none;
+}
+
+.form-progress .step .bullet::before,
+.form-progress .step .bullet::after{
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -165px;
+  height: 3px;
+  width: 160px;
+  background-color: #262626;
+}
+
+.form-progress .step .bullet.active::after{
+  background: #114232;
+}
+
+.form-progress .step span{
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.form-progress .step .bullet.active{
+  background-color: #114232;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
 
 /* dropdown menu  */
 .dropdown-position{
@@ -1015,6 +1076,11 @@ tbody tr:nth-child(even){
   background-color: #114232;
   color: #fff;
   border-radius: 10px;
+  transition: all ease 1s;
+}
+.admin-btn:hover{
+  color: #fff;
+  background-color: #0A6847;
 }
 
 .position-sticky{
@@ -1268,6 +1334,18 @@ tbody tr:nth-child(even){
   width: 100%;
   border-radius: 5px;
 }
+/* -------------------- All Parent----------------------- --------------------- */
+
+/* ---------------------------view All parent----------  */
+.view-parent-input{
+  width: 100%;
+  border: none;
+  background: #EEEDEB;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+
 
 /* -------------- Account Page ---------------------------------------- */
 .account-page-link:hover{
@@ -1624,6 +1702,31 @@ tbody tr:nth-child(even){
   border-radius: 20px;
 }
 
+/* ------------------ Settings ---------------------------------------- */
+.settings-container{
+  min-height: 300px;
+  background-color: #1A2130;
+  border: 0.5px inset #787A91;
+  min-height: 450px;
+}
+.settings-container input{
+  background: none;
+  border: 1px solid #333;
+  color: #fff;
+  width: 100%;
+
+}
+.settings-container input:focus{
+  background: none;
+  border: none;
+  color: #fff;
+  
+}
+
+
+
+
+
 
 
 
@@ -1802,6 +1905,17 @@ tbody tr:nth-child(even){
 
   
   @media(max-width: 500px){
+    .form-progress .step .bullet::before,
+    .form-progress .step .bullet::after{
+      position: absolute;
+      content: '';
+      bottom: 11px;
+      right: -100px;
+      height: 3px;
+      width: 90px;
+      background-color: #262626;
+    }
+
     .student-info-modal{
       width: 300px;
     

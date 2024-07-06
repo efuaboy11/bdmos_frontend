@@ -121,6 +121,7 @@ export const AdminDashFrame = () =>{
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/addStudent") ?"active-dash-link": ""}`}>
                   <Link to="/admin/addStudent">Add Student</Link> 
                 </li>
+                
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/deleteStudent") ?"active-dash-link": ""}`}>
                   <Link to="/admin/deleteStudent">Delete Student</Link> 
@@ -128,6 +129,10 @@ export const AdminDashFrame = () =>{
 
                 <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/editStudent") ?"active-dash-link": ""}`}>
                   <Link to="/admin/editStudent">Edit Student</Link> 
+                </li>
+
+                <li className={`nav-item ps-4 py-2 ${isActiveDashLink("/admin/studentDetails") ?"active-dash-link": ""}`}>
+                  <Link to="/admin/studentDetails">Student Details</Link> 
                 </li>
 
 

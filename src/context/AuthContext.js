@@ -37,10 +37,37 @@ export const AuthProvider = ({children}) => {
     const [makePaymentDetails, setMakePaymentDetails] = useState([])
 
     const [disablebutton, setdisablebutton] = useState(false)
-
-    // console.log(resultStudent)
+    
+    const [userProfile, setUserProfile] = useState([])
+    console.log(userProfile)
+    console.log(user)
 
     const navigate = useNavigate()
+
+    const userDetails = async () => {
+        try {
+          const response = await fetch(
+            `https://bdmos.onrender.com/api/user_profile/${user?.profile_id}/`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+    
+          if (response.status === 200) {
+            setUserProfile(data);
+          } else {
+            console.error("Failed to fetch user details:", response.statusText);
+          }
+        } catch (error) {
+          console.log(error);
+       }
+    
+    }
+
 
     const loginUser = async (e) => {
         e.preventDefault()
@@ -125,6 +152,12 @@ export const AuthProvider = ({children}) => {
 
         return () => clearInterval(interval)
     }, [authTokens])
+
+    useEffect(() =>{
+        userDetails()
+        
+
+    }, [userProfile])
 
     const contextData = {
         loadingModal, 

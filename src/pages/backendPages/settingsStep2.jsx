@@ -10,7 +10,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 import { LoadingSpiner } from "../../component/spin"
 
-export const Settings = () =>{
+export const SettingsStep2 = () =>{
+  const [OTP, setOTP] = useState("")
+  const navigate = useNavigate()
 
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
@@ -19,13 +21,11 @@ export const Settings = () =>{
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
 
-  const navigate = useNavigate()
-
   const onSubmit = (data, e) =>{
     e.preventDefault()
     setdisablebutton(true)
     if(isValid){
-      navigate("/admin/settings-2")
+      navigate("/admin/settings-3")
     
       console.log(data)
     }else{
@@ -34,8 +34,7 @@ export const Settings = () =>{
     }
   }
 
-  const [usernames, setUsernames] = useState("")
-  const [passwords, setPasswords] = useState("")
+
 
 	return(
 		<div>
@@ -59,7 +58,7 @@ export const Settings = () =>{
 
               <div class="form-progress">
                 <div class="step">
-                    <div class="bullet ">
+                    <div class="bullet active">
                       <span>1</span>
                     </div>
                 </div>
@@ -82,22 +81,15 @@ export const Settings = () =>{
                     <div className="row g-4 mx-2 mt-3">
                       <div className="col-md-12 mt-3">
                         <div>
-                          <label className="form-label">Username</label>
-                          <input className={`form-control  ${errors.username ? 'error-input' : ''}`} {...register('username', {required: true})}  type="text" placeholder="Enter username" value={usernames} onChange={(e) => setUsernames(e.target.value)} autoComplete="off"/>
-                          {errors.username && <span style={{color: 'red'}}>This Feild is required</span>} 
-                        </div>                 
-                      </div>
-
-                      <div className="col-md-12 mt-3">
-                        <div>
-                          <label className="form-label">Password</label>
-                          <input className={`form-control  ${errors.password ? 'error-input' : ''}`} {...register('password', {required: true})}  type="text" placeholder="Enter password"value={passwords} onChange={(e) => setPasswords(e.target.value)}/>
-                          {errors.password && <span style={{color: 'red'}}>This Feild is required</span>} 
+                          <label className="form-label">OTP Code</label>
+                          <input className={`form-control  ${errors.otp ? 'error-input' : ''}`} {...register('otp', {required: true})}  type="text" placeholder="203432" value={OTP} onChange={(e) => setOTP(e.target.value)} autoComplete="off"/>
+                          {errors.otp && <span style={{color: 'red'}}>This Feild is required</span>} 
                         </div>                 
                       </div>
 
                       <div className="col-md-10  pb-5 mb-4">
-                        < button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Next"}</button>
+                        <Link to='/admin/settings' className="admin-btn me-3 mb-2 py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "previous"}</Link>
+                        <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Next"}</button>
                       </div>
                       
                     </div>

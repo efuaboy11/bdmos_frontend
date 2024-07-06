@@ -67,7 +67,7 @@ export const Blog = () =>{
               <div className="row">
                 <div className="col-xxl-12">
                   <div className="row g-3">
-                    {eventDatas.map((eventData) =>(
+                    {eventDatas?.map((eventData) =>(
                       <div className="col-xxl-3 col-lg-4 col-sm-6">
                       <div className="light-background2 p-4 blog-container">
                         <img src={eventData.image} alt="" width='100%'/>

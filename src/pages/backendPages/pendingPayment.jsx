@@ -160,8 +160,8 @@ export const PendingPayment = () => {
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>Declined Payment</h5>
-                <p>View All declined Payment</p>
+                <h5>Pending Payment</h5>
+                <p>View All Pending Payment</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
                 <Link to="/admin/addPayment" className="light-navyblue-background p-3 border-radius">

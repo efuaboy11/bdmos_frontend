@@ -177,11 +177,12 @@ export const Application = () =>{
       const response = await fetch('https://bdmos.onrender.com/api/send-teacher-application-email/',{
         method: 'POST',
         body: formData,
-        headers:{
-          Authorization: `Bearer ${authTokens.access}`
-        }
+        // headers:{
+        //   "Content-Type":"application",
+          
+        // }
       })
-      if(response.status === 201){
+      if(response.status === 200){
         setShowAlert(true)
         setAlert("Teacher Application sent Successfully")
         console.log('sucess')
