@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 
 export const Addmision = () =>{
+  
 
 
   const [firstName, setFirstName] = useState('')
@@ -26,9 +27,9 @@ export const Addmision = () =>{
   const [SOG, setSOG] = useState('')
   const [religion, setReligion] = useState('')
   const [disabilityOption, setDisabilityOption] = useState('')
-  const [classOption, setClassOption] = useState('')
   const [city, setCity] = useState('')
   const [previousSChool, setPreviousSchool] = useState('')
+  const [className, setClassName] = useState("")
   const [disability, setDisability] = useState('')
   const [passportFile, setPassportFile] = useState(null);
 
@@ -39,6 +40,7 @@ export const Addmision = () =>{
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
+  
 	const location = useLocation();
   
 
@@ -68,6 +70,101 @@ export const Addmision = () =>{
 		return location.pathname === path
 
 	}
+
+  const onSubmit = (data,e) =>{
+    e.preventDefault()
+    setdisablebutton(true)
+    if (isValid){
+      try{
+        console.log(data);
+        sendApplication(e)
+
+      }catch (error){
+        console.error('Failed to submit', error)
+        setdisablebutton(false)
+      }
+    }
+
+  }
+
+  const sendApplication = async(e) =>{
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append("first_name", firstName);
+    formData.append("middle_name", middleName);
+    formData.append("last_name", lastName);
+    formData.append("gurdian_name", gurdianName);
+    formData.append( "username", "none")
+    formData.append("father_name", fatherName);
+    formData.append("mother_name", motherName);
+    formData.append( "state_of_origin", SOG);
+    formData.append("city_or_town", city);
+    formData.append("sex", sex);
+    formData.append("parents_phone_number", parentNumber);
+    formData.append("parents_email", parentEmail);
+    formData.append("date_of_birth", DOB);
+    formData.append( "disability", disabilityOption);
+    formData.append( "disability_note", disability);
+    formData.append( "previous_school", disability);
+    formData.append( "religion", religion);
+    formData.append( "student_class", className);    
+    formData.append( "passport", passportFile);
+
+    console.log(formData)
+
+    try{
+      const response = await fetch('https://bdmos.onrender.com/api/send-student-application-email/',{
+        method: 'POST',
+        body: formData,
+        // headers:{
+        //   "Content-Type":"application",
+          
+        // }
+      })
+      if(response.status === 200){
+        setShowAlert(true)
+        setAlert("Teacher Application sent Successfully")
+        console.log('sucess')
+        setAlertSeverity("success")
+        setLoader(false)
+        setdisablebutton(false)
+        setFirstName("")
+        setLastName("")
+        SOG("")
+        city("")
+        setParentEmail("")
+        setParentEmail("")
+        DOB("")
+        disabilityOption("")
+        religion("")
+        disability("")
+
+
+
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        setShowAlert(true)
+        setAlert('There is an error processing your data')
+        setAlertSeverity("error")
+        console.log(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
+
+      }
+    }catch (error){
+      console.log(error)
+    }
+
+  }
+
+
 	return(
 		<div>
       {showApplicationModal &&
@@ -87,7 +184,7 @@ export const Addmision = () =>{
 
 
               <section className="student-application-form scroll-bar-black-y">
-                <form className="p-3">
+                <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
                   <div className="row g-3 add-student">
                     <div className="col-lg-4 col-xxl-3 col-md-6">
                       <label htmlFor="" className="form-label">First Name <span className="red-text">*</span></label>
@@ -224,6 +321,11 @@ export const Addmision = () =>{
                     <div className="col-lg-4 col-xxl-3 col-md-6">
                       <label htmlFor="" className="form-label">Previous School</label>
                       <input type="text" className="form-control " id="student-first-name" value={previousSChool} onChange={(e) => setPreviousSchool(e.target.value)}/>
+                    </div>
+
+                    <div className="col-lg-4 col-xxl-3 col-md-6">
+                      <label htmlFor="" className="form-label">Present Class</label>
+                      <input type="text" className="form-control " id="student-first-name" value={className} onChange={(e) => setClassName(e.target.value)}/>
                     </div>
 
                     <div className="mb-3">
