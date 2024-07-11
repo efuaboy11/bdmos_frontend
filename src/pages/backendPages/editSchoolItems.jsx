@@ -46,6 +46,8 @@ export const EditSchoolItem = () =>{
     })
 
     const data = await response.json()
+    localStorage.setItem("schoolItemsEditData", JSON.stringify(data));
+
 
     if(response.ok){
       setLoader(false)

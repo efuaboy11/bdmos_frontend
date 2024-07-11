@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from "@mui/material"
+import { LoadingSpiner } from "../../component/spin"
 
 export const ViewClass = () =>{
 
@@ -134,6 +135,8 @@ export const ViewClass = () =>{
     })
 
     const data = await response.json()
+    localStorage.setItem("classEditData", JSON.stringify(data));
+
 
     if (response.ok) {
       setLoader(false)
@@ -167,6 +170,10 @@ export const ViewClass = () =>{
       </div>
 			<section>
         <div className="main-content">
+
+          {loader &&
+            < LoadingSpiner/>
+          }
 
           <div className="alert-container">
             <div className="alert-position">

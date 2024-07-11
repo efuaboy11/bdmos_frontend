@@ -166,7 +166,8 @@ export const EditResultPage = () => {
 
       const classn = className.find((classn) => classn.id === targetClasseId);
       if (classn) {
-        setClassname(classn.name);
+        localStorage.setItem("classEditResultPage", classn.name);
+        // setClassname(classn.name);
       } else {
         console.error(`Class with ID ${targetClasseId} not found`);
       }
@@ -177,7 +178,7 @@ export const EditResultPage = () => {
 
       const termn = term.find((termn) => termn.id === targetTermId)
       if(termn){
-        setTermName(termn.name)
+        localStorage.setItem("termEditResultPage", termn.name);
       }else {
         console.error(`Term with ID ${targetTermId} not found`)
       }
@@ -188,7 +189,7 @@ export const EditResultPage = () => {
 
       const sessionn = session.find((sessionn) => sessionn.id === targetSessionId)
       if(sessionn){
-        setSessionName(sessionn.name)
+        localStorage.setItem("sessionEditResultPage", sessionn.name);
       }else {
         console.error(`Session with ID ${targetSessionId} not found`)
       }
@@ -285,6 +286,30 @@ export const EditResultPage = () => {
       console.error('Error submitting result:', error);
     }
   };
+
+  useEffect(() =>{
+    const data = localStorage.getItem("classEditResultPage")
+    if(data){
+      const parsedData = data
+      setClassname(parsedData)
+    }
+  }, [])
+
+  useEffect(() =>{
+    const data = localStorage.getItem("termEditResultPage")
+    if(data){
+      const parsedData = data
+      setTermName(parsedData)
+    }
+  }, [])
+
+  useEffect(() =>{
+    const data = localStorage.getItem("sessionEditResultPage")
+    if(data){
+      const parsedData = data
+      setSessionName(parsedData)
+    }
+  }, [])
   
 	return(
     <div>

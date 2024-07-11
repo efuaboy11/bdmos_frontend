@@ -47,6 +47,7 @@ export const EditStudent = () =>{
     })
 
     const data = await response.json()
+    localStorage.setItem("studentEditData", JSON.stringify(data));
 
     if(response.ok){
       setLoader(false)

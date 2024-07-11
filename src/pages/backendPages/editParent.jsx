@@ -51,6 +51,8 @@ export const EditParent = () =>{
     })
 
     const data = await response.json()
+    localStorage.setItem("parentEditData", JSON.stringify(data));
+
 
     if(response.ok){
       setLoader(false)

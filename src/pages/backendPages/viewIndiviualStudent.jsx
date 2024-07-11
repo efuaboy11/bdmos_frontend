@@ -12,7 +12,17 @@ import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
 
 
 export const StudentPage = () =>{
-  const { authTokens, details } = useContext(AuthContext)
+  const { authTokens} = useContext(AuthContext)
+  const [details, setDetails] = useState(null)
+
+  useEffect(() =>{
+    const data = localStorage.getItem("studentIndividualData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setDetails(parsedData)
+
+    }
+  }, [])
 	return(
 		<div>
       <div className="position-sticky">

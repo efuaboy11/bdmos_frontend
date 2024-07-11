@@ -3,18 +3,15 @@ import { Link, useNavigate } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useContext } from "react"
-import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
-import { LoadingSpiner } from "../../component/spin"
 
 export const Settings = () =>{
-
-  const [alert, setAlert] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertSeverity, setAlertSeverity] = useState("")
+  const [usernames, setUsernames] = useState("")
+  const [passwords, setPasswords] = useState("")
+  const { authTokens} = useContext(AuthContext)
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
@@ -24,8 +21,9 @@ export const Settings = () =>{
   const onSubmit = (data, e) =>{
     e.preventDefault()
     setdisablebutton(true)
+    setLoader(false)
     if(isValid){
-      navigate("/admin/settings-2")
+      requestOTP(e)
     
       console.log(data)
     }else{
@@ -34,8 +32,49 @@ export const Settings = () =>{
     }
   }
 
-  const [usernames, setUsernames] = useState("")
-  const [passwords, setPasswords] = useState("")
+  const requestOTP = async(e) =>{
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append('username', usernames);
+    formData.append('old_password', passwords);
+    console.log(formData)
+
+    try{
+      const response = await fetch('https://bdmos.onrender.com/api/request-otp/',{
+        method: 'POST',
+        body: formData,
+        headers:{
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      if(response.status === 200){
+        navigate("/admin/settings-2")
+        console.log('sucess')
+        setLoader(false)
+        setdisablebutton(false)
+        setUsernames("")
+        setPasswords("")
+
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        console.log(errorMessage)
+        alert(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
+
+      }
+    }catch (error){
+      console.log(error)
+    }
+
+  }
 
 	return(
 		<div>

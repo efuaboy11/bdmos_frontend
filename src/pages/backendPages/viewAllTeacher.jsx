@@ -61,6 +61,7 @@ export const ViewAllTeacher = () =>{
 
     const data = await response.json()
 
+
     if(response.ok){
       const sortedData = data.sort((a, b) => a.first_name.localeCompare(b.first_name));
       setTeachers(sortedData)
@@ -85,6 +86,7 @@ export const ViewAllTeacher = () =>{
     })
 
     const data = await response.json()
+    localStorage.setItem("TeacherIndividualData", JSON.stringify(data));
 
     if (response.ok) {
       setDetails(data)

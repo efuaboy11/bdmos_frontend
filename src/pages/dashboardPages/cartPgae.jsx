@@ -7,14 +7,105 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 export const CartPage = () => {
-  const { authTokens } = useContext(AuthContext);
+  const [disablebutton, setdisablebutton] = useState(false)
+  const [loading, setloading] = useState(false)
+  const {authTokens, userProfile} = useContext(AuthContext)
   const [cart, setCart] = useState([]);
   const [cartData, setCartData] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState("");
   const [alert, setAlert] = useState("");
+
+  const [order, setOrder] = useState(null);
+
+  const createOrder = async () => {
+    const response = await fetch('https://bdmos.onrender.com/api/create-order/', {
+      method: 'POST',
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+      
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Order created successfully:', data);
+      setOrder(data);
+      return data;
+    } else {
+      const error = await response.json();
+      console.error('Error creating order:', error);
+      return null;
+    }
+  };
+
+  const config = {
+    public_key: 'FLWPUBK_TEST-0d9c507643c89eea7ab4b15b9e1cc58d-X',
+    tx_ref: Date.now(),
+    amount: `${userProfile && userProfile.cart[0].total_price}`, // Replace with the actual amount
+    currency: 'NGN',
+    payment_options: 'card, mobilemoney, ussd',
+    customer: {
+      email: `${userProfile && userProfile.user_details[0].parents_email}`, // Replace with user's email
+      phonenumber: `${userProfile && userProfile.user_details[0].parents_phone_number}`, // Replace with user's phone number
+      name: `${userProfile && userProfile.user_details[0].last_name} ${userProfile && userProfile.user_details[0].first_name}`, // Replace with user's name
+    },
+    customizations: {
+      title: 'BODMS Store',
+      description: 'Payment for items in cart',
+      logo: 'https://example.com/logo.png',
+    },
+  };
+
+  const handleFlutterwavePayment = useFlutterwave(config);
+
+  const handleCheckout = async () => {
+    setdisablebutton(true)
+    setloading(true)
+
+    const orderData = await createOrder();
+    if (orderData) {
+      handleFlutterwavePayment({
+        callback: (response) => {
+          console.log(response);
+          if (response.status === 'successful') {
+            updateOrderStatus(orderData.id);
+            setdisablebutton(false)
+            setloading(false)
+          }else{
+            setdisablebutton(false)
+            setloading(false)
+          }
+          //closePaymentModal();  this will close the modal programmatically
+        },
+        // onClose: () => {},
+      });
+    }
+  };
+
+  const updateOrderStatus = async (orderId) => {
+    const response = await fetch('https://bdmos.onrender.com/api/order-callback/', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`
+      },
+      body: JSON.stringify({ order_id: orderId, status: 'successful' }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Payment callback handled successfully:', data);
+    } else {
+      const error = await response.json();
+      console.error('Error handling payment callback:', error);
+    }
+  };
 
   const fetchCart = async () => {
     try {
@@ -235,7 +326,7 @@ export const CartPage = () => {
                     <p className="light-text">Total:</p>
                     <h3>₦ {cartData?.total_price}</h3>
                     <div className="me-5 pe-3 mb-5">
-                      <button className="cart-btn-checkout">Checkout</button>
+                      <button  disabled={disablebutton} onClick={handleCheckout} className="cart-btn-checkout">{loading ? <CircularProgress color="inherit"/> : "Checkout"}</button>
                     </div>
                   </div>
                 </div>

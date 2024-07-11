@@ -15,6 +15,8 @@ export const StudentPassword = () => {
   const { authTokens, details } = useContext(AuthContext);
 
   const [datas, setdatas] = useState([]);
+  const [studentID, setStudentID] = useState("")
+  const [studentName, setStudentName] = useState("")
 
   const getDetails = async () => {
     let response = await fetch("https://bdmos.onrender.com/api/student_passwords/", {
@@ -35,9 +37,44 @@ export const StudentPassword = () => {
     }
   };
 
+  const filterAllStudent = async() => {
+    let url;
+    if (studentID.length !== 0) {
+      url = `https://bdmos.onrender.com/api/student_passwords/?search=${studentID}`;
+    } else if (studentName.length !== 0) {
+      url = `https://bdmos.onrender.com/api/student_passwords/?search=${studentName}`;
+    } else {
+      getDetails();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setdatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+
   useEffect(() => {
-    getDetails();
-  }, [datas]);
+    if(!studentID && !studentName){
+      getDetails();
+    } else if(studentID){
+      filterAllStudent()
+    } else if(studentName){
+      filterAllStudent()
+    } else{
+      getDetails();
+    }
+  },[datas])
 
   console.log(datas)
   
@@ -60,13 +97,21 @@ export const StudentPassword = () => {
 						  </div>
             </div>
 
-            <form>
-              <div className="row add-student">
-                <div className="col-sm-4 mb-4">
-                  
+            <form action="">
+              <div className="row add-student g-3">
+                <div className="col-sm-3 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by ID..."  value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
                 </div>
+
+                <div className="col-sm-3 mb-4">
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Name..."  value={studentName} onChange={(e) => setStudentName(e.target.value)}/>
+                </div>
+
+                {/* <div className="col-sm-1 mb-3">
+                  <input type="button" value={"Submit"} className=" p-2 form-dark border-radius" onClick={filterAllStudent}/>
+                </div> */}
               </div>            
-            </form> 
+            </form>
 
 
 

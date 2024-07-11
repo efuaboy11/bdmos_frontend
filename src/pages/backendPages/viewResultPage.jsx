@@ -155,7 +155,7 @@ export const ViewResultPage = () =>{
                               <tbody>
                                 {allResults[0].subject_results.map((result) =>(
                                   <tr>
-                                    <td>{result.subject}</td>
+                                    <td>{result.subject_name.name}</td>
                                     <td>{result.total_ca}</td>
                                     <td>{result.exam}</td>
                                     <td>{result.total}</td>
@@ -303,7 +303,7 @@ export const ViewResultPage = () =>{
                                   </div>
                                 </div>
 
-                                <div className=" result-remark-table scroll-bar psych-trait col-sm-6 col-lg-12 mb-4">
+                                <div className=" result-remark-table scroll-bar psych-trait col-sm-12 col-lg-12 mb-4">
                                   <div className="">
                                     <table className=" width-100 ">
                                       <thead className="py-3">

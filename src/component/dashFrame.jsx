@@ -10,6 +10,11 @@ export const DashFrame = () =>{
   const sidebar = useRef(null)
   const studentInfo = useRef(null)
   const location = useLocation();
+
+  const toUpperCase = (data) => {
+    return typeof data === 'string' ? data.toUpperCase() : '';
+  };
+  
   const isActiveDashLink = (path) =>{
     return location.pathname === path
 
@@ -49,54 +54,60 @@ export const DashFrame = () =>{
     }
   }
 
-  const {logoutUser} = useContext(AuthContext)
+  const {logoutUser, authTokens, userProfile} = useContext(AuthContext)
+  
 
   return(
-    <div>
+    <div >
       <div className="student-info-modal py-3 boxing-shadow" ref={studentInfo}>
         <div className="d-flex justify-content-end">
           <button onClick={closeStudentInfo} className="button-dashboard  student-info-modal-close-button">Close<FontAwesomeIcon icon={faXmark} className="px-1" /></button>
   
         </div>
-        <div className="student-modal-user-icon">
-          <FontAwesomeIcon icon={faCircleUser} className="xxl-text py-5 text-muted" />
+
+        <div className="row justify-content-center">
+          <div className="col-md-3 col-8">
+            <div className="student-modal-user-icon pb-5">
+              <img className="border-radius-50" src={userProfile && userProfile.user_details[0].passport} alt="" width="100%" height="180px"/>
+            </div>
+          </div>
         </div>
+
 
         <div className="student-info-modal-details">
           <div >
             <div className="d-flex pb-3">
               <strong className="pe-2">Student ID:</strong>
-              <p>SBHSISE345</p>
-              09156249677
+              <p>{userProfile && userProfile.user_details[0].username}</p>
             </div>
             <div className="d-flex pb-3">
               <strong className="pe-2">Name:</strong>
-              <p>Iseghohimhen Ehizefua OgheneKevwe</p>
+              <p>{userProfile && userProfile.user_details[0].last_name} {userProfile && userProfile.user_details[0].middle_name} {userProfile && userProfile.user_details[0].first_name}</p>
             </div>
 
             <div className="d-flex pb-3">
               <strong className="pe-2">Father Name:</strong>
-              <p>Iseghohimhen Fred</p>
+              <p>{userProfile && userProfile.user_details[0].father_name}</p>
             </div>
 
             <div className="d-flex pb-3">
               <strong className="pe-2">Mother Name:</strong>
-              <p>Iseghohimhen Rita</p>
+              <p>{userProfile && userProfile.user_details[0].mother_name}</p>
             </div>
 
             <div className="d-flex pb-3">
               <strong className="pe-2">D.O.B:</strong>
-              <p>1st April 2015</p>
+              <p>{userProfile && userProfile.user_details[0].date_of_birth}</p>
             </div>
 
             <div className="d-flex pb-3">
               <strong className="pe-2">Parent/Gurdian:</strong>
-              <p>08079022633</p>
+              <p>{userProfile && userProfile.user_details[0].parents_phone_number}</p>
             </div>
 
             <div className="d-flex pb-3">
               <strong className="pe-2">Class:</strong>
-              <p>Primary 4</p>
+              <p>{userProfile && userProfile.user_details[0].student_class}</p>
             </div>
 
 
@@ -125,8 +136,8 @@ export const DashFrame = () =>{
         <div className="sidebar-head pt-3 mx-4 "><h4>DASHBOARD</h4><FontAwesomeIcon icon={faArrowLeft} onClick={closeSidebar} className="close-sidebar pt-1 sm-text cursor-pointer"/></div>
         <hr/>
         <div  className="user-icon text-light text-center py-1">
-          <FontAwesomeIcon icon={faCircleUser} className="xl-text" />
-          <h4 className="py-2">MICHEAL</h4>
+          <img className="border-radius-50" src={userProfile && userProfile.user_details[0].passport} alt="" width="160px" height="160px"/>
+          <h4 className="py-2">  {toUpperCase( userProfile && userProfile.user_details[0].first_name)}</h4>
         </div>
         <ul className="mb-5 sidebar-list">
 
@@ -173,12 +184,10 @@ export const DashFrame = () =>{
         <nav className="text-light d-flex align-items-center justify-content-between">
           <div className="menu-bar mx-3" onClick={showSidebar}><FontAwesomeIcon icon={faBars} className="sm-text dashboard-menu-bar"/> </div>
           <div className="d-flex align-items-center">
-            <a href="#" className="text-light"><FontAwesomeIcon icon={faBell} className="pe-4 sm-text"/> </a>
-            <a href="#" className="text-light"> <FontAwesomeIcon icon={faCartShopping} className="pe-4 sm-text"/></a>
-            <a href="#" className="mx-3 text-light   text-center student-info-link">
-            <FontAwesomeIcon icon={faCircleUser} onClick={showStudentInfo} className="sm-text"/> 
-            </a>
-            <div className="">
+            <Link to="/noticeBoard" className="text-light"><FontAwesomeIcon icon={faBell} className="pe-4 sm-text"/> </Link>
+            <Link to='/schoolStore/cartPage' className="text-light"> <FontAwesomeIcon icon={faCartShopping} className="pe-4 sm-text"/></Link>
+            <img onClick={showStudentInfo}  className="mx-3 border-radius-50  cursor-pointer" src={userProfile && userProfile.user_details[0].passport} alt="" width="30px" height="30px"/>
+            <div className="me-3">
               <button className=" button-sign-out" onClick={logoutUser}>Sign Out </button>
             </div>
           </div>

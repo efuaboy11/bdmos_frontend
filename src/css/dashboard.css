@@ -19,6 +19,10 @@ body{
   text-overflow: ellipsis;
 }
 
+.border-radius-50{
+  border-radius: 50%;
+}
+
 
 
 
@@ -1585,18 +1589,9 @@ tbody tr:nth-child(even){
   border-radius: 10px 0px;
 }
 
-.admin-view-scheme-page-btn{
-  border: none;
-  background: #C84B31;
-  padding: 10px 20px;
-  border-radius: 15px;
-  color: #fff;
-  margin-top: 30px;
-  transition: 1s ease all;
-}
-.admin-view-scheme-page-btn:hover{
-  background-color: #D21312;
-}
+
+
+
 
 
 /* -----------------Email View Email ---------------- */

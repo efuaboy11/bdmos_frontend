@@ -8,19 +8,21 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { LoadingSpiner } from "../../component/spin"
 
 
 export const EditParentPage = () =>{
-  const {authTokens, details} = useContext(AuthContext) 
+  const {authTokens} = useContext(AuthContext) 
+  const [details, setDetails] = useState(null)
 
   const [students, setStudents] = useState([])
 
   
-  const [parentName, setParentName] = useState(details ? details.name : "")
-  const [homeAddress, setHomeAddress] = useState(details ? details.address : "")
-  const [parentPhoneNumber, setparentPhoneNumber] = useState(details ? details.phone_number: "")
-  const [childName, setChildName] = useState([])
-  const [parentEmail, setParentEmail] = useState(details ? details.email : "")
+  const [parentName, setParentName] = useState("")
+  const [homeAddress, setHomeAddress] = useState("")
+  const [parentPhoneNumber, setparentPhoneNumber] = useState("")
+  const [childName, setChildName] = useState('')
+  const [parentEmail, setParentEmail] = useState("")
 
 
   const [alert, setAlert] = useState("")
@@ -124,6 +126,20 @@ export const EditParentPage = () =>{
     }
   }
 
+  useEffect(() =>{
+    const data = localStorage.getItem("parentEditData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setDetails(parsedData)
+      setParentName(parsedData.name || "")
+      setHomeAddress(parsedData.address || "")
+      setparentPhoneNumber( parsedData.phone_number || "")
+      setChildName(parsedData.children_name || "")
+      setParentEmail(parsedData.email || "")
+
+    }
+  }, [])
+
   useEffect(() => {
     getStudent()
   }, [students])
@@ -133,6 +149,9 @@ export const EditParentPage = () =>{
         <AdminDashFrame />
       </div>
       <div className="main-content ">
+      {loader &&
+            < LoadingSpiner/>
+          }
         <div className="alert-container">
           <div className="alert-position">
             {showAlert && (
@@ -182,17 +201,14 @@ export const EditParentPage = () =>{
 
                 <div className="col-md-12 mt-5">
                   <label htmlFor="" className="">Children Name </label>
-                  <select   className={`form-control form-select delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} onChange={handleSelectChange}type="text" placeholder="Mary, john, happy" multiple>
-                    {students && students.map((student) =>(
-                      <option value={student.id} key={student.id}>{student.first_name} {student.last_name}</option>
-                    ))}
-                  </select>
+                  <textarea   className={`form-control  delete-student-input form-dark ${errors.childName ? 'error-input' : ''}`} {...register('childName', {required: false})} type="text" placeholder="Mary, john, happy" rows="3" value={childName} onChange={(e) => setChildName(e.target.value)}></textarea>
                   {errors.childName && <span style={{color: 'red'}}>This Feild is required</span>}
                 </div>
 
 
+
                 <div className="col-md-10 pt-3 pb-5 mb-4">
-                  <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Submit"}</button>
+                  <button type="submit" className="admin-btn py-2 px-5" disabled={disablebutton}>Submit</button>
                 </div>
               </div>
             </form>

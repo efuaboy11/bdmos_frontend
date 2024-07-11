@@ -8,7 +8,7 @@ import AuthContext from "../../context/AuthContext"
 import { useState, useEffect, useContext } from "react"
 
 export const DashBoard = () =>{
-  const {authTokens} = useContext(AuthContext)
+  const {authTokens, userProfile} = useContext(AuthContext)
   const [datas, setDatas] = useState([])
   const [paymentDatas, setPaymentDatas] = useState([])
 
@@ -25,7 +25,7 @@ export const DashBoard = () =>{
     setShowReciptModal(false)
   }
 
-
+  console.log(userProfile)
   const getAllPayment = async () => {
     try {
       let response = await fetch("https://bdmos.onrender.com/api/payments/", {
@@ -87,6 +87,8 @@ export const DashBoard = () =>{
   useEffect(() => {
     getAllPayment()
   },[datas])
+
+ 
 
   return(
     <div>
@@ -169,7 +171,7 @@ export const DashBoard = () =>{
           <section className="container-lg">        
             <div className="d-flex justify-content-between align-items-center admin-home-header">
               <div>
-                <h1 className="pt-5  admin-head-text">Hi,  Micheal!</h1> 
+                <h1 className="pt-5  admin-head-text">Hi,  {userProfile && userProfile.user_details[0].first_name}</h1> 
                 <h6>Ready to start your day with some pitch decks</h6>
               </div>
               <div className="d-none d-lg-block">
@@ -189,7 +191,7 @@ export const DashBoard = () =>{
                       <div className="navyblue-blackground-dash d-flex  py-3 justify-content-between px-3">
                         <div className="py-4">
                           <p>Name</p>
-                          <p>Micheal</p>
+                          <p>{userProfile && userProfile.user_details[0].first_name}</p>
                         </div>
 
                         <FontAwesomeIcon className="dashboard-icon l-text py-4 px-2"  icon={faUser}/>

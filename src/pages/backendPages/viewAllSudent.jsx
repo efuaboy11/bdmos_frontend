@@ -86,6 +86,8 @@ export const ViewAllStudents = () =>{
 
     const data = await response.json()
 
+    localStorage.setItem("studentIndividualData", JSON.stringify(data));
+
     if (response.ok) {
       setDetails(data)
       setLoader(false)

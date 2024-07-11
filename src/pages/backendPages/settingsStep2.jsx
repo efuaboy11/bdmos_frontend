@@ -12,11 +12,11 @@ import { LoadingSpiner } from "../../component/spin"
 
 export const SettingsStep2 = () =>{
   const [OTP, setOTP] = useState("")
-  const navigate = useNavigate()
+  const [usernames, setUsernames] = useState("")
+  const [passwords, setPasswords] = useState("")
 
-  const [alert, setAlert] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertSeverity, setAlertSeverity] = useState("")
+  const navigate = useNavigate()
+  const { authTokens, setDetails } = useContext(AuthContext)
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
@@ -25,13 +25,59 @@ export const SettingsStep2 = () =>{
     e.preventDefault()
     setdisablebutton(true)
     if(isValid){
-      navigate("/admin/settings-3")
+      verifyOTP(e)
+
     
       console.log(data)
     }else{
       console.log('error')
       setdisablebutton(false)
     }
+  }
+  const verifyOTP = async(e) =>{
+    e.preventDefault()
+    if(loader){
+      setLoader(false)
+    }else{
+      setLoader(true)
+    }
+
+    const formData = new FormData()
+    formData.append('username', usernames);
+    formData.append('new_password', passwords);
+    formData.append('otp', OTP);
+    console.log(formData)
+
+    try{
+      const response = await fetch('https://bdmos.onrender.com/api/verify-otp/',{
+        method: 'POST',
+        body: formData,
+        headers:{
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+      if(response.status === 200){
+        navigate("/admin/settings-3")
+        console.log('sucess')
+        setLoader(false)
+        setdisablebutton(false)
+        setUsernames("")
+        setPasswords("")
+        setOTP("")
+
+      }else{
+        const errorData = await response.json()
+        const errorMessage = errorData.error
+        console.log(errorMessage)
+        alert(errorMessage)
+        setLoader(false)
+        setdisablebutton(false)
+
+      }
+    }catch (error){
+      console.log(error)
+    }
+
   }
 
 
@@ -87,8 +133,24 @@ export const SettingsStep2 = () =>{
                         </div>                 
                       </div>
 
+                      <div className="col-md-12 mt-3">
+                        <div>
+                          <label className="form-label">Username</label>
+                          <input className={`form-control  ${errors.username ? 'error-input' : ''}`} {...register('username', {required: true})}  type="text" placeholder="Enter username" value={usernames} onChange={(e) => setUsernames(e.target.value)} autoComplete="off"/>
+                          {errors.username && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>                 
+                      </div>
+
+                      <div className="col-md-12 mt-3">
+                        <div>
+                          <label className="form-label">Password</label>
+                          <input className={`form-control  ${errors.password ? 'error-input' : ''}`} {...register('password', {required: true})}  type="text" placeholder="Enter New password"value={passwords} onChange={(e) => setPasswords(e.target.value)}/>
+                          {errors.password && <span style={{color: 'red'}}>This Feild is required</span>} 
+                        </div>                 
+                      </div>
+
                       <div className="col-md-10  pb-5 mb-4">
-                        <Link to='/admin/settings' className="admin-btn me-3 mb-2 py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "previous"}</Link>
+                        <Link to='/admin/settings' className="admin-btn me-3 mb-2 py-2 px-5" type="submit" disabled={disablebutton}>previous</Link>
                         <button className="admin-btn py-2 px-5" type="submit" disabled={disablebutton}>{loader ? <CircularProgress color="inherit"/> : "Next"}</button>
                       </div>
                       

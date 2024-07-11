@@ -17,10 +17,12 @@ export const UploadSchemePage = () =>{
   const [subjects, setSubjects] = useState([])
 
   // const [alert, setAlert] = useState("")
+  const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
-  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [loader, setLoader] = useState("")
+  const [classes, setClasses] = useState("")
+  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
   const [disablebutton, setdisablebutton] = useState(false)
 
   const onSubmit = (data, e) =>{
@@ -46,11 +48,25 @@ export const UploadSchemePage = () =>{
     const fetchSubjects = async () => {
       const response = await fetch(`https://bdmos.onrender.com/api/class/${classe}/`)
       const data = await response.json()
+
+      localStorage.setItem("uploadschemePageSubjectData", JSON.stringify(data.all_subjects));
       setSubjects(data.all_subjects)
     }
 
     fetchSubjects()
   }, [])
+
+
+  useEffect(() =>{
+    const data = localStorage.getItem("uploadschemePageSubjectData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setSubjects(parsedData)
+
+    }
+  }, [])
+
+
 
   const handleChange = (index, e) => {
     const values = [...formValues]
@@ -83,13 +99,28 @@ export const UploadSchemePage = () =>{
         method: "POST",
         body: formData
       })
+
+      if (response.status === 200 || response.status === 201){
+        setShowAlert(true)
+        setAlert("scheme Update Successfully")
+        console.log('sucess')
+        setAlertSeverity("success")
+        setLoader(false)
+        setdisablebutton(false)
+      }else{
+        setShowAlert(true)
+        setAlert('There an error in processing your data')
+        setAlertSeverity("error")
+        setLoader(false)
+        setdisablebutton(false)
+      }
+
       return response.json()
     })
 
     Promise.all(promises).then((results) => {
       setLoader(false)
       console.log(results)
-      alert(results[0].non_field)
     }).catch((error) => {
       console.error("Error uploading schemes:", error)
     })

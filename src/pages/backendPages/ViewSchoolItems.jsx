@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from "@mui/material"
+import { LoadingSpiner } from "../../component/spin"
 
 export const ViewStudentItems = () => {
 
@@ -129,6 +130,8 @@ export const ViewStudentItems = () => {
     })
 
     const data = await response.json()
+    localStorage.setItem("schoolItemsEditData", JSON.stringify(data));
+
 
     if (response.ok) {
       setLoader(false)
@@ -163,6 +166,10 @@ export const ViewStudentItems = () => {
         <AdminDashFrame />
       </div>
       <section>
+       {loader &&
+          < LoadingSpiner/>
+        }
+
         <div className="main-content">
           <div className="alert-container">
             <div className="alert-position">

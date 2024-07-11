@@ -40,6 +40,7 @@ export const AdminDashFrame = () =>{
     const [isTeacherDropdownOpen, setIsTeacherDropdownOpen] = useState(false)
     const [isParentDropdownOpen, setIsParentDropdownOpen] = useState(false)
     const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false)
+    const [isStoreAccountDropdownOpen, setIsStoreAccountDropdownOpen] = useState(false)
     const [isSchoolItemDropdownOpen, setIsSchoolItemDropdownOpen] = useState(false)
     const [isSchoolResultDropdownOpen, setIsSchoolResultDropdownOpen] = useState(false)
     const [isUploadItemsDropdownOpen, setIsUploadItemsDropdownOpen] = useState(false)
@@ -71,6 +72,11 @@ export const AdminDashFrame = () =>{
     const tooAccountDropdown = () =>{
       setIsAccountDropdownOpen(!isAccountDropdownOpen)
     }
+
+    const toogleStoreAccountDropdown = () =>{
+      setIsStoreAccountDropdownOpen(!isStoreAccountDropdownOpen)
+    }
+
 
     const toogleSchoolItemDropdownOpen = () =>{
       setIsSchoolItemDropdownOpen(!isSchoolItemDropdownOpen)
@@ -184,7 +190,7 @@ export const AdminDashFrame = () =>{
 
           <li className={`nav-item ps-3 py-3 hist ${isActiveDashLink("/admin/accountPage") ?"active-dash-link": ""} dropdown-position`}>
             <FontAwesomeIcon icon={faMoneyBillTrendUp} className="pe-4"/>     
-            <Link to="/admin/accountPage" className={`payment-history-sidebar `}>ACCOUNT</Link>  
+            <Link to="/admin/accountPage" className={`payment-history-sidebar `}>FEES ACCOUNT</Link>  
             <FontAwesomeIcon icon={faAngleDown} className={`${isAccountDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={tooAccountDropdown}/> 
             <div style={{ display: isAccountDropdownOpen ? 'block' : 'none' }}>
               <ul className="ps-4">
@@ -233,6 +239,33 @@ export const AdminDashFrame = () =>{
               </ul>
             </div>            
           </li>
+
+          <li className={`nav-item ps-3 py-3 hist ${isActiveDashLink("/admin/storeAccountPage") ?"active-dash-link": ""} dropdown-position`}>
+            <FontAwesomeIcon icon={faMoneyBillTrendUp} className="pe-4"/>     
+            <Link to="/admin/storeAccountPage" className={`payment-history-sidebar `}>STORE ACCOUNT</Link>  
+            <FontAwesomeIcon icon={faAngleDown} className={`${isStoreAccountDropdownOpen ? "rotate-180deg": ""}  dropdown-position-min`} onClick={toogleStoreAccountDropdown}/> 
+            <div style={{ display: isStoreAccountDropdownOpen ? 'block' : 'none' }}>
+              <ul className="ps-4">
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/storeAccountPayments">All payment</Link>
+                </li>
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/storeAccountApproved">Approved payment</Link>
+                </li>
+
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/storeAccountDeclined">Declined payment</Link>
+                </li>
+
+                <li className="nav-item ps-4 py-2">
+                  <Link to="/admin/storeAccountPending">Pending payment</Link>
+                </li>
+              </ul>
+            </div>      
+          </li>
+          
+
+
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/admin/ViewStudentResult") ?"active-dash-link": ""} dropdown-position`}>
             <FontAwesomeIcon icon={faChartLine} className="pe-4"/> 
             <Link to="/admin/ViewStudentResult">STUDENT RESULT</Link>

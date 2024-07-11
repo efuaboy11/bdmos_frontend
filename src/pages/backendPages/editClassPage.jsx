@@ -12,9 +12,10 @@ import { LoadingSpiner } from "../../component/spin"
 
 
 export const EditClass = () => {
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens} = useContext(AuthContext)
   
-  const [className, setClassName] = useState(details ? details.name : '')
+  const [details, setDetails] = useState(null)
+  const [className, setClassName] = useState('')
   const[selectedSubjects, setSelectedSubjects] = useState([])
   const [subjects, setSubjects] = useState([])
 
@@ -115,6 +116,16 @@ export const EditClass = () => {
   useEffect(() => {
     getSubjects()
   },[subjects])
+
+  useEffect(() =>{
+    const data = localStorage.getItem("classEditData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setDetails(parsedData)
+      setClassName(parsedData.name || "")
+
+    }
+  }, [])
 
 	return(
 		<div>

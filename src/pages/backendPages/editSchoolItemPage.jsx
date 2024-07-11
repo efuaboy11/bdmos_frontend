@@ -2,7 +2,7 @@ import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext,  useState } from "react"
+import { useContext,  useEffect,  useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Alert, CircularProgress } from "@mui/material"
 import { useForm } from "react-hook-form"
@@ -10,12 +10,13 @@ import { LoadingSpiner } from "../../component/spin"
 
 export const EditSchoolItemPage = () =>{
   
-  const {authTokens, details} = useContext(AuthContext)
+  const {authTokens} = useContext(AuthContext)
+  const [details, setDetails] = useState(null)
 
   const [showModal, setShowModal] = useState(false)
 
-  const [name, setName] = useState(details ? details.title : '')
-  const [amount, setAmount] = useState(details ? details.price : '')
+  const [name, setName] = useState('')
+  const [amount, setAmount] = useState( '')
   
 
   const [alert, setAlert] = useState("")
@@ -83,6 +84,17 @@ export const EditSchoolItemPage = () =>{
       console.log(error)
     }
   }
+
+  useEffect(() =>{
+    const data = localStorage.getItem("schoolItemsEditData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setDetails(parsedData)
+      setName(parsedData.title || "")
+      setAmount( parsedData.price || "")
+
+    }
+  }, [])
 
 
 

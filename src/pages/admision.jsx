@@ -129,7 +129,7 @@ export const Addmision = () =>{
       })
       if(response.status === 200){
         setShowAlert(true)
-        setAlert("Teacher Application sent Successfully")
+        setAlert("Student Application sent Successfully")
         console.log('sucess')
         setAlertSeverity("success")
         setLoader(false)
@@ -167,6 +167,18 @@ export const Addmision = () =>{
 
 	return(
 		<div>
+      <div className="alert-container">
+        <div className="alert-position">
+          {showAlert && (
+            <Alert
+              severity={alertSeverity}
+              onClose={() => setShowAlert(false)}
+            >
+              {alert}
+            </Alert>
+          )}
+        </div>
+      </div>
       {showApplicationModal &&
         <section className="overlay-background">
           <div className="student-application-modal-conatiner">

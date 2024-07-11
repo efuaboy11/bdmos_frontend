@@ -1,6 +1,6 @@
 import { AdminDashFrame} from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faUser} from "@fortawesome/free-solid-svg-icons"
+import {faTrash, faUser} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import pic from "../../img/pexels-andrea-piacquadio-762041 (2).jpg"
 import { useContext, useEffect, useState } from "react"
@@ -29,7 +29,6 @@ export const AdminSchemePage = () =>{
   const [loading, setLoading] = useState(false)
 
   const checkScheme = async () => {
-    setLoading(true)
 
     try {
       let response = await fetch(`https://bdmos.onrender.com/api/check_scheme/?student_class=${classe}&session=${sessions}&term=${terms}`,{
@@ -102,7 +101,7 @@ export const AdminSchemePage = () =>{
       </div>
 			<section>
         <div className="main-content">
-          {loadingModal &&
+          {loading &&
             < LoadingSpiner/>
           }
 
@@ -145,6 +144,7 @@ export const AdminSchemePage = () =>{
                       <tr>
                         <th>Subjects</th>
                         <th>Link</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody className="admin-home-table view-schoolitems-table ">
@@ -158,9 +158,7 @@ export const AdminSchemePage = () =>{
                             />
                           </td>
                           <td>
-                            <button disabled={disablebutton} className="admin-view-scheme-page-btn" onClick={() => deleteScheme(schemeDat.id)}>
-                              Delete
-                            </button>
+                            <FontAwesomeIcon className="cursor-pointer" onClick={() => deleteScheme(schemeDat.id)} icon={faTrash}/>
                           </td>
                         </tr>
                       ))}
