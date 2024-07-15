@@ -29,9 +29,9 @@ export const AuthProvider = ({children}) => {
     const [resultStudent, setResultStudent] = useState()
     const [scratchCards, setScratchCard] = useState([])
     const [allResults, setAllResults] = useState(() => localStorage.getItem("resultDetails") ? JSON.parse(localStorage.getItem("resultDetails")) : [])
+    const [studentResultData, setStudentResultData] = useState(() => localStorage.getItem("studentResult") ? JSON.parse(localStorage.getItem("studentResult")) : [])
 
     const [allScheme, setAllScheme] = useState([])
-
     const [loadingModal, setLoadingModal] = useState(false)
 
     const [makePaymentDetails, setMakePaymentDetails] = useState([])
@@ -199,6 +199,8 @@ export const AuthProvider = ({children}) => {
         setMakePaymentDetails,
         userProfile,
         setUserProfile,
+        studentResultData,
+        setStudentResultData
     }
 
     return (

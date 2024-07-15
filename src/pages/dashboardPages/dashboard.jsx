@@ -88,6 +88,15 @@ export const DashBoard = () =>{
     getAllPayment()
   },[datas])
 
+  useEffect(() => {
+    const reloaded = sessionStorage.getItem('reloaded');
+
+    if (!reloaded) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    }
+  }, []);
+
  
 
   return(
@@ -246,7 +255,7 @@ export const DashBoard = () =>{
                     </div>
 
                     <div className="col-md-4 col-sm-6 col-xxl-3">
-                      <Link to="/schoolItems">
+                      <Link to="/schoolStore">
                         <div className="navyblue-blackground-dash d-flex py-3 justify-content-between px-3">
                           <div className="py-4">
                           <p>SCHOOL STORE</p>

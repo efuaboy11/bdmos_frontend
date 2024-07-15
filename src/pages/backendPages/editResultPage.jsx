@@ -258,8 +258,10 @@ export const EditResultPage = () => {
         body: JSON.stringify(resultData)
       });
 
+      const data = await response.json();
 
       if(response.ok){
+        localStorage.setItem("resultDetails", JSON.stringify(data))
         setShowAlert(true)
         setAlert("Result Upadate Successfully")
         console.log('sucess')
@@ -279,9 +281,8 @@ export const EditResultPage = () => {
         setdisablebutton(false)
       }
 
-
-      const data = await response.json();
       console.log('Result submitted successfully:', data);
+
     } catch (error) {
       console.error('Error submitting result:', error);
     }

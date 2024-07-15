@@ -1,6 +1,6 @@
 import "../css/dashboard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
+import {faCircleUser, faHouse, faMoneyBills, faChartSimple, faCartShopping, faAngleDown, faChartLine, faBookOpenReader, faBookOpen, faBell,faArrowLeft, faBars, faXmark, faArrowRightFromBracket, faStore} from "@fortawesome/free-solid-svg-icons"
 import { useContext, useEffect,  useRef, useState} from "react"
 import { Link, useLocation} from "react-router-dom"
 import AuthContext from "../context/AuthContext"
@@ -160,6 +160,11 @@ export const DashFrame = () =>{
           <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/schoolItems") ?"active-dash-link": ""}`}>
             <FontAwesomeIcon icon={faCartShopping} className="pe-4"/> 
             <Link to="/schoolStore">SCHOOL STORE</Link>
+          </li>
+
+          <li className={`nav-item ps-3 py-3 itm ${isActiveDashLink("/schoolItems") ?"active-dash-link": ""}`}>
+            <FontAwesomeIcon icon={faStore} className="pe-4"/> 
+            <Link to="/storeAccount"> STORE ACCOUNT</Link>
           </li>
 
           <li className={`nav-item ps-3 d-flex py-3 res ${isActiveDashLink("/resultStep1") ?"active-dash-link": ""}`}>

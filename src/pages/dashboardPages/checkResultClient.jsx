@@ -15,8 +15,8 @@ import { DashFrame } from "../../component/dashFrame"
 
 export const CheckResultClient = () =>{
 
-  const {allResults, authTokens} = useContext(AuthContext)
-  console.log(allResults)
+  const {studentResultData, authTokens} = useContext(AuthContext)
+  console.log(studentResultData)
 
   const [showModal, setShowModal] = useState(false)
 
@@ -33,7 +33,7 @@ export const CheckResultClient = () =>{
     }
 
     try {
-      let response = await fetch(`https://bdmos.onrender.com/api/result/${allResults[0].id}/`, {
+      let response = await fetch(`https://bdmos.onrender.com/api/result/${studentResultData[0]?.id}/`, {
         method: "DELETE",
         headers: {
           Authorization:`Bearer ${authTokens.access}`
@@ -110,18 +110,18 @@ export const CheckResultClient = () =>{
               <div className="view-result-page-header-bg p-3">
                 <div>
                   <div className="row ">
-                    <p className="col-lg-2 col-sm-3">ID: {allResults[0].student}</p>
-                    <p className="col-lg-4 col-md-6 col-sm-8 ">Name:  {`${allResults[0].student_name.first_name} ${allResults[0].student_name.last_name}`}</p>
-                    <p className="col-lg-2 col-sm-3">Class: {allResults[0].class_name.name}</p>
-                    <p className="col-lg-2 col-sm-3">Sex: {allResults[0].sex}</p>   
-                    <p className="col-lg-2 col-md-3 col-sm-5">Session: {allResults[0].session_name.name}</p>
-                    <p className="col-lg-2 col-sm-3">term: {allResults[0].term_name.name}</p>
-                    <p className="col-lg-2 col-md-3 col-sm-5">Total Mark Obtain: {allResults[0].total_marks_obtain}</p>
-                    <p className="col-lg-2 col-sm-4">Student Average: {allResults[0].student_average}%</p>
-                    <p className="col-lg-2 col-sm-4">class Average: {allResults[0].class_average}%</p>
-                    <p className="col-lg-2 col-sm-3">Student: {allResults[0].students}</p>
-                    <p className="col-lg-2 col-sm-3">Position: {allResults[0].position}</p>
-                    <p className="col-lg-2 col-sm-3">Decison: {allResults[0].decision} </p>
+                    <p className="col-lg-2 col-sm-3">ID: {studentResultData[0]?.student}</p>
+                    <p className="col-lg-4 col-md-6 col-sm-8 ">Name:  {`${studentResultData[0]?.student_name.first_name} ${studentResultData[0]?.student_name.last_name}`}</p>
+                    <p className="col-lg-2 col-sm-3">Class: {studentResultData[0]?.class_name.name}</p>
+                    <p className="col-lg-2 col-sm-3">Sex: {studentResultData[0]?.sex}</p>   
+                    <p className="col-lg-2 col-md-3 col-sm-5">Session: {studentResultData[0]?.session_name.name}</p>
+                    <p className="col-lg-2 col-sm-3">term: {studentResultData[0]?.term_name.name}</p>
+                    <p className="col-lg-2 col-md-3 col-sm-5">Total Mark Obtain: {studentResultData[0]?.total_marks_obtain}</p>
+                    <p className="col-lg-2 col-sm-4">Student Average: {studentResultData[0]?.student_average}%</p>
+                    <p className="col-lg-2 col-sm-4">class Average: {studentResultData[0]?.class_average}%</p>
+                    <p className="col-lg-2 col-sm-3">Student: {studentResultData[0]?.students}</p>
+                    <p className="col-lg-2 col-sm-3">Position: {studentResultData[0]?.position}</p>
+                    <p className="col-lg-2 col-sm-3">Decison: {studentResultData[0]?.decision} </p>
 
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export const CheckResultClient = () =>{
                                 </tr>
                               </thead>
                               <tbody>
-                                {allResults[0].subject_results.map((result) =>(
+                                {studentResultData[0]?.subject_results.map((result) =>(
                                   <tr>
                                     <td>{result.subject_name.name}</td>
                                     <td>{result.total_ca}</td>
@@ -258,38 +258,38 @@ export const CheckResultClient = () =>{
                                       <tbody>
                                         <tr>
                                           <td>AGILITY</td>
-                                        <td>{allResults[0].agility}</td>
+                                        <td>{studentResultData[0]?.agility}</td>
                                         </tr>
 
                                         <tr>
                                           <td>CARING</td>
-                                        <td>{allResults[0].caring}</td>
+                                        <td>{studentResultData[0]?.caring}</td>
                                         </tr>
 
                                         <tr>
                                           <td>COMMUNiCATION</td>
-                                        <td>{allResults[0].communication}</td>
+                                        <td>{studentResultData[0]?.communication}</td>
                                         </tr>
 
                                         <tr>
                                           <td>LOVING</td>
-                                        <td>{allResults[0].loving}</td>
+                                        <td>{studentResultData[0]?.loving}</td>
                                         </tr>
 
 
                                         <tr>
                                           <td>PUNTUALITY</td>
-                                        <td>{allResults[0].puntuality}</td>
+                                        <td>{studentResultData[0]?.puntuality}</td>
                                         </tr>
 
                                         <tr>
                                           <td>SERIOUSNESS</td>
-                                          <td>{allResults[0].seriousness}</td>
+                                          <td>{studentResultData[0]?.seriousness}</td>
                                         </tr>
 
                                         <tr>
                                           <td>SOCAILIZATION</td>
-                                          <td>{allResults[0].socialization}</td>
+                                          <td>{studentResultData[0]?.socialization}</td>
                                         </tr>
                                       </tbody>
 
@@ -310,47 +310,47 @@ export const CheckResultClient = () =>{
                                       <tbody>
                                         <tr>
                                           <td>ATTENTIVENESS</td>
-                                          <td>{allResults[0].attentiveness}</td>
+                                          <td>{studentResultData[0]?.attentiveness}</td>
                                         </tr>
 
                                         <tr>
                                           <td>HANGLING OFF TOOOLS</td>
-                                          <td>{allResults[0].handling_of_tools}</td>
+                                          <td>{studentResultData[0]?.handling_of_tools}</td>
                                         </tr>
 
                                         <tr>
                                           <td>HONESTY</td>
-                                          <td>{allResults[0].honesty}</td>
+                                          <td>{studentResultData[0]?.honesty}</td>
                                         </tr>
 
                                         <tr>
                                           <td>LEADERSHIP</td>
-                                          <td>{allResults[0].leadership}</td>
+                                          <td>{studentResultData[0]?.leadership}</td>
                                         </tr>
 
                                         <tr>
                                           <td>MUSIC</td>
-                                          <td>{allResults[0].music}</td>
+                                          <td>{studentResultData[0]?.music}</td>
                                         </tr>
 
                                         <tr>
                                           <td>NEATNESS</td>
-                                          <td>{allResults[0].neatness}</td>
+                                          <td>{studentResultData[0]?.neatness}</td>
                                         </tr>
 
                                         <tr>
                                           <td>PERSERVERANCE</td>
-                                          <td>{allResults[0].perserverance}</td>
+                                          <td>{studentResultData[0]?.perserverance}</td>
                                         </tr>
 
                                         <tr>
                                           <td>POLITENESS</td>
-                                          <td>{allResults[0].politeness}</td>
+                                          <td>{studentResultData[0]?.politeness}</td>
                                         </tr>
 
                                         <tr>
                                           <td>TOOLS</td>
-                                          <td>{allResults[0].tools}</td>
+                                          <td>{studentResultData[0]?.tools}</td>
                                         </tr>
                                       </tbody>
 
@@ -411,22 +411,22 @@ export const CheckResultClient = () =>{
               <div className="py-2 ">
                 <div className="d-flex non-wrap-text px-3 pb-3">
                   <p className="pe-3">TEACHER COMMENT</p>
-                  <p>{allResults[0].teacher_comment}</p>
+                  <p>{studentResultData[0]?.teacher_comment}</p>
                 </div>
 
                 <div className="d-flex non-wrap-text px-3 pb-3">
                   <p className="pe-3">PRINCIPAL COMMENT</p>
-                  <p>{allResults[0].principal_comment}</p>
+                  <p>{studentResultData[0]?.principal_comment}</p>
                 </div>
 
                 <div className="d-flex non-wrap-text px-3 pb-3">
                   <p className="pe-3">NEXT TERM BEGINS</p>
-                  <p>{allResults[0].next_term_begins}</p>
+                  <p>{studentResultData[0]?.next_term_begins}</p>
                 </div>
 
                 <div className="d-flex non-wrap-text px-3 pb-3">
                   <p className="pe-3">NEXT TERM SCHOOL FEES</p>
-                  <p>{allResults[0].next_term_school_fees}</p>
+                  <p>{studentResultData[0]?.next_term_school_fees}</p>
                 </div>
               </div>
             </div>

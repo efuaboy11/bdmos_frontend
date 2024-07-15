@@ -108,6 +108,7 @@ import { StoreAccontPayments } from './pages/backendPages/StoreAccountPayments';
 import { StoreAccontApproved } from './pages/backendPages/storeAccountApproved';
 import { StoreAccontDeclined } from './pages/backendPages/storeAccountDeclined';
 import { StoreAccontPending } from './pages/backendPages/storeAccountPending';
+import { StoreAccountClient } from './pages/dashboardPages/storeAccount';
 
 function App() {
 
@@ -156,6 +157,7 @@ function App() {
               <Route path="/resultStep1" element={<Result1 />} />
               <Route path="/checkResult" element={<CheckResultClient />} />
               <Route path="/paymentHistory" element={<PaymentHistory />} />
+              <Route path="/storeAccount" element={<StoreAccountClient />} />
               <Route path="/noticeBoard" element={<NoticeBoard />} />
               <Route path="/schoolStore" element={<SchoolStore />} />
               <Route path="/schoolStore/cartPage" element={<CartPage />} />

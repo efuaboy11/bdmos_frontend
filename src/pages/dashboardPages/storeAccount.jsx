@@ -8,8 +8,9 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
+import { DashFrame } from "../../component/dashFrame"
 
-export const StoreAccontApproved = () => {
+export const StoreAccountClient = () => {
   const [studentID, setStudentID] = useState('')
   const [date, setDate] = useState("")
   const [amount, setAmount] = useState("")
@@ -23,6 +24,7 @@ export const StoreAccontApproved = () => {
   const {authTokens} = useContext(AuthContext)
 
   const [datas, setDatas] = useState([])
+  console.log(datas)
 
   const [showReciptModal, setShowReciptModal] = useState(false)
   const [paymentDetails, setPaymentDetails] = useState([])
@@ -37,9 +39,9 @@ export const StoreAccontApproved = () => {
     setShowReciptModal(false)
   }
 
-  const getApprovedPayment = async () => {
+  const getAllPayment = async () => {
     try {
-      let response = await fetch("https://bdmos.onrender.com/api/orders/successful/", {
+      let response = await fetch("https://bdmos.onrender.com/api/orders/", {
         method: "GET",
         headers: {
           "Content-Type":"application",
@@ -64,11 +66,11 @@ export const StoreAccontApproved = () => {
   const filterAllPayment = async() => {
     let url;
     if (studentID.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/successful/?search=${studentID}`;
+      url = `https://bdmos.onrender.com/api/orders/?search=${studentID}`;
     } else if (date.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/successful/?search=${date}`;
+      url = `https://bdmos.onrender.com/api/orders/?search=${date}`;
     } else {
-      getApprovedPayment();
+      getAllPayment();
       return;
     }
 
@@ -92,7 +94,7 @@ export const StoreAccontApproved = () => {
 
   useEffect(() => {
     if(!studentID && !date){
-      getApprovedPayment()
+      getAllPayment()
     }else if(studentID){
       filterAllPayment()
     }else if(date){
@@ -103,7 +105,7 @@ export const StoreAccontApproved = () => {
 	return(
 		<div>
       <div className="position-sticky">
-        <AdminDashFrame />
+        <DashFrame />
       </div>
 			<section id="storeAccountAllPayment">
         <div className="main-content">
@@ -228,7 +230,7 @@ export const StoreAccontApproved = () => {
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
               <h5>School Store</h5>
-              <p>Approved Payment</p>
+              <p>Pending Payment</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
                 <Link to="/admin/uploadSchoolItems" className="light-navyblue-background p-3 border-radius">
@@ -262,7 +264,6 @@ export const StoreAccontApproved = () => {
                   <thead>
                     <tr>
                       <th> Date</th>
-                      <th>Student ID</th>
                       <th>Status</th>
                       <th>Amount</th>
                       <th>Details</th>
@@ -274,7 +275,6 @@ export const StoreAccontApproved = () => {
                       
                       <tr>
                         <td>{data.created_at}</td>
-                        <td>{data.user}</td>
                         <td><p className={`${data.status == "pending" ? "pending" : "sucessfull"} ${data.status == "declined" && "failed"}`}>{data.status}</p></td>
                         <td>₦ {data.order_items.reduce((total, item) => total + item.get_total_price, 0)}</td>
                         <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.user,  data.amount, data.created_at, data.order_items, data.order_items.reduce((total, item) => total + item.get_total_price, 0))}>View</Link></td>

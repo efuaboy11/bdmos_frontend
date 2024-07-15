@@ -142,6 +142,7 @@ export const ViewStudentResult = () =>{
       const data = await response.json()
   
       if(response.ok){
+        localStorage.setItem("resultDetails", JSON.stringify(data))
         setAllResults(data)
         navigate("/admin/viewResultPage")
         console.log(data)

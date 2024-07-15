@@ -31,7 +31,7 @@ export const Result1 = () =>{
     setSessions,
     studentID,
     setStudentID,
-    setAllResults} = useContext(AuthContext)
+    setStudentResultData} = useContext(AuthContext)
 
   const getClass = async () => {
     try {
@@ -123,7 +123,8 @@ export const Result1 = () =>{
       const data = await response.json()
   
       if(response.ok){
-        setAllResults(data)
+        localStorage.setItem("studentResult", JSON.stringify(data))
+        setStudentResultData(data)
         navigate("/checkResult")
         console.log(data)
       } else{

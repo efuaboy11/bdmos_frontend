@@ -229,6 +229,34 @@ a:hover{
   visibility: visible;
 }
 
+/* -------------- scroll-bar black----- */
+.scroll-bar-black{
+  overflow-x: auto;
+
+}
+.k{
+  /* width: 50px; */
+  width: 100%;
+  /* overflow: hidden; */
+}
+
+
+.scroll-bar-black::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scroll-bar-black::-webkit-scrollbar-thumb{
+  border-radius: 0.5rem;
+  background-color: #373A40;
+  visibility: hidden;
+
+}
+
+.scroll-bar-black:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
+
 
 /* -------------- scroll-bar-y-black----- */
 .scroll-bar-black-y{
@@ -1443,6 +1471,15 @@ tbody tr:nth-child(even){
   border-radius: 50%;
   height: 40px;
 
+}
+
+/* ------------------------------ Store Account-------------- */
+
+#storeAccountAllPayment .storeAccountAllPayment-modal tbody tr:nth-child(even){
+  background: none;
+}
+.max-heigh-600px{
+  max-height: 600px;
 }
 
 

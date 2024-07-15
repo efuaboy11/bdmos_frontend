@@ -28,8 +28,8 @@ export const StoreAccontPending = () => {
   const [paymentDetails, setPaymentDetails] = useState([])
 
 
-  const recieptContext =(status, studentID, reason, amount, session, term, createdDate, updatedDate) =>{
-    setPaymentDetails([{status, studentID, reason, amount, session, term, createdDate, updatedDate}])
+  const recieptContext =(status, studentID,  amount,   createdDate, orderList, overallTotal) =>{
+    setPaymentDetails([{status, studentID,  amount,  createdDate, orderList, overallTotal}])
     setShowReciptModal(true)
   }
 
@@ -37,9 +37,9 @@ export const StoreAccontPending = () => {
     setShowReciptModal(false)
   }
 
-  const getAllPayment = async () => {
+  const getPendingPayment = async () => {
     try {
-      let response = await fetch("https://bdmos.onrender.com/api/all_payments/", {
+      let response = await fetch("https://bdmos.onrender.com/api/orders/pending/", {
         method: "GET",
         headers: {
           "Content-Type":"application",
@@ -53,6 +53,7 @@ export const StoreAccontPending = () => {
         const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         setDatas(sortedData)
         console.log("All Payment Type Gotten Successfully")
+        console.log(datas)
       } else{
         console.log(data)
       }
@@ -61,17 +62,51 @@ export const StoreAccontPending = () => {
     }
   }
 
+  const filterAllPayment = async() => {
+    let url;
+    if (studentID.length !== 0) {
+      url = `https://bdmos.onrender.com/api/orders/pending/?search=${studentID}`;
+    } else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/orders/pending/?search=${date}`;
+    } else {
+      getPendingPayment();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+
   
 
   useEffect(() => {
-    getAllPayment()
+    if(!studentID && !date){
+      getPendingPayment()
+    }else if(studentID){
+      filterAllPayment()
+    }else if(date){
+      filterAllPayment()
+    }
+
   },[datas])
 	return(
 		<div>
       <div className="position-sticky">
         <AdminDashFrame />
       </div>
-			<section>
+			<section id="storeAccountAllPayment">
         <div className="main-content">
           <div className="alert-container">
             <div className="alert-position">
@@ -88,65 +123,102 @@ export const StoreAccontPending = () => {
 
           {showReciptModal &&
             <section className="overlay-background">
-              <div className="admin-allPayment-modal-conatiner">
-                <div className="admin-allPayment-modal-content">
-                  {paymentDetails.length > 0 && (
-                    <div>
-                      <div className="d-flex justify-content-end">
-                        <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal}/>
-                      </div>
+              <div className="admin-allPayment-modal-conatiner storeAccountAllPayment-modal">
+                <div className="admin-allPayment-modal-content max-heigh-600px scroll-bar-black-y">
+                  <div className="">
+
+
+                    {paymentDetails.length > 0 && (
                       <div>
-                        <h6 className="font-bold text-center admin-allPayment-h6">PAYMENT RECIEPT</h6>
-                      </div>
+                        <div className="d-flex justify-content-end">
+                          <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal}/>
+                        </div>
+                        <div>
+                          <h6 className="font-bold text-center admin-allPayment-h6">PAYMENT RECIEPT</h6>
+                        </div>
 
-                      <div className="pt-5">
-                        <p className="pb-2"><span className="pe-2">STATUS:</span><span className={`${paymentDetails[0].status == "Pending" ? "pending" : "sucessfull"} ${paymentDetails[0].status == "Declined" && "failed"} text-white1 px-3 py-1`}>{paymentDetails[0].status} </span></p>
-                        <p className="pb-2"><span>PAID TO</span>: BDOMS/fredita Children Academy</p>
-                        <p className="pb-2"><span>PAID BY</span>: {paymentDetails[0].studentID}</p>
-                        <p className="pb-2"><span>AMOUNT</span>: {paymentDetails[0].amount}</p>
-                        <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}2021/2022</p>
-                        <p className="pb-2"><span>UPDATED_AT</span>:{paymentDetails[0].updatedDate}</p>
-                      </div>
+                        <div className="pt-5">
+                          <p className="pb-2"><span className="pe-2">STATUS:</span><span className={`${paymentDetails[0].status == "Pending" ? "pending" : "sucessfull"} ${paymentDetails[0].status == "Declined" && "failed"} text-white1 px-3 py-1`}>{paymentDetails[0].status} </span></p>
+                          <p className="pb-2"><span>PAID TO</span>: BDOMS/fredita Children Academy</p>
+                          <p className="pb-2"><span>PAID BY</span>: {paymentDetails[0].studentID}</p>
+                          <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}</p>
+                        </div>
 
-                      <div className="row pt-5 pb-4">
-                        <div className="col-6">
-                          <div className="admin-allPayment-signatries">
-                            <div className="d-flex">
-                              <div>
-                              <p className="first-p">MANAEMENT</p>
-                              <p className="px-3">Signature of Mangement</p>
+
+                        <div className="pt-4">
+                          <h6>Order Items:</h6>
+                          <div className="light-background2 width-100 k scroll-bar-black non-wrap-text">
+
+                            <table className="table1">
+                              <thead>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Quantity</th>
+                                  <th>Price</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {paymentDetails[0].orderList.map((item, index) =>(
+                                  <tr>
+                                    <td>{item.item}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>₦ {item.get_total_price}</td>
+                                  </tr>
+                                ))}
+
+                                <tr>
+                                  <td className="font-bold">TOTAL</td>
+                                  <td></td>
+                                  <td className="font-bold">₦ {paymentDetails[0].overallTotal} </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+
+
+                          </div>
+                        </div>
+
+                        <div className="row py-5">
+                          <div className="col-6">
+                            <div className="admin-allPayment-signatries">
+                              <div className="d-flex">
+                                <div>
+                                <p className="first-p">MANAEMENT</p>
+                                <p className="px-3">Signature of Mangement</p>
+                                </div>
                               </div>
+                            </div>
+                          </div>
+
+                          <div className="col-6">
+                            <div className="admin-allPayment-signatries">
+                              <div className="d-flex">
+                                <div>
+                                  <p className="first-p">{paymentDetails[0].createdDate}</p>
+                                  <p className="px-5">Date</p>
+                                </div>
+                              </div>
+
                             </div>
                           </div>
                         </div>
 
-                        <div className="col-6 mb-5">
-                          <div className="admin-allPayment-signatries">
-                            <div className="d-flex">
-                              <div>
-                                <p className="first-p">{paymentDetails[0].createdDate}</p>
-                                <p className="px-5">Date</p>
-                              </div>
+                        
+                        <div className="light-background2 mt-5">
+                          <div className="p-2">
+                            <div>
+                              <p>For more information you contact us through:</p>
+                              <p>Phone Number: 08060918549, 0807284591</p>
+                              <p>Email: iseghohimhene@gmail.com</p>
                             </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      
-                      <div className="light-background2 mt-5">
-                        <div className="p-2">
-                          <div>
-                            <p>For more information you contact us through:</p>
-                            <p>Phone Number: 08060918549, 0807284591</p>
-                            <p>Email: iseghohimhene@gmail.com</p>
                           </div>
                         </div>
 
                       </div>
-
-                    </div>
-                  )}
+                    )}
+                  </div>
 
                 </div>
               </div>
@@ -156,8 +228,8 @@ export const StoreAccontPending = () => {
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-                <h5>School Store</h5>
-                <p>Pending Payment</p>
+              <h5>School Store</h5>
+              <p>Pending Payment</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
                 <Link to="/admin/uploadSchoolItems" className="light-navyblue-background p-3 border-radius">
@@ -176,7 +248,7 @@ export const StoreAccontPending = () => {
                 </div>
 
                 <div className="col-sm-3 mb-4">
-                  <input type="date" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date..."  value={date} onChange={(e) => setDate(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date..."  value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
 
               </div>            
@@ -200,12 +272,13 @@ export const StoreAccontPending = () => {
 
                   <tbody className="admin-home-table">
                     {datas.map((data) =>(
+                      
                       <tr>
                         <td>{data.created_at}</td>
-                        <td>{data.transaction_id}</td>
-                        <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
-                        <td>{data.amount}</td>
-                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
+                        <td>{data.user}</td>
+                        <td><p className={`${data.status == "pending" ? "pending" : "sucessfull"} ${data.status == "declined" && "failed"}`}>{data.status}</p></td>
+                        <td>₦ {data.order_items.reduce((total, item) => total + item.get_total_price, 0)}</td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.user,  data.amount, data.created_at, data.order_items, data.order_items.reduce((total, item) => total + item.get_total_price, 0))}>View</Link></td>
                       </tr>
                     ))}
 
