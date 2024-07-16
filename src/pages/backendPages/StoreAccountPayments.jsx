@@ -97,6 +97,8 @@ export const StoreAccontPayments = () => {
       filterAllPayment()
     }else if(date){
       filterAllPayment()
+    }else{
+      getAllPayment()
     }
 
   },[datas])
@@ -160,7 +162,7 @@ export const StoreAccontPayments = () => {
                               <tbody>
                                 {paymentDetails[0].orderList.map((item, index) =>(
                                   <tr>
-                                    <td>{item.item}</td>
+                                    <td>{item.item_name.title}</td>
                                     <td>{item.quantity}</td>
                                     <td>₦ {item.get_total_price}</td>
                                   </tr>

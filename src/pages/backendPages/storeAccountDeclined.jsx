@@ -64,9 +64,9 @@ export const StoreAccontDeclined = () => {
   const filterAllPayment = async() => {
     let url;
     if (studentID.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/failed/?search=${studentID}`;
+      url = `https://bdmos.onrender.com/api/orders/declined/?search=${studentID}`;
     } else if (date.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/failed/?search=${date}`;
+      url = `https://bdmos.onrender.com/api/orders/declined/?search=${date}`;
     } else {
       getDeclinedPayment();
       return;
@@ -97,6 +97,8 @@ export const StoreAccontDeclined = () => {
       filterAllPayment()
     }else if(date){
       filterAllPayment()
+    }else{
+      getDeclinedPayment()
     }
 
   },[datas])
@@ -160,7 +162,7 @@ export const StoreAccontDeclined = () => {
                               <tbody>
                                 {paymentDetails[0].orderList.map((item, index) =>(
                                   <tr>
-                                    <td>{item.item}</td>
+                                    <td>{item.item_name.title}</td>
                                     <td>{item.quantity}</td>
                                     <td>₦ {item.get_total_price}</td>
                                   </tr>

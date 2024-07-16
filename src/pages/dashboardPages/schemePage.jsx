@@ -13,7 +13,19 @@ export const SchemePage = () =>{
 
   const {authTokens, allScheme, loadingModal} = useContext(AuthContext)
 
-  const schemeData = allScheme
+
+  const[schemeData, setSchemeData] = useState(null)
+
+  console.log(schemeData)
+
+  useEffect(() =>{
+    const data = localStorage.getItem("clientSchemeData")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setSchemeData(parsedData)
+
+    }
+  }, [])
 
 
 	return(
@@ -35,16 +47,6 @@ export const SchemePage = () =>{
               </div>
             </div>
 
-            <form action="">
-              <div className="row add-student">
-                <div className="col-sm-4 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius admin-input" placeholder="Search by Subject..."/>
-                </div>
-              </div>            
-            </form> 
-
-
-
             <section className="container-lg navyblue-blackground-dash">
               <div className="view-content-height scroll-bar">
                 <div className="non-wrap-text">
@@ -56,9 +58,9 @@ export const SchemePage = () =>{
                       </tr>
                     </thead>
                     <tbody className="admin-home-table view-schoolitems-table ">
-                      {schemeData.map((schemeDat, index) => (
+                      {schemeData?.map((schemeDat, index) => (
                         <tr key={index}>
-                          <td>{schemeDat.subject}</td>
+                          <td>{schemeDat.subject_name.name}</td>
                           <td>
                             <DownloadLink
                               url={schemeDat.scheme}

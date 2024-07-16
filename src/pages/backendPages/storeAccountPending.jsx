@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useContext, useEffect } from "react"
 import Alert from '@mui/material/Alert';
 import React from 'react'
-import { useForm } from "react-hook-form"
+import { get, useForm } from "react-hook-form"
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext"
 
@@ -98,6 +98,8 @@ export const StoreAccontPending = () => {
       filterAllPayment()
     }else if(date){
       filterAllPayment()
+    }else{
+      getPendingPayment()
     }
 
   },[datas])
@@ -161,7 +163,7 @@ export const StoreAccontPending = () => {
                               <tbody>
                                 {paymentDetails[0].orderList.map((item, index) =>(
                                   <tr>
-                                    <td>{item.item}</td>
+                                    <td>{item.item_name.title}</td>
                                     <td>{item.quantity}</td>
                                     <td>₦ {item.get_total_price}</td>
                                   </tr>

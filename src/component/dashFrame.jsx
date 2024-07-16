@@ -107,7 +107,7 @@ export const DashFrame = () =>{
 
             <div className="d-flex pb-3">
               <strong className="pe-2">Class:</strong>
-              <p>{userProfile && userProfile.user_details[0].student_class}</p>
+              <p>{userProfile && userProfile.user_details[0].class_name.name}</p>
             </div>
 
 
@@ -139,7 +139,7 @@ export const DashFrame = () =>{
           <img className="border-radius-50" src={userProfile && userProfile.user_details[0].passport} alt="" width="160px" height="160px"/>
           <h4 className="py-2">  {toUpperCase( userProfile && userProfile.user_details[0].first_name)}</h4>
         </div>
-        <ul className="mb-5 sidebar-list">
+        <ul className="mb-5 sidebar-list dashboard-sidebar-height scroll-bar-y">
 
           <li className={`nav-item ps-3 d-flex py-3 dash ${isActiveDashLink("/dashboard") ? "active-dash-link": ""} `}>
             <FontAwesomeIcon icon={faHouse} className="pe-4"/>

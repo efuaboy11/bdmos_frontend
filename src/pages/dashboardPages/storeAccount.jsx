@@ -1,6 +1,6 @@
-import { AdminDashFrame} from "../../component/adminDashFRame"
+import { AdminDashFrame } from "../../component/adminDashFRame"
 import { Link } from "react-router-dom"
-import {faEye, faPlus, faPlusCircle, faTrash, faUser, faX} from "@fortawesome/free-solid-svg-icons"
+import { faEye, faPlusCircle, faTrash, faUser, faX } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, useContext, useEffect } from "react"
 import Alert from '@mui/material/Alert';
@@ -17,11 +17,11 @@ export const StoreAccountClient = () => {
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
-  const {handleSubmit, register, formState:{errors, isValid}} = useForm()
+  const { handleSubmit, register, formState: { errors, isValid } } = useForm()
   const [loader, setLoader] = useState("")
-  const [disablebutton, setdisablebutton] = useState(false)
+  const [disablebutton, setDisablebutton] = useState(false)
 
-  const {authTokens} = useContext(AuthContext)
+  const { authTokens } = useContext(AuthContext)
 
   const [datas, setDatas] = useState([])
   console.log(datas)
@@ -29,9 +29,8 @@ export const StoreAccountClient = () => {
   const [showReciptModal, setShowReciptModal] = useState(false)
   const [paymentDetails, setPaymentDetails] = useState([])
 
-
-  const recieptContext =(status, studentID,  amount,   createdDate, orderList, overallTotal) =>{
-    setPaymentDetails([{status, studentID,  amount,  createdDate, orderList, overallTotal}])
+  const recieptContext = (status, studentID, amount, createdDate, orderList, overallTotal) => {
+    setPaymentDetails([{ status, studentID, amount, createdDate, orderList, overallTotal }])
     setShowReciptModal(true)
   }
 
@@ -44,18 +43,18 @@ export const StoreAccountClient = () => {
       let response = await fetch("https://bdmos.onrender.com/api/orders/", {
         method: "GET",
         headers: {
-          "Content-Type":"application",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${authTokens.access}`
         }
       })
-  
+
       const data = await response.json()
-  
-      if(response.ok){
+
+      if (response.ok) {
         const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         setDatas(sortedData)
         console.log("All Payment Type Gotten Successfully")
-      } else{
+      } else {
         console.log(data)
       }
     } catch (error) {
@@ -63,51 +62,47 @@ export const StoreAccountClient = () => {
     }
   }
 
-  const filterAllPayment = async() => {
-    let url;
-    if (studentID.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/?search=${studentID}`;
-    } else if (date.length !== 0) {
-      url = `https://bdmos.onrender.com/api/orders/?search=${date}`;
-    } else {
-      getAllPayment();
-      return;
-    }
+  const filterAllPayment = async () => {
+    if (date.length === 0) return;
 
-    let response = await fetch(url,{
-      method: "GET",
-      headers: {
-        "Content-Type":"application/json"
+    let url = `https://bdmos.onrender.com/api/orders/?search=${date}`;
+
+    try {
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      })
+
+      if (!response.ok) {
+        console.error("Failed to fetch students")
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
-    })
 
-    const data = await response.json()
-
-    if(response.ok){
+      const data = await response.json()
       setDatas(data)
-    }else{
-      console.error("Failed to fetch students")
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  
-
   useEffect(() => {
-    if(!studentID && !date){
+    if (!date) {
       getAllPayment()
-    }else if(studentID){
-      filterAllPayment()
-    }else if(date){
+    } else {
       filterAllPayment()
     }
+  }, [date])
 
-  },[datas])
-	return(
-		<div>
+  return (
+    <div>
       <div className="position-sticky">
         <DashFrame />
       </div>
-			<section id="storeAccountAllPayment">
+      <section id="storeAccountAllPayment">
         <div className="main-content">
           <div className="alert-container">
             <div className="alert-position">
@@ -127,17 +122,14 @@ export const StoreAccountClient = () => {
               <div className="admin-allPayment-modal-conatiner storeAccountAllPayment-modal">
                 <div className="admin-allPayment-modal-content max-heigh-600px scroll-bar-black-y">
                   <div className="">
-
-
                     {paymentDetails.length > 0 && (
                       <div>
                         <div className="d-flex justify-content-end">
-                          <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal}/>
+                          <FontAwesomeIcon className="cursor-pointer" icon={faX} onClick={closeModal} />
                         </div>
                         <div>
                           <h6 className="font-bold text-center admin-allPayment-h6">PAYMENT RECIEPT</h6>
                         </div>
-
                         <div className="pt-5">
                           <p className="pb-2"><span className="pe-2">STATUS:</span><span className={`${paymentDetails[0].status == "Pending" ? "pending" : "sucessfull"} ${paymentDetails[0].status == "Declined" && "failed"} text-white1 px-3 py-1`}>{paymentDetails[0].status} </span></p>
                           <p className="pb-2"><span>PAID TO</span>: BDOMS/fredita Children Academy</p>
@@ -145,11 +137,9 @@ export const StoreAccountClient = () => {
                           <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}</p>
                         </div>
 
-
                         <div className="pt-4">
                           <h6>Order Items:</h6>
                           <div className="light-background2 width-100 k scroll-bar-black non-wrap-text">
-
                             <table className="table1">
                               <thead>
                                 <tr>
@@ -158,26 +148,21 @@ export const StoreAccountClient = () => {
                                   <th>Price</th>
                                 </tr>
                               </thead>
-
                               <tbody>
-                                {paymentDetails[0].orderList.map((item, index) =>(
-                                  <tr>
+                                {paymentDetails[0].orderList.map((item, index) => (
+                                  <tr key={index}>
                                     <td>{item.item}</td>
                                     <td>{item.quantity}</td>
                                     <td>₦ {item.get_total_price}</td>
                                   </tr>
                                 ))}
-
                                 <tr>
                                   <td className="font-bold">TOTAL</td>
                                   <td></td>
                                   <td className="font-bold">₦ {paymentDetails[0].overallTotal} </td>
                                 </tr>
-
                               </tbody>
                             </table>
-
-
                           </div>
                         </div>
 
@@ -186,13 +171,12 @@ export const StoreAccountClient = () => {
                             <div className="admin-allPayment-signatries">
                               <div className="d-flex">
                                 <div>
-                                <p className="first-p">MANAEMENT</p>
-                                <p className="px-3">Signature of Mangement</p>
+                                  <p className="first-p">MANAEMENT</p>
+                                  <p className="px-3">Signature of Mangement</p>
                                 </div>
                               </div>
                             </div>
                           </div>
-
                           <div className="col-6">
                             <div className="admin-allPayment-signatries">
                               <div className="d-flex">
@@ -201,12 +185,10 @@ export const StoreAccountClient = () => {
                                   <p className="px-5">Date</p>
                                 </div>
                               </div>
-
                             </div>
                           </div>
                         </div>
 
-                        
                         <div className="light-background2 mt-5">
                           <div className="p-2">
                             <div>
@@ -220,17 +202,15 @@ export const StoreAccountClient = () => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
             </section>
-          
           }
           <div className="container-lg">
             <div className="row my-3 pb-4">
               <div className="col-md-8 col-sm-6 col-6">
-              <h5>School Store</h5>
-              <p>Pending Payment</p>
+                <h5>School Store</h5>
+                <p>Pending Payment</p>
               </div>
               <div className="col-md-4 col-sm-6 col-6 d-flex justify-content-end">
                 <Link to="/admin/uploadSchoolItems" className="light-navyblue-background p-3 border-radius">
@@ -239,22 +219,14 @@ export const StoreAccountClient = () => {
                 </Link>
               </div>
             </div>
-        
-
 
             <form action="">
               <div className="row add-student g-3">
                 <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by Student ID..."  value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
+                  <input type="text" className="p-2 form-dark border-radius view-student-input" placeholder="Search by Date..." value={date} onChange={(e) => setDate(e.target.value)} />
                 </div>
-
-                <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date..."  value={date} onChange={(e) => setDate(e.target.value)}/>
-                </div>
-
-              </div>            
+              </div>
             </form>
-
           </div>
 
           <section className="container-lg pt-1 non-wrap-text">
@@ -263,37 +235,28 @@ export const StoreAccountClient = () => {
                 <table className="table1">
                   <thead>
                     <tr>
-                      <th> Date</th>
+                      <th>Date</th>
                       <th>Status</th>
                       <th>Amount</th>
                       <th>Details</th>
                     </tr>
                   </thead>
-
                   <tbody className="admin-home-table">
-                    {datas.map((data) =>(
-                      
-                      <tr>
+                    {datas.map((data) => (
+                      <tr key={data.id}>
                         <td>{data.created_at}</td>
                         <td><p className={`${data.status == "pending" ? "pending" : "sucessfull"} ${data.status == "declined" && "failed"}`}>{data.status}</p></td>
                         <td>₦ {data.order_items.reduce((total, item) => total + item.get_total_price, 0)}</td>
-                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.user,  data.amount, data.created_at, data.order_items, data.order_items.reduce((total, item) => total + item.get_total_price, 0))}>View</Link></td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.user, data.amount, data.created_at, data.order_items, data.order_items.reduce((total, item) => total + item.get_total_price, 0))}>View</Link></td>
                       </tr>
                     ))}
-
-
-
                   </tbody>
                 </table>
               </div>
             </div>
-
           </section>
-
-          
         </div>
-
       </section>
-		</div>
-	)
+    </div>
+  )
 }

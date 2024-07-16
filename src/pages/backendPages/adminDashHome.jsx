@@ -232,6 +232,22 @@ export const AdminDashHome = () =>{
     getAllPayment()
   },[paymentHistory])
 
+  const truncateText = (text, wordLimit) => {
+    const words = text.split('-');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+
+  const truncateDate = (text, wordLimit) => {
+    const words = text.split('.');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+
 
   return(
     <div>
@@ -468,13 +484,13 @@ export const AdminDashHome = () =>{
                   <tbody className="admin-home-table">
                     {paymentHistory.map((data) =>(
                       <tr>
-                        <td>{data.created_at}</td>
-                        <td>{data.updated_at}</td>
-                        <td>{data.transaction_id}</td>
-                        <td>{data.fee_type}</td>
+                        <td>{truncateDate(data.created_at, 1)}</td>
+                        <td>{truncateDate(data.updated_at, 1)}</td>
+                        <td>{truncateText(data.transaction_id, 1)}</td>
+                        <td>{data.fee_type_name.name}</td>
                         <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
                         <td>{data.amount}</td>
-                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type_name.name,   data.amount, data.session_name.name, data.term_name.name, data.created_at, data.updated_at)}>View</Link></td>
                       </tr>
                     ))}
 

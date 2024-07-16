@@ -392,6 +392,8 @@ a:hover{
 
 
 
+
+
 .sm-text{
   font-size: 20px;
 }
@@ -616,6 +618,10 @@ a{
   color: #fff;
   z-index: 10000000000;
 
+}
+
+.dashboard-sidebar-height{
+  height: 50%;
 }
 
 .sidebar-list{

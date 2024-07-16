@@ -111,8 +111,11 @@ export const Scheme1 = () =>{
       })
   
       const data = await response.json()
+
+      localStorage.setItem("clientSchemeData", JSON.stringify(data));
+
   
-      if(response.ok){
+      if(response.ok){      
         setAllScheme(data)
         console.log(allScheme)
         navigate("/schemePage")

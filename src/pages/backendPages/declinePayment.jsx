@@ -14,6 +14,8 @@ export const DeclinePayment = () => {
   const [studentID, setStudentID] = useState('')
   const [date, setDate] = useState("")
   const [amount, setAmount] = useState("")
+  const [reason, setReason] = useState("")
+
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
@@ -41,7 +43,7 @@ export const DeclinePayment = () => {
 
 
 
-  const getApprovedPayment = async () => {
+  const getDeclinedPayment = async () => {
     try {
       let response = await fetch("https://bdmos.onrender.com/api/transactions/declined/", {
         method: "GET",
@@ -65,9 +67,68 @@ export const DeclinePayment = () => {
     }
   }
 
+  const filterAllPayment = async() => {
+    let url;
+    if (studentID.length !== 0) {
+      url = `https://bdmos.onrender.com/api/transactions/declined/?search=${studentID}`;
+    } else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/transactions/declined/?search=${date}`;
+    }else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/transactions/declined/?search=${amount}`;
+    }else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/transactions/declined/?search=${reason}`;
+    }
+    else {
+      getDeclinedPayment();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+
+  
+
   useEffect(() => {
-    getApprovedPayment()
+    if(!studentID && !date){
+      getDeclinedPayment()
+    }else if(studentID){
+      filterAllPayment()
+    }else if(date){
+      filterAllPayment()
+    }else{
+      getDeclinedPayment()
+    }
+
   },[datas])
+
+  const truncateText = (text, wordLimit) => {
+    const words = text.split('-');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+
+  const truncateDate = (text, wordLimit) => {
+    const words = text.split('.');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
 	return(
 		<div>
       <div className="position-sticky">
@@ -96,7 +157,7 @@ export const DeclinePayment = () => {
                         <p className="pb-2"><span>AMOUNT</span>: {paymentDetails[0].amount}</p>
                         <p className="pb-2"><span>SESSION</span>: {paymentDetails[0].session}</p>
                         <p className="pb-2"><span>TERM</span>: {paymentDetails[0].term}</p>
-                        <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}2021/2022</p>
+                        <p className="pb-2"><span>CREATED_AT</span>: {paymentDetails[0].createdDate}</p>
                         <p className="pb-2"><span>UPDATED_AT</span>:{paymentDetails[0].updatedDate}</p>
                       </div>
 
@@ -177,20 +238,12 @@ export const DeclinePayment = () => {
             <form action="">
               <div className="row add-student g-3">
                 <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by Student ID..."  value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by Student ID / Reason..."  value={studentID} onChange={(e) => setStudentID(e.target.value)}/>
                 </div>
 
                 <div className="col-sm-3 mb-4">
-                  <input type="date" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date..."  value={date} onChange={(e) => setDate(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date / Amount..."  value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
-
-                <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Amount..."  value={amount} onChange={(e) => setAmount(e.target.value)}/>
-                </div>
-
-                {/* <div className="col-sm-1 mb-3">
-                  <input type="button" value={"Submit"} className=" p-2 form-dark border-radius" onClick={filterAllStudent}/>
-                </div> */}
               </div>            
             </form>
 
@@ -213,17 +266,18 @@ export const DeclinePayment = () => {
                   </thead>
 
                   <tbody className="admin-home-table">
-                  {datas.map((data) =>(
+                    {datas.map((data) =>(
                       <tr>
-                        <td>{data.created_at}</td>
-                        <td>{data.updated_at}</td>
-                        <td>{data.transaction_id}</td>
-                        <td>{data.fee_type}</td>
+                        <td>{truncateDate(data.created_at, 1)}</td>
+                        <td>{truncateDate(data.updated_at, 1)}</td>
+                        <td>{truncateText(data.transaction_id, 1)}</td>
+                        <td>{data.fee_type_name}</td>
                         <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
                         <td>{data.amount}</td>
-                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status, data.transaction_id, data.fee_type_name,   data.amount, data.session_name, data.term_name, data.created_at, data.updated_at)}>View</Link></td>
                       </tr>
                     ))}
+
 
                   </tbody>
                 </table>

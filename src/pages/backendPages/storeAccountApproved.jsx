@@ -48,6 +48,7 @@ export const StoreAccontApproved = () => {
       })
   
       const data = await response.json()
+      console.log(data)
   
       if(response.ok){
         const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
@@ -97,6 +98,8 @@ export const StoreAccontApproved = () => {
       filterAllPayment()
     }else if(date){
       filterAllPayment()
+    }else{
+      getApprovedPayment()
     }
 
   },[datas])
@@ -160,7 +163,7 @@ export const StoreAccontApproved = () => {
                               <tbody>
                                 {paymentDetails[0].orderList.map((item, index) =>(
                                   <tr>
-                                    <td>{item.item}</td>
+                                    <td>{item.item_name.title}</td>
                                     <td>{item.quantity}</td>
                                     <td>₦ {item.get_total_price}</td>
                                   </tr>

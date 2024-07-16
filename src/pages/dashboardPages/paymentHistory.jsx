@@ -15,6 +15,8 @@ export const PaymentHistory = () => {
   const [studentID, setStudentID] = useState('')
   const [date, setDate] = useState("")
   const [amount, setAmount] = useState("")
+  const [reason, setReason] = useState("")
+
   const [alert, setAlert] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
@@ -56,6 +58,7 @@ export const PaymentHistory = () => {
         const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         const recentData = sortedData.slice(0, 5);
         setDatas(recentData)
+        console.log(datas)
         console.log("All Payment Type Gotten Successfully")
       } else{
         console.log(data)
@@ -65,11 +68,73 @@ export const PaymentHistory = () => {
     }
   }
 
+  const filterAllPayment = async() => {
+    let url;
+    if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/payments/?search=${date}`;
+    }else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/payments/?search=${amount}`;
+    }else if (date.length !== 0) {
+      url = `https://bdmos.onrender.com/api/payments/?search=${reason}`;
+    }
+    else {
+      getAllPayment();
+      return;
+    }
+
+    let response = await fetch(url,{
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json"
+      }
+    })
+
+    const data = await response.json()
+
+    if(response.ok){
+      setDatas(data)
+    }else{
+      console.error("Failed to fetch students")
+    }
+  }
+
+  
+
+  useEffect(() => {
+    if(!studentID && !date){
+      getAllPayment()
+    }else if(studentID){
+      filterAllPayment()
+    }else if(date){
+      filterAllPayment()
+    }else{
+      getAllPayment()
+    }
+
+  },[datas])
+
   
 
   useEffect(() => {
     getAllPayment()
   },[datas])
+
+
+  const truncateText = (text, wordLimit) => {
+    const words = text.split('-');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+
+  const truncateDate = (text, wordLimit) => {
+    const words = text.split('.');
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
 	return(
 		<div>
       <div className="position-sticky">
@@ -173,13 +238,12 @@ export const PaymentHistory = () => {
 
             <form action="">
               <div className="row add-student g-3">
-
                 <div className="col-sm-3 mb-4">
-                  <input type="date" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date..."  value={date} onChange={(e) => setDate(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input " placeholder="Search by Reason..."  value={reason} onChange={(e) => setReason(e.target.value)}/>
                 </div>
 
                 <div className="col-sm-3 mb-4">
-                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Amount..."  value={amount} onChange={(e) => setAmount(e.target.value)}/>
+                  <input type="text" className=" p-2 form-dark border-radius view-student-input" placeholder="Search by Date / Amount..."  value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
               </div>            
             </form>
@@ -204,12 +268,12 @@ export const PaymentHistory = () => {
                   <tbody className="admin-home-table">
                     {datas.map((data) =>(
                       <tr>
-                        <td>{data.created_at}</td>
-                        <td>{data.updated_at}</td>
-                        <td>{data.fee_type}</td>
+                        <td>{truncateDate(data.created_at, 1)}</td>
+                        <td>{truncateDate(data.updated_at, 1)}</td>
+                        <td>{data.fee_type_name.name}</td>
                         <td><p className={`${data.status == "Pending" ? "pending" : "sucessfull"} ${data.status == "Declined" && "failed"}`}>{data.status}</p></td>
                         <td>{data.amount}</td>
-                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status,  data.fee_type,   data.amount, data.session, data.term, data.created_at, data.updated_at)}>View</Link></td>
+                        <td><Link className="button-dashboard" onClick={() => recieptContext(data.status,  data.fee_type_name.name,   data.amount, data.session_name.name, data.term_name.name, data.created_at, data.updated_at)}>View</Link></td>
                       </tr>
                     ))}
 
