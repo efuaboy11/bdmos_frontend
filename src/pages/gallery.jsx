@@ -34,8 +34,7 @@ export const Gallery = () =>{
     let response = await fetch("https://bdmos.onrender.com/api/school_photos/",{
       method: "GET",
       headers: {
-        "Content-Type":"application/json",
-        Authorization: `Bearer ${authTokens.access}`
+        "Content-Type":"application/json"
       },
     });
 
@@ -183,7 +182,7 @@ export const Gallery = () =>{
                 </div>
               </div>
 
-              {datas.map((data) =>(
+              {datas?.map((data) =>(
                 <div className="col-xxl-3 col-lg-4 col-sm-6">
                   <div>
                     <img src={data.image} alt="" width='100%' height='240px'/>

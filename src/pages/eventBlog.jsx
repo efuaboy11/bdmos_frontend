@@ -21,7 +21,6 @@ export const Blog = () =>{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authTokens.access}`
       },
     });
 
@@ -30,6 +29,7 @@ export const Blog = () =>{
     if (response.ok) {
       const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
       setEventDatas(sortedData)
+      console.log(eventDatas)
     } else {
       console.error("Failed to fetch events", response.statusText)
     }
@@ -70,12 +70,12 @@ export const Blog = () =>{
                     {eventDatas?.map((eventData) =>(
                       <div className="col-xxl-3 col-lg-4 col-sm-6">
                       <div className="light-background2 p-4 blog-container">
-                        <img src={eventData.image} alt="" width='100%'/>
+                        <img src={eventData?.image} alt="" width='100%'/>
                         <div className="d-flex pt-3">
                           <p className="bg-purple event-date">{eventData.date}</p>
                         </div>
                         <div className="scroll-bar-black-y blog-text">
-                          <p>{eventData.description}</p>
+                          <p>{eventData?.description}</p>
 
                         </div>
                       </div>
