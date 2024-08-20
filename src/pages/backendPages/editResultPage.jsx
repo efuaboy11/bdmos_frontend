@@ -32,6 +32,8 @@ export const EditResultPage = () => {
   const [termName, setTermName] = useState("")
   const [sessionName, setSessionName] = useState("")
 
+  const[studentDetails,setStudentDetails] = useState(null)
+
 
   const resultDetails = allResults[0]
   
@@ -311,6 +313,16 @@ export const EditResultPage = () => {
       setSessionName(parsedData)
     }
   }, [])
+
+  useEffect(() =>{
+    const data = localStorage.getItem("studentInfoViewResult")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setStudentDetails(parsedData)
+
+
+    }
+  }, [])
   
 	return(
     <div>
@@ -353,12 +365,27 @@ export const EditResultPage = () => {
         }
 
         <div className="container-lg">
-          <section>
-            <div className="text-center py-5 mt-5">
-              <h4>BDOMS RESULT SHIT</h4>
-              <p>Please fill the details</p>
+          <div className="row jusitify-content-between">
+              <section className="col-md-2 pt-5  border-radius-50 result-img" >
+                <div className="d-none d-md-block">
+                  <img width="100%" src={studentDetails?.passport} alt="" />
+                </div>
+              
+              </section>
+              <div className="col-md-8">
+                <section>
+                  <div className="text-center py-5 mt-5">
+                    <h4>BDOMS RESULT SHIT</h4>
+                    <p>Please fill the details</p>
+                  </div>
+                </section>
+
+              </div>
+
+              <div className="col-md-2"></div>
+
+
             </div>
-          </section>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="boxing-shadow p-3">

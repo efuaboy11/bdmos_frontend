@@ -27,6 +27,7 @@ body{
 
 
 
+
 .cursor-pointer{
   cursor: pointer;
 }
@@ -627,6 +628,7 @@ a{
 .sidebar-list{
   overflow-y: auto ;
 }
+
 
 
 
@@ -1498,6 +1500,13 @@ tbody tr:nth-child(even){
 /* --------------------------- Result Page -------------------------- */
 .result-page-result-table input{
   width: 100%;
+  
+}
+
+.result-img{
+  display: flex;
+  align-items: center;
+  height: inherit;
   
 }
 

@@ -161,10 +161,23 @@ export const ViewStudentResult = () =>{
     }
   }
 
+  const StudentDeatils = async () => {
+    const response = await fetch(`https://bdmos.onrender.com/api/students/${studentID}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens.access}`,
+      },
+    });
+    const data = await response.json();
+    localStorage.setItem("studentInfoViewResult", JSON.stringify(data))
+  };
+
   useEffect(() => {
     getClass()
     getTerm()
     getSession()
+    StudentDeatils()
   },[])
 
 	return(

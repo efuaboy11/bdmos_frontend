@@ -19,6 +19,7 @@ export const ViewResultPage = () =>{
   console.log(allResults)
 
   const [showModal, setShowModal] = useState(false)
+  const[studentDetails,setStudentDetails] = useState(null)
 
   const navigate = useNavigate()
 
@@ -67,6 +68,18 @@ export const ViewResultPage = () =>{
     }
  };
 
+  useEffect(() =>{
+    const data = localStorage.getItem("studentInfoViewResult")
+    if(data){
+      const parsedData = JSON.parse(data)
+      setStudentDetails(parsedData)
+
+
+    }
+  }, [])
+
+  console.log(studentDetails)
+
 
   const [alerts, setAlerts] = useState("")
   const [showAlert, setShowAlert] = useState(false)
@@ -105,18 +118,33 @@ export const ViewResultPage = () =>{
             </section>
           }
           <div className="container-xxl">
-            <section>
-              <div className="text-center py-5 mt-5">
-                <h4>BDOMS RESULT SHIT</h4>
-                <p>Please fill the details</p>
+            <div className="row jusitify-content-between">
+              <section className="col-md-2 pt-5  border-radius-50 result-img" >
+                <div className="d-none d-md-block">
+                  <img width="100%" src={studentDetails?.passport} alt="" />
+                </div>
+              
+              </section>
+              <div className="col-md-8">
+                <section>
+                  <div className="text-center py-5 mt-5">
+                    <h4>BDOMS RESULT SHIT</h4>
+                    <p>Please fill the details</p>
+                  </div>
+                </section>
+
               </div>
-            </section>
+
+              <div className="col-md-2"></div>
+
+
+            </div>
 
             <section>
               <div className="view-result-page-header-bg p-3">
                 <div>
                   <div className="row ">
-                    <p className="col-lg-2 col-sm-3">ID: {allResults[0]?.student}</p>
+                    <p className="col-lg-2 col-sm-3">ID: {studentDetails?.username}</p>
                     <p className="col-lg-4 col-md-6 col-sm-8 ">Name: {`${allResults[0]?.student_name.first_name} ${allResults[0]?.student_name.last_name}`}</p>
                     <p className="col-lg-2 col-sm-3">Class: {allResults[0]?.class_name.name}</p>
                     <p className="col-lg-2 col-sm-3">Sex: {allResults[0]?.sex}</p>   

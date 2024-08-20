@@ -93,6 +93,7 @@ export const ResultPage = () => {
       });
       const data = await response.json();
       setResultStudent(data);
+      console.log(data)
     };
 
     const fetchSubjects = async () => {
@@ -283,12 +284,28 @@ export const ResultPage = () => {
         }
 
         <div className="container-lg">
-          <section>
-            <div className="text-center py-5 mt-5">
-              <h4>BDOMS RESULT SHIT</h4>
-              <p>Please fill the details</p>
+
+          <div className="row jusitify-content-between">
+            <section className="col-md-2 pt-5  border-radius-50 result-img" >
+              <div className="d-none d-md-block">
+                <img width="100%" src={resultStudent?.passport} alt="" />
+              </div>
+             
+            </section>
+            <div className="col-md-8">
+              <section>
+                <div className="text-center py-5 mt-5">
+                  <h4>BDOMS RESULT SHIT</h4>
+                  <p>Please fill the details</p>
+                </div>
+              </section>
+
             </div>
-          </section>
+
+            <div className="col-md-2"></div>
+
+
+          </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="boxing-shadow p-3">

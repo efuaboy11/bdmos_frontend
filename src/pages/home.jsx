@@ -9,6 +9,7 @@ import pic2 from "../img/pic1.jpg"
 import pic3 from "../img/pic3.png"
 import pic4 from "../img/pic5.jpg"
 import pic5 from "../img/pic6.jpg"
+import pic6 from "../img/art.JPG"
 import school from '../img/school.png'
 import reading from '../img/study_566985.png'
 import teacher from '../img/teacher_1995413.png'
@@ -239,10 +240,10 @@ export const Home = () =>{
               <div className="col-11 col-md-5 col-lg-4 pb-4">
                 <div className="card">
                   <div className="card-body text-center">
-                    <img src="." alt=""/>
+                    <img src={pic6} alt=""/>
                   </div>
                   <div className="card-footer">
-                    <p>Lorem ipsum dolor sit amet consectetur adip</p>
+                  <p className="fw-bold"  data-aos="fade-right"  data-aos-duration="1000">Art Club</p>
                   </div>
                 </div>
               </div>

@@ -5,10 +5,12 @@ import pic from "../img/verified.jpg"
 import { useState, useRef } from "react";
 import "../css/style.css"
 import pic2 from "../img/groupUniform7.JPG"
+import WhatsAppChatWidget from "./whatapp";
 
 
 
 export const  Navbar = () =>{
+
 
   const location = useLocation();
   const [overlay, setOverlay] = useState(false)
@@ -61,6 +63,7 @@ export const  Navbar = () =>{
 
   return(
     <div id="nav-frame">
+      <WhatsAppChatWidget />
       <nav className="primary-background nav-container">
         <div className="container-xxl">
           <div className="row">
