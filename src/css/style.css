@@ -67,6 +67,8 @@ a{
   color: white;
 }
 
+.sub-menu-l
+
 .dark-background{
   background-color: #000;
   color: #FFF4F4;
@@ -380,7 +382,7 @@ nav .home-nav:hover  .sub-menu-l{
 /* cover page */
 
 
- #cover-page .img9{
+#cover-page .img9{
   background: rgba(15, 15, 15, 0.75);
   height: 100vh;
   position: relative;
@@ -939,6 +941,7 @@ nav .home-nav:hover  .sub-menu-l{
   display: none;
   text-align: center;
 }
+
 
 
 

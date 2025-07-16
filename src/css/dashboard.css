@@ -1017,7 +1017,6 @@ tbody tr:nth-child(even){
 }
 
 
-
 /* ------------------ ...............................Admin DashBoard ---------------------...............................................*/
 
 
@@ -1064,6 +1063,8 @@ tbody tr:nth-child(even){
   background: #18122B;
 
 }
+
+
 
 .admin-modal-delete{
   background: #EE4E4E;
@@ -1179,6 +1180,7 @@ tbody tr:nth-child(even){
   border-radius: 5px;
   transition: all ease 1s;
 }
+
 
 
 

@@ -166,12 +166,7 @@ export const UploadNotification = () =>{
                           {teacherDatas.map((teacherData) =>(
 
                             <option value={teacherData.id} key={teacherData.id}>{teacherData.first_name} {teacherData.last_name}</option>
-                          ))
-
-
-                          
-                          
-                          }
+                          ))}
                         </select>
                         {errors.teacherName && <span style={{color: 'red'}}>This Feild is required</span>} 
                       </div>

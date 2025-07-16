@@ -236,6 +236,7 @@ function App() {
                 <Route path='/admin/viewResultPage/' element={<ViewResultPage />} />
                 <Route path='/admin/editSchoolItem/:id' element={<EditSchoolItemPage />} />
                 <Route path='/admin/viewClass/:id' element={<EditClass />} />
+                
                 <Route path='/admin/resultPage' element={<ResultPage />} />
                 <Route path='/admin/uploadScheme' element={<UploadScheme />} />
                 <Route path='/admin/uploadSchemePage' element={<UploadSchemePage />} />

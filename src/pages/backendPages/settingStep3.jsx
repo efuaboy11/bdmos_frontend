@@ -91,7 +91,6 @@ export const SettingStep3 = () =>{
                     <div className="col-12 text-center">
                       <h1>SUCCESSFUL</h1>
                       <p>Your password has been successfully been updated.</p>
-
                     </div>
 
                     <div className="col-12 pt-5 ps-5">

@@ -22,7 +22,7 @@ export const UploadPicture = () =>{
   const [showAlert, setShowAlert] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("")
   const {handleSubmit, register, formState:{errors, isValid}} = useForm()
-  const [loader, setLoader] = useState("")
+  const [trloader, setLoader] = useState("")
   const [disablebutton, setdisablebutton] = useState(false)
 
   const onSubmit = (data, e) =>{
